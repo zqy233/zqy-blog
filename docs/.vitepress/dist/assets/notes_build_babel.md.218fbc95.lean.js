@@ -1,5 +1,5 @@
 import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.d6569e13.js";
-const __pageData = '{"title":"\u4ECB\u7ECD","description":"","frontmatter":{},"relativePath":"notes/build/babel.md","lastUpdated":1645510069596}';
+const __pageData = '{"title":"babel","description":"","frontmatter":{},"headers":[{"level":2,"title":"\u5165\u95E8\u4F7F\u7528","slug":"\u5165\u95E8\u4F7F\u7528"},{"level":2,"title":"babel.config.js","slug":"babel-config-js"},{"level":2,"title":"polyfill","slug":"polyfill"}],"relativePath":"notes/build/babel.md","lastUpdated":1646228113883}';
 const _sfc_main = {};
 const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 21);
 const _hoisted_22 = [
