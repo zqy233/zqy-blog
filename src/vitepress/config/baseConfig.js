@@ -14,7 +14,7 @@ module.exports = async () => ({
       'link',
       {
         rel: 'icon',
-        href: '/logo.svg'
+        href: '/vite-vue-blog/logo.svg'
       }
     ],
     ...(process.env.NODE_ENV === 'production'
