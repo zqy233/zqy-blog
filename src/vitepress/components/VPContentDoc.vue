@@ -49,7 +49,9 @@ const pageClass = computed(() => {
             v-if="theme.editLink && frontmatter.editLink !== false"
           >
             <VTIconEdit class="vt-icon" />
-            <VTLink :href="repoUrl" :no-icon="true">{{ theme.editLink.text }}</VTLink>
+            <VTLink :href="repoUrl" :no-icon="true">{{
+              theme.editLink.text
+            }}</VTLink>
           </p>
         </main>
         <slot name="content-bottom" />
@@ -87,10 +89,23 @@ const pageClass = computed(() => {
   width: 224px;
   top: calc(var(--vt-nav-height) + var(--vt-banner-height, 0px) + 24px);
   bottom: 0;
+  height: calc(100vh - 110px);
+  overflow: auto;
 }
-
 .aside-container::-webkit-scrollbar {
   display: none;
+}
+.aside-container:hover::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: var(--vt-c-gray-dark-1);
+  border-radius: 10px;
+  display: block;
+}
+/*滚动条的轨道*/
+.aside-container:hover::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--vt-c-gray-dark-3);
 }
 
 .edit-link {

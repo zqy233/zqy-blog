@@ -3,7 +3,9 @@
 ::after {
   box-sizing: border-box;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   width: 100%;
   min-width: 320px;
