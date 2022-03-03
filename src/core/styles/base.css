@@ -95,7 +95,10 @@ kbd,
 samp {
   font-family: var(--vt-font-family-mono);
 }
-
+code .line {
+  word-wrap: break-word;
+  white-space: break-spaces;
+}
 img,
 svg,
 video,
