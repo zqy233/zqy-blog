@@ -72,6 +72,9 @@ module.exports = (async () => {
         alias: {
           '@vue/theme': path.join(__dirname, '../../src')
         }
+      },
+      server: {
+        port: 4000
       }
     },
     themeConfig: {
