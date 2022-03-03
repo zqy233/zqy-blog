@@ -1,3 +1,8 @@
+<!--
+ * @Author: Qingyu Zhou
+ * @Descripttion: 
+ * @LastEditTime: 2022-03-03 17:36:44
+-->
 <template>
   <a class="VPNavBarTitle" href="/vite-vue-blog/">
     <svg class="logo" viewBox="0 0 128 128" width="24" height="24">
@@ -38,5 +43,6 @@
 .text {
   font-size: 16px;
   font-weight: 500;
+  min-width: 75px;
 }
 </style>

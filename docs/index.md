@@ -46,12 +46,31 @@ section {
   letter-spacing: -1.5px;
   max-width: 960px;
   margin: 0px auto;
+
+}
+
+ @keyframes gradient {
+    50% {
+    background-position: 100% 0;
+  }
 }
 
 html:not(.dark) .accent, .dark .tagline {
-  background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff);
+  background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff 66%,#13bdce 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 150%;
+  background-position: 0% 100%;
+  animation: gradient 7.5s ease-in-out infinite;
+}
+
+.tagline  p {
+  background: -webkit-linear-gradient(315deg, #42d392 25%, #647eff 66%,#13bdce 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 150%;
+  background-position: 0% 100%;
+  animation: gradient 7.5s ease-in-out infinite;
 }
 
 .description {
@@ -77,7 +96,11 @@ html:not(.dark) .accent, .dark .tagline {
   font-weight: 600;
   background-color: var(--vt-c-green);
   color: #fff;
-  margin-right: 18px
+  margin-right: 18px;
+  background: -webkit-linear-gradient(315deg, #42d392 0%, #647eff  100%);
+  background-size: 200%;
+  background-position: 0% 100%;
+  animation: gradient 7.5s ease-in-out infinite;
 }
 
 .actions .icon {
