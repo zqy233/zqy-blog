@@ -30,16 +30,13 @@ function poll() {
 function initialize(userOptions: AlgoliaSearchOptions) {
   // Note: multi-lang search support is removed since the theme
   // doesn't support multiple locales as of now
-
   const options = Object.assign({}, userOptions, {
     container: '#docsearch',
-
     navigator: {
       navigate: ({ itemUrl }: { itemUrl: string }) => {
         const { pathname: hitPathname } = new URL(
           window.location.origin + itemUrl
         )
-
         // Router doesn't handle same-page navigation so we use the native
         // browser location API for anchor navigation
         if (route.path === hitPathname) {
@@ -74,14 +71,12 @@ function initialize(userOptions: AlgoliaSearchOptions) {
             if (isSpecialClick(event)) {
               return
             }
-
             // we rely on the native link scrolling when user is already on
             // the right anchor because Router doesn't support duplicated
             // history entries
             if (route.path === relativeHit) {
               return
             }
-
             // if the hits goes to another page, we prevent the native link
             // behavior to leverage the Router loading feature
             if (route.path !== relativeHit) {

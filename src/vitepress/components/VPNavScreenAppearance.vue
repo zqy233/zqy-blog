@@ -7,7 +7,7 @@ const { config } = useConfig()
 
 <template>
   <div v-if="config.appearance" class="VPNavScreenAppearance">
-    <p class="text">Appearance</p>
+    <p class="text">明暗</p>
     <VTSwitchAppearance />
   </div>
 </template>

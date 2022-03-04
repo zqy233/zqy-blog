@@ -5,17 +5,7 @@
 -->
 <template>
   <a class="VPNavBarTitle" href="/vite-vue-blog/">
-    <svg class="logo" viewBox="0 0 128 128" width="24" height="24">
-      <path
-        fill="#42b883"
-        d="M78.8,10L64,35.4L49.2,10H0l64,110l64-110C128,10,78.8,10,78.8,10z"
-      />
-      <path
-        fill="#35495e"
-        d="M78.8,10L64,35.4L49.2,10H25.6L64,76l38.4-66H78.8z"
-      />
-    </svg>
-    <span class="text">个人笔记</span>
+    ✨<span class="text">学习笔记</span>✨
   </a>
 </template>
 
@@ -26,6 +16,28 @@
   padding-top: 1px;
   height: var(--vt-nav-height);
   transition: opacity 0.25s;
+}
+@keyframes gradient {
+  50% {
+    background-position: 100% 0;
+  }
+}
+html:not(.dark) .VPNavBarTitle {
+}
+html:not(.dark) .VPNavBarTitle .text {
+  background: -webkit-linear-gradient(
+    315deg,
+    #42d392 25%,
+    #647eff 66%,
+    #13bdce 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 100% 100%;
+  background-position: 0% 1000%;
+  animation: gradient 1s ease-in-out infinite;
+  font-weight: bold;
 }
 
 .VPNavBarTitle:hover {
