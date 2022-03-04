@@ -82,13 +82,19 @@ const handleClick = ({ target: el }: Event) => {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+.outline-link::before {
+  content: '📝';
+  margin-right: 5px;
+}
 .outline-link:hover,
 .outline-link.active {
   color: var(--vt-c-text-1);
   transition: color 0.25s;
 }
-
+.outline-link.active::before {
+  content: '🎉';
+  margin-right: 5px;
+}
 .outline-link.nested {
   padding-left: 1em;
 }
