@@ -13,6 +13,7 @@ function findAllMarkDown(defaultPath) {
   fs.readdirSync(defaultPath).forEach((fileName) => {
     const dirPath = path.join(defaultPath, fileName)
     const stat = fs.statSync(dirPath)
+    // console.log(stat) stat的mtime为修改文件时间,后续可以去实现最后编辑时间
     // 是文件夹，则递归
     if (stat.isDirectory() === true) {
       findAllMarkDown(dirPath)
@@ -25,6 +26,7 @@ function findAllMarkDown(defaultPath) {
     }
   })
 }
+
 // 自动生成页面信息
 let firstName = ''
 items.forEach((item) => {
