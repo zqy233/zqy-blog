@@ -10,7 +10,7 @@ footer: false
   </h1>
   <p class="description"></p>
   <p class="actions">
-    <a class="get-started" href="/vite-vue-blog/notes/vue/基础/项目创建">快速开始 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg></a>
+    <a class="get-started" href="/vite-vue-blog/notes/vue/进阶/vite项目创建与配置">快速开始 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/></svg></a>
   </p>
 </section>
 
@@ -46,10 +46,9 @@ section {
   letter-spacing: -1.5px;
   max-width: 960px;
   margin: 0px auto;
-
 }
 
- @keyframes gradient {
+@keyframes gradient {
     50% {
     background-position: 100% 0;
   }
