@@ -3,6 +3,7 @@
 ::after {
   box-sizing: border-box;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -129,7 +130,6 @@ iframe,
 embed,
 object {
   display: block;
-  vertical-align: middle;
 }
 
 img,
