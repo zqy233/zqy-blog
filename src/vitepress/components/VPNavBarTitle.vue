@@ -1,11 +1,6 @@
-<!--
- * @Author: Qingyu Zhou
- * @Descripttion: 
- * @LastEditTime: 2022-03-03 17:36:44
--->
 <template>
   <a class="VPNavBarTitle" href="/vite-vue-blog/">
-    ✨<span class="text">学习笔记</span>✨
+    <span class="text">学习笔记</span>
   </a>
 </template>
 
@@ -17,13 +12,7 @@
   height: var(--vt-nav-height);
   transition: opacity 0.25s;
 }
-@keyframes gradient {
-  50% {
-    background-position: 100% 0;
-  }
-}
-html:not(.dark) .VPNavBarTitle {
-}
+
 html:not(.dark) .VPNavBarTitle .text {
   background: -webkit-linear-gradient(
     315deg,
@@ -34,9 +23,8 @@ html:not(.dark) .VPNavBarTitle .text {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 100% 100%;
-  background-position: 0% 1000%;
-  animation: gradient 1s ease-in-out infinite;
+  background-size: 30% 100%;
+  background-position: 100% 100%;
   font-weight: bold;
 }
 
