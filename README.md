@@ -8,7 +8,7 @@ form form @vue/theme，vue 下一代官方文档使用主题，确实非常好
 
 基于 markdown 文件渲染的文档系统
 
-# 🚀性能出色
+## 🚀性能出色
 
 基于 vite 与 vitepress，按需加载，性能出色，极速更新文档
 
