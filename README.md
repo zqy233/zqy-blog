@@ -1,71 +1,30 @@
-# Vue Theme
+# :mega:个人博客
 
-This is the [VitePress](https://vitepress.vuejs.org/) theme for the official Vue documentation at `vuejs.org`.
+form form @vue/theme，vue 下一代官方文档使用主题，确实非常好
 
-Please note this theme is solely dedicated for `vuejs.org` and isn't meant to be used as a content-neutral theme. It does **not** follow semver and may contain hard-coded logic specific to the Vue documentation.
+[以此搭建的个人博客地址:point_left:]( https://zqylzcwcxy.gitee.io/vite-vue-blog)
 
-## Development Setup
+## :memo:markdown 渲染
 
-This repo can be developed on its own since it is a self-contained VitePress theme. Make sure to use [pnpm](https://pnpm.io/) as the package manager when installing deps. A demo app is available in `/demo` and can be run with `npm run dev`:
+基于 markdown 文件渲染的文档系统
 
-```bash
-$ pnpm install
-$ npm run dev
-```
+## :rocket:性能出色
 
-## Developing with Real Content
+基于 vite 与 vitepress，按需加载，性能出色，极速更新文档
 
-To work on this theme in the context of the `vuejs.org` website requires cloning both repos and linking the theme into the docs repo:
+## :rainbow:主题配置
 
-1. Clone repositories:
+使用 @vue/theme,fork from @vue/theme，搭配一些自己改写的css
 
-   ```bash
-   git clone git@github.com:vuejs/docs.git
-   git clone git@github.com:vuejs/theme.git
-   ```
+## :cowboy_hat_face:自动生成菜单路由
 
-2. Link theme into docs repo:
+使用 node 自动读取所有文件夹与其下方文件的名字及路径，动态生成菜单信息与路由信息，只需要关注 markdown 笔记本身的编写即可
 
-   ```bash
-   # In ./theme
-   pnpm install
-   # Make @vue/theme available for global linking
-   pnpm link --global
+## :robot:一键部署
 
-   # in ./docs
-   pnpm install
-   # Link teme
-   pnpm link --global @vue/theme
-   ```
+只需一行命令yarn push，一键打包，提交代码至仓库，部署更新 gitee pages
 
-3. Start VitePress server:
 
-   ```bash
-   # in ./docs
-   pnpm run dev
-   ```
 
-### Available Scripts
+目前还在学习中，后续分享详细使用文档
 
-Here is the list of available scripts that can be used during the development.
-
-```bash
-# Boot local dev server.
-$ npm run dev
-
-# Build demo, then serve locally. This is for testing
-# production build in the local environment.
-$ npm run serve
-
-# Run lint via Prettier.
-$ npm run lint
-
-# Run type check via tsc.
-$ npm run type
-```
-
-## License
-
-[MIT](http://opensource.org/licenses/MIT)
-
-Copyright (c) 2021-present Evan You
