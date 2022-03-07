@@ -20,7 +20,9 @@ fs.readdirSync(fullPath).forEach((item, index) => {
     })
     nav[index].items.push({
       text: subitem,
-      link: `/notes/${item}/${subitem}.md`
+      link: `/notes/${item}/${subitem}/${
+        fs.readdirSync(path.join(fullPath, item + '/' + subitem))[0]
+      }`
     })
     fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
       (lastitem) => {
@@ -32,47 +34,6 @@ fs.readdirSync(fullPath).forEach((item, index) => {
     )
   })
 })
-
-// 动态生成nav
-// let firstName = ''
-// items.forEach((item) => {
-//   const text = item.slice(0, item.indexOf('/')) // 文件夹名
-//   const link = item.slice(item.indexOf('/'), item.length) // 后续路径
-//   if (text == firstName) {
-//     nav.forEach((subItem) => {
-//       if (subItem.text == firstName) {
-//         subItem.items.push({
-//           text: link.replace('/', ''),
-//           link: '/notes/' + item
-//         })
-//       }
-//     })
-//   } else {
-//     firstName = text
-//     nav.push({
-//       text,
-//       items: [{ text: link.replace('/', ''), link: '/notes/' + item }]
-//     })
-//   }
-// })
-
-// nav需要下方这样的数据结构
-// [
-//   {
-//     text: '文档',
-//     items: [
-//       { text: '指引', link: '/guide/introduction' },
-//       { text: '教程', link: '/tutorial/' },
-//     ]
-//   },
-// {
-//     text: '文档',
-//     items: [
-//       { text: '指引', link: '/guide/introduction' },
-//       { text: '教程', link: '/tutorial/' },
-//     ]
-//   }
-// ]
 
 module.exports = (async () => {
   const base = await getBase()
