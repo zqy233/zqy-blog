@@ -16,10 +16,17 @@ export function getSidebar(
   }
 
   path = ensureStartingSlash(path)
+  console.log(path, sidebar)
 
   for (const dir in sidebar) {
     // make sure the multi sidebar key starts with slash too
+    // startsWith 查看字符串是否以dir开头，返回true或false
+
+    console.log(111, ensureStartingSlash(dir))
+
     if (path.startsWith(ensureStartingSlash(dir))) {
+      console.log(1, sidebar[dir])
+
       return sidebar[dir]
     }
   }

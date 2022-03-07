@@ -2,54 +2,77 @@ import getBase from '../../src/vitepress/config/baseConfig'
 import path from 'path'
 import fs from 'fs'
 
-const nav = []
-const sidebar = {}
+let nav = [] // 顶部菜单栏
+let sidebar = {} // 左侧菜单栏
 
-// 获取文件夹下所有文件名
+// 动态生成sidebar
 const fullPath = path.join(__dirname, '../notes')
-const items = []
-findAllMarkDown(fullPath)
-function findAllMarkDown(defaultPath) {
-  fs.readdirSync(defaultPath).forEach((fileName) => {
-    const dirPath = path.join(defaultPath, fileName)
-    const stat = fs.statSync(dirPath)
-    // console.log(stat) stat的mtime为修改文件时间,后续可以去实现最后编辑时间
-    // 是文件夹，则递归
-    if (stat.isDirectory() === true) {
-      findAllMarkDown(dirPath)
-    }
-    // 是文件, 判断是否是markdown文件，存储路径信息
-    if (stat.isFile() === true && fileName.slice(-3) == '.md') {
-      items.push(
-        dirPath.replace(fullPath, '').replace(/.md/g, '').replace(/\\/g, '/')
-      )
-    }
+fs.readdirSync(fullPath).forEach((item, index) => {
+  sidebar[`/notes/${item}/`] = []
+  nav.push({
+    text: item,
+    items: []
   })
-}
-
-// 自动生成页面信息
-let firstName = ''
-items.forEach((item) => {
-  const name = item.replace('/', '')
-  const text = name.slice(0, name.indexOf('/'))
-  const link = name.slice(name.indexOf('/'), name.length)
-  if (text == firstName) {
-    nav.forEach((subItem) => {
-      if (subItem.text == firstName) {
-        subItem.items.push({
-          text: link.replace('/', ''),
-          link: '/notes' + item
+  fs.readdirSync(path.join(fullPath, item)).forEach((subitem, subindex) => {
+    sidebar[`/notes/${item}/`].push({
+      text: subitem,
+      items: []
+    })
+    nav[index].items.push({
+      text: subitem,
+      link: `/notes/${item}/${subitem}.md`
+    })
+    fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
+      (lastitem) => {
+        sidebar[`/notes/${item}/`][subindex].items.push({
+          text: lastitem,
+          link: `/notes/${item}/${subitem}/${lastitem}`
         })
       }
-    })
-  } else {
-    firstName = text
-    nav.push({
-      text,
-      items: [{ text: link.replace('/', ''), link: '/notes/' + name }]
-    })
-  }
+    )
+  })
 })
+
+// 动态生成nav
+// let firstName = ''
+// items.forEach((item) => {
+//   const text = item.slice(0, item.indexOf('/')) // 文件夹名
+//   const link = item.slice(item.indexOf('/'), item.length) // 后续路径
+//   if (text == firstName) {
+//     nav.forEach((subItem) => {
+//       if (subItem.text == firstName) {
+//         subItem.items.push({
+//           text: link.replace('/', ''),
+//           link: '/notes/' + item
+//         })
+//       }
+//     })
+//   } else {
+//     firstName = text
+//     nav.push({
+//       text,
+//       items: [{ text: link.replace('/', ''), link: '/notes/' + item }]
+//     })
+//   }
+// })
+
+// nav需要下方这样的数据结构
+// [
+//   {
+//     text: '文档',
+//     items: [
+//       { text: '指引', link: '/guide/introduction' },
+//       { text: '教程', link: '/tutorial/' },
+//     ]
+//   },
+// {
+//     text: '文档',
+//     items: [
+//       { text: '指引', link: '/guide/introduction' },
+//       { text: '教程', link: '/tutorial/' },
+//     ]
+//   }
+// ]
 
 module.exports = (async () => {
   const base = await getBase()
@@ -74,7 +97,7 @@ module.exports = (async () => {
     },
     themeConfig: {
       logo: '/img/logo-vue.svg',
-      socialLinks: [{ icon: 'github', link: 'https://github.com/vuejs/vue' }],
+      socialLinks: [{ icon: 'mail', link: 'https://github.com/vuejs/vue' }],
       nav,
       sidebar
     }

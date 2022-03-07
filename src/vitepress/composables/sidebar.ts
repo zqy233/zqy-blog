@@ -13,7 +13,6 @@ export function useSidebar() {
   const sidebar = computed(() => {
     const sidebarConfig = config.value.sidebar
     const relativePath = route.data.relativePath
-
     return sidebarConfig ? getSidebar(sidebarConfig, relativePath) : []
   })
 

@@ -30,8 +30,8 @@ watchPostEffect(async () => {
     <nav id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1">
       <slot name="top" />
       <span id="sidebar-aria-label" class="visually-hidden"
-        >Sidebar Navigation</span
-      >
+        >Sidebar Navigation
+      </span>
       <div v-for="group in sidebar" :key="group.text" class="group">
         <VPSidebarGroup :text="group.text" :items="group.items" />
       </div>
@@ -89,7 +89,7 @@ watchPostEffect(async () => {
   .VPSidebar {
     padding: 0 32px 96px calc((100% - var(--vp-screen-max-width)) / 2);
     width: calc(
-      (100% - var(--vp-screen-max-width)) / 2 + var(--vp-sidebar-width-small)
+      (100% - var(--vp-screen-max-width)) / 5 + var(--vp-sidebar-width-small)
     );
   }
 }
