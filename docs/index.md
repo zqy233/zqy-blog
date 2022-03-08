@@ -60,7 +60,7 @@ html:not(.dark) .accent, .dark .tagline {
   -webkit-text-fill-color: transparent;
   background-size: 150%;
   background-position: 0% 100%;
-  animation: gradient 7.5s ease-in-out infinite;
+  animation: gradient 7.5s ease-in-out infinite ;
 }
 
 .tagline  p {
