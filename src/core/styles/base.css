@@ -53,11 +53,6 @@ h6 {
   font-weight: inherit;
 }
 
-/* .dark h1 {
-  text-shadow: 0 0 10px #0ebeff, 0 0 20px #0ebeff, 0 0 50px #0ebeff,
-    0 0 100px #0ebeff, 0 0 200px #0ebeff;
-} */
-
 html:not(.dark) h2 {
   background: -webkit-linear-gradient(
     315deg,
