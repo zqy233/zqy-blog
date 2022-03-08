@@ -1,0 +1,20 @@
+# pull-request
+
+> 主要用于为开源项目做出自己的贡献，以下为相应步骤
+
+1. 点击开源项目仓库右上方fork，会在自己仓库生成fork版本的项目
+
+   ![image-20220214155719384](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220214155719384.png) 
+
+2. 如下所示：![image-20220214155853892](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220214155853892.png)
+
+3. git clone fork后的项目
+
+4. 开发项目
+
+5. push项目到自己仓库
+
+6. 新建pull request请求![image-20220214160040426](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220214160040426.png)
+
+7. 被请求项目的管理员测试审核通过，进行合并![image-20220214155646797](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220214155646797.png)
+

@@ -1,0 +1,157 @@
+# vscode插件开发
+
+## 初始化项目
+
+全局安装vscode插件脚手架命令和代码生成器
+
+```bash
+npm i -g yo generator-code
+```
+
+使用脚手架生成vscode插件项目
+
+```bash
+yo code
+```
+
+## package.json
+
+```json
+"name": "demo", // 插件名
+"displayName": "vue3snippets", // 插件在vscode商店中显示的名字
+"description": "for less input", // 插件描述
+"publisher": "zhuzhuzhuzhuxia", // 插件发布者，有可能不是作者，而是公司和组织
+"author": "zhuzhuzhuzhuxia", // 插件作者
+// vscode商城使用的横幅
+"galleryBanner": {
+    "color": "#ffe04b",
+    "theme": "light"
+  },
+"version": "0.0.35", // 插件版本号
+// 插件要求的vscode版本
+"engines": { 
+   vscode": "^1.60.0"
+},
+// 插件主页，一般都为github readme文档地址
+"homepage": "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode",
+// 插件代码仓库
+"repository": {
+   "type": "git",
+   "url": "https://github.com/prettier/prettier-vscode.git"
+},
+// 提交插件bug的地址
+"bugs": {
+   "url": "https://github.com/prettier/prettier-vscode/issues"
+},
+"license": "MIT", // 使用的开源协议
+// 插件类别
+"categories": [
+  "Other"
+],
+"icon": "images/icon.png", // 插件图标
+// 插件激活事件
+"activationEvents": [
+	"onCommand:translate.zn"
+],
+"main": "./dist/extension.js", // 插件的主文件
+// vscode插件机制
+"contributes": {
+        // 注册vscode命令
+		"commands": [
+			{
+				"command": "translate.zn",
+				"title": "translate cn to en"
+			}
+		],
+        // 代码提示  
+        // language表示在什么语言中生效 
+        // path表示使用的提示文本json文件路径
+		"snippets": [ 
+			{
+				"language": "javascript",
+				"path": "./public/js.json"
+			},
+			{
+				"language": "typescript",
+				"path": "./public/js.json"
+			},
+			{
+				"language": "vue-html",
+				"path": "./public/vue-html.json"
+			},
+			{
+				"language": "css",
+				"path": "./public/css.json"
+			},
+			{
+				"language": "vue",
+				"path": "./public/vue.json"
+			}
+		],
+        // 鼠标右击菜单
+		"menus": { 
+			"editor/context": [
+				{
+					"when": "editorFocus",
+					"command": "translate.zn",
+					"group": "navigation"
+				}
+			]
+		}
+	}
+```
+
+## 注册账户
+
+步骤一，注册成为vscode插件的开发者，publisher，需要科学上网
+
+https://marketplace.visualstudio.com/manage/createpublisher?managePageRedirect=true
+
+步骤二，前往网站新建token（必须具备token才能登录开发者账户 ，提交vscode插件至vscode商店中）
+
+https://dev.azure.com
+
+1. 注册微软账户并登录
+2. 登录后点击个人信息
+3. 创建新组织
+4. 点击人物头像
+5. 选择personal  access  token
+6. 选择所有组织 all accessible organizations选项
+7. 选择custom define
+8. 选择最长日期（最长一年）
+9. 选择权限全开full access
+10. 生成token，记得保管，token忘记只能重新注册，无法找回
+
+## 上传插件
+
+安装上传插件的全局命令
+
+```bash
+npm install -g vsce
+```
+
+想要上传vscode商店，需要进行开发者账户登录
+
+```bash
+vsce  login  publisher  你的发布者账户名
+```
+
+输入token
+
+登陆成功后
+
+```bash
+vsce publish 版本号  // 每一次提交的版本号都要跟以前的版本号不同，可以手动修改package.json里的版本号
+vsce publish patch  // 自增版本号
+```
+
+## 插件本地打包
+
+```bash
+vsce package
+```
+
+本地打包完成后生成visx文件，vscode项目中导入该visx文件，右击安装即可本地生效插件
+
+
+

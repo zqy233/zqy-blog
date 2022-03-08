@@ -1,0 +1,61 @@
+# less
+
+## 定义变量与使用变量
+
+```less
+@borderStyle: border-style;
+@Soild:solid;
+#wrap{
+  @{borderStyle}: @Soild;//变量名 必须使用大括号包裹
+}
+/* 生成的 CSS */
+#wrap{
+ border-style:solid;
+}
+```
+
+## vite中全局使用
+
+```typescript
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      less: {
+        charset: false,
+        additionalData: '@import "./src/assets/style/global.less";'
+      }
+    }
+  }
+})
+```
+
+## mixins
+
+把重复代码抽离出来，（）代表这个重复代码只会被引用，而不会自己生成
+
+```less
+.mixins-positon() {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+.mixins-border-top() {
+  top: 0;
+  border-top: 2px solid @skyblue;
+}
+
+&:before {
+  .mixins-positon;
+  .mixins-border-top;
+  left: 0;
+  border-left: 2px solid @skyblue;
+}
+&:after {
+  .mixins-positon;
+  .mixins-border-top;
+  right: 0;
+  border-right: 2px solid @skyblue;
+}
+```
+

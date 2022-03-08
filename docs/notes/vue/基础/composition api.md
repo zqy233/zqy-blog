@@ -1,0 +1,335 @@
+# composition api
+
+vue3推出了composition API（组合API），也叫做注入API，setup()是组合API的入口函数，可以直接在里面定义变量和方法（数据和业务逻辑），通过对象的形式返回暴露出去
+
+新的option，所有组合api函数都在此使用，只在初始化时执行一次
+
+把data, method, computed, watch以及生命周期都放到setup函数中来使用
+
+setup中生命周期，onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted
+
+setup在beforecreate之前执行，所有没有创建组件，所以没有this，this为undefined
+
+## ref
+
+ref用于定义单个响应变量
+
+定义一个包含响应式数据的引用对象，修改通过变量名.value的方式修改，但展现时直接使用变量名即可
+
+```csharp
+const name = ref('这是一个响应式变量')
+// 通过变量名.value获取值
+console.log('拿到name的值：', name.value)
+```
+
+使用在html中无需.value
+
+```vue
+<div>{{num}}</div>
+```
+
+示例：
+
+```js
+let num = ref(0)
+function changeref () {
+    num.value++
+}
+```
+
+另外它还可以用于获取dom
+
+用法：在template中通过ref绑定一个值，在setup中通过ref定义一个同名的变量即可获取到相应dom
+
+```vue
+<template>
+  <div ref="hello">world</div>
+</template>
+<script lang="ts" setup>
+const hello = ref('hello')
+</script>
+```
+
+## reactive
+
+reactive返回对象的响应式副本
+
+响应式转换是“深层”的——它影响所有嵌套 property。在基于 ES2015 Proxy 的实现中，返回的 proxy 是不等于原始对象的。建议只使用响应式 proxy，避免依赖原始对象。
+
+```js
+const a = { count: 0 }
+const obj = reactive(a)
+console.log(obj == a) // false
+```
+
+使用reactive包裹一个对象，修改原对象还是修改reactive返回的对象都会同步影响
+
+```js
+const a = { count: 0 }
+const obj = reactive(a)
+a.count = 1
+console.log(a) // {count:1}
+console.log(obj) // Proxy{count:1}
+
+const a = { count: 0 }
+const obj = reactive(a)
+obj.count = 2
+console.log(a) // {count:2}
+console.log(obj) // Proxy{count:2}
+```
+
+## toRef
+
+将一个响应式对象，转换为普通对象，并且将其中的属性转换为Ref对象，简单来说就是使用拓展运算获取对象属性时可以将这个属性变成一个响应式变量
+
+```js
+let obj = {name : 'alice', age : 12}
+let newObj= toRef(obj, 'name')
+```
+
+### ref和toRef的区别
+
+- ref本质是拷贝，修改响应式数据不会影响原始数据；toRef的本质是引用关系，修改响应式数据会影响原始数据
+- toRef传参与ref不同；toRef接收两个参数，第一个参数是哪个对象，第二个参数是对象的哪个属性
+- toRef的本质是引用，与原始数据有关联
+
+## toRefs
+
+作用：用于批量设置多个数据为响应式数据。(toRef一次仅能设置一个数据)，toRefs接收一个对象作为参数，它会遍历对象身上的所有属性，然后挨个调用toRef执行
+
+```js
+const  props = toRefs(props) // 遍历props
+const { modelValue } = toRefs(props) // 搭配解构赋值
+```
+
+适合搭配torefs使用，如果在return里直接放上reactive创建的数据,每次使用的时候都要reactive变量名.对象属性的方式获取，太麻烦，用toRefs包裹后使用拓展运算符可直接使用对象属性名
+
+```vue
+<template>
+    //不使用toRefs需要data.name的方式调用
+    {{name}}
+    <el-button @click="name=name.slice(1)"></el-button>
+</template>
+
+<script>
+import { reactive, toRefs } from 'vue'
+export default {
+    setup () {
+        const data = reactive({
+            name: '帅的没人要',
+            sex: '性别分不出',
+            arr: []
+        })
+        //如果return data需要通过data.name这种方式使用数据，return ...data数据是非响应式的，只有通过使用toRefs(data)包裹既简化又是响应式
+        const refData = toRefs(data)
+        return {
+            ...refData,
+        }
+    }
+}
+</script>
+
+<style>
+</style>
+```
+
+## props
+
+子组件通过props接收父组件传递的值
+
+```typescript
+
+interface Form {
+    age: number
+    name:string
+}
+
+const props = defineProps<{
+    msg: string
+    form?: Form
+}>()
+```
+
+## withDefaults
+
+搭配props设置props的默认值
+
+```typescript
+import { defineProps, withDefaults } from "vue"
+const props = withDefaults(
+  defineProps<{
+    modelValue: boolean
+    text: string
+  }>(),
+  {
+    modelValue: false,
+    text: "这是一行默认文本"
+  }
+)
+```
+
+## emits
+
+父组件给子组件传递方法，子组件触发父组件传递的方法
+
+```typescript
+import {  defineEmits } from 'vue'
+const emits = defineEmits<{
+  (e: "update:modelValue", b: boolean): void
+  (e: "confirm"): void
+}>()
+function cancel() {
+  emits("update:modelValue", false)
+}
+function confirm() {
+  emits("update:modelValue", false)
+  emits("confirm")
+}
+```
+
+## computed 
+
+当所依赖的内容发生变化时，里面的代码才会重新执行，回调函数
+
+用法一，接收一个对象
+
+```typescript
+  const addFive = computed(() => {
+                   return count.value + 5
+               })
+```
+
+用法二，接受一个对象，get取值时调用的方法，set赋值时调用的方法
+
+```js
+let addFive = computed({
+                    get: () => {
+                       return count.value + 5
+                    },
+                    set: (param) => {
+                        return count.value = param
+                    }
+                })
+```
+
+nextTick
+
+nextTick用于获取更新数据后的dom
+
+应用场景：修改了控制dom的js变量，但vue框架还没来得及处理相应dom
+
+举例：有一个dom元素使用了v-if，将v-if绑定的变量从false变为true，此时立刻获取这个v-if绑定的dom元素，可能会存在获取到null的情况，使用$nextTick可以保证正确获取到dom元素
+
+```js
+import {  nextTick } from 'vue'
+nextTick(()=>{
+	// 这里获取更新后的dom
+})
+```
+
+## provide/inject
+
+实现多组件之间通信
+
+provide  注入数据，
+
+```js
+ let color = ref('green')
+ provide("color", color)
+```
+
+inject提取数据
+
+```js
+const color = inject('color')
+```
+
+## watch/watchEffect
+
+第一个参数是一个回调函数，返回监听目标，第二个是监听的处理操作
+
+```js
+  const watchA = watch(() => obj.a, () => {
+            console.log('11')
+        })
+```
+
+watchEffect在一个回调函数中进行处理
+
+```js
+  const watchA = watchEffect(() => {
+            console.log(obj.a);
+        })
+```
+
+## getCurrentInstance
+
+获取vue实例
+
+```js
+const { ctx } = getCurrentInstance()
+  const hello = () => {
+            ctx.$router.push({
+                path: "/hello"
+            })
+        }
+```
+
+## onMounted
+
+```js
+ onMounted(() => {
+            console.log(ctx.$route.params)
+        })
+```
+
+## proxy/ctx
+
+ctx相当于this，只有开发时可以
+
+proxy服务器端也可以，所以非要获取vue实例时使用proxy
+
+## readonly
+
+传入一个对象（响应式或普通）或 ref，返回一个原始对象的**只读**代理。一个只读的代理是“深层的”，对象内部任何嵌套的属性也都是只读的。
+
+```js
+const original = reactive({ count: 0 })
+const copy = readonly(original)
+watchEffect(() => {
+  // 依赖追踪
+  console.log(copy.count)
+})
+// original 上的修改会触发 copy 上的侦听
+original.count++
+// 无法修改 copy 并会被警告
+copy.count++ // warning!
+```
+
+## vue-router
+
+### useRouter,useRoute
+
+```typescript
+<script lang="ts" setup>
+import { useRouter,useRoute } from "vue-router"
+const router = useRouter()
+const route = useRoute()
+function goSearch() {
+  router.push("/home" + "1111" + "?k=" + "222")
+  // 相当于下方
+  // router.push({ name: "home", params: { code: 111 }, query: { k: 222 } })
+}
+</script>
+```
+
+### router-view使用transition
+
+```vue
+<router-view v-slot="{ Component }">
+    <transition name="fade-transform">
+      <component :is="Component" />
+    </transition>
+</router-view> 
+```
+

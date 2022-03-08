@@ -1,0 +1,83 @@
+# vscode插件api
+
+## [官方英文文档](https://code.visualstudio.com/api/references/vscode-api)
+
+## languages
+
+用于参与特定语言的编辑器功能，如智能感知、代码操作、诊断等
+
+具体来说，就是自动单词补全、代码导航或代码检查等功能
+
+languages api将所有UI和操作都准备就绪，只需要提供数据就能实现这类功能。例如，要创建一个悬停，只需提供一个函数，该函数可以通过文本文档和返回悬停信息的位置来调用。其余的工作，如跟踪鼠标、定位悬停、保持悬停稳定等，由VSCode编辑器自行负责
+
+```js
+languages.registerHoverProvider('javascript', {
+  provideHover(document, position, token) {
+    return new Hover('I am a hover!');
+  }
+})
+```
+
+注册是使用一个文档选择器完成的，它要么是一个语言id，比如javascript，要么是一个更复杂的过滤器，比如{language:'typescript'，scheme:'file'}。将文档与这样的选择器进行匹配将得到一个分数，用于确定是否以及如何使用提供者。当分数相等时，最后一个provider获胜。对于允许完全算术的功能，如hover，分数仅检查为>0，对于其他功能，如IntelliSense，分数用于确定要求provider参与的顺序
+
+## registerDocumentFormattingEditProvider
+
+类型：(selector: DocumentSelector, provider: DocumentFormattingEditProvider): Disposable
+
+说明：为文档格式化注册一个提供程序, 可以为一种语言注册多个提供程序，在这种情况下，提供程序按分数排序，并使用最匹配的提工具。所选提供程序运行失败将导致整个操作失败
+
+| 属性                                     | 描述                             |
+| ---------------------------------------- | -------------------------------- |
+| selector: DocumentSelector               | 定义此提供程序适用的文档的选择器 |
+| provider: DocumentFormattingEditProvider | 文档格式编辑提供程序             |
+
+| return     | 描述                             |
+| ---------- | -------------------------------- |
+| Disposable | 处置时注销此提供程序的一次性文件 |
+
+## registerDocumentHighlightProvider
+
+类型：(selector: DocumentSelector, provider: DocumentHighlightProvider): Disposable
+
+说明：为文档高亮显示注册一个提供程序，可以为一种语言注册多个提供程序，在这种情况下，提供程序按分数排序，并按顺序要求分组以获取文档突出显示。当提供程序返回非错误或非失败结果时，该过程停止
+
+| 属性                                | 描述                             |
+| ----------------------------------- | -------------------------------- |
+| selector: DocumentSelector          | 定义此提供程序适用的文档的选择器 |
+| provider: DocumentHighlightProvider | 文档高亮提供程序                 |
+
+| return     | 描述                             |
+| ---------- | -------------------------------- |
+| Disposable | 处置时注销此提供程序的一次性文件 |
+
+## window
+
+> vscode开发工具的窗口，提供一些显示消息、选择和请求用户输入的ui组件，和调用这些ui组件的方法
+
+### window.showOpenDialog
+
+类型：(options?: OpenDialogOptions): Thenable<Uri[] | undefined>
+
+说明：向用户显示一个文件打开对话框，允许用户选择一个文件进行打开
+
+| 属性                        | 描述             |
+| --------------------------- | ---------------- |
+| options?: OpenDialogOptions | 控制对话框的选项 |
+
+| 返回           | 描述                             |
+| -------------- | -------------------------------- |
+| Thenable<Uri[] | 解析为所选资源或未定义资源的承诺 |
+
+#### OpenDialogOptions
+
+打开文件弹窗的配置选项
+
+| 属性                       | 描述                                                         |
+| -------------------------- | ------------------------------------------------------------ |
+| canSelectFiles?: boolean   | 允许选择文件，默认为true                                     |
+| canSelectFolders?: boolean | 允许选择文件夹，默认为false                                  |
+| canSelectMany?: boolean    | 允许选择多个文件或文件夹                                     |
+| defaultUri?: Uri           | 打开时默认选择的资源                                         |
+| filters?:                  | 对话框使用的一组文件筛选器。每个条目都是一个人类可读的标签，比如“TypeScript”，以及一系列扩展名，例如"{'Images': ['png', 'jpg']     'TypeScript': ['ts', 'tsx'] }" |
+| openLabel?: string         | 打开按钮的可读字符串                                         |
+| title?: string             | 对话标题，此参数可能会被忽略，因为并非所有操作系统都在打开的对话框（例如macOS）上显示标题 |
