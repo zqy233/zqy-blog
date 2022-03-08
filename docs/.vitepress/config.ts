@@ -24,10 +24,11 @@ fs.readdirSync(fullPath).forEach((item, index) => {
         fs.readdirSync(path.join(fullPath, item + '/' + subitem))[0]
       }`
     })
+
     fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
       (lastitem) => {
         sidebar[`/notes/${item}/`][subindex].items.push({
-          text: lastitem,
+          text: lastitem.replace('.md', ''),
           link: `/notes/${item}/${subitem}/${lastitem}`
         })
       }
