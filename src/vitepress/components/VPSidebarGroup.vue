@@ -9,7 +9,10 @@ const props = defineProps<{
   items: MenuItemWithLink[]
 }>()
 
+// 这个获取的useData有问题
 const { page } = useData()
+
+// 判断左侧菜单大标题是否高亮
 function hasActiveLink() {
   const { relativePath } = page.value
   return props.items.some((item) => isActive(relativePath, item.link))
@@ -23,7 +26,6 @@ function hasActiveLink() {
         {{ text }}
       </h2>
     </div>
-
     <template v-for="item in items" :key="item.link">
       <VPSidebarLink :item="item" />
     </template>

@@ -58,7 +58,9 @@ module.exports = (async () => {
     },
     themeConfig: {
       logo: '/img/logo-vue.svg',
-      socialLinks: [{ icon: 'mail', link: 'https://github.com/vuejs/vue' }],
+      socialLinks: [
+        { icon: 'gitee', link: 'https://gitee.com/zqylzcwcxy/vite-vue-blog' }
+      ],
       nav,
       sidebar
     }

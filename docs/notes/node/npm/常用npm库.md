@@ -1,8 +1,8 @@
-# 常用npm库
+# 常用 npm 库
 
 ## simple-git-hooks
 
-git钩子工具,在git commit和git push前触发一些自己想做的事情
+git 钩子工具,在 git commit 和 git push 前触发一些自己想做的事情
 
 ## mockjs
 
@@ -12,68 +12,66 @@ npm i -s mockjs
 
 ```js
 //引入mockjs
-import Mock from "mockjs"
+import Mock from 'mockjs'
 //使用mockjs模拟数据
-Mock.mock("test.com", {
+Mock.mock('test.com', {
   ret: 0,
   data: {
-    mtime: "@datetime", //随机生成日期时间
-    "score|1-800": 800, //随机生成1-800的数字
-    "rank|1-100": 100, //随机生成1-100的数字
-    "stars|1-5": 5, //随机生成1-5的数字
-    nickname: "@cname" //随机生成中文名字
+    mtime: '@datetime', //随机生成日期时间
+    'score|1-800': 800, //随机生成1-800的数字
+    'rank|1-100': 100, //随机生成1-100的数字
+    'stars|1-5': 5, //随机生成1-5的数字
+    nickname: '@cname' //随机生成中文名字
   }
 })
 ```
 
-main.js中引用
+main.js 中引用
 
-vue文件中访问
+vue 文件中访问
 
 ```js
 async function aaa() {
-  const res = await http.get("test.com")
+  const res = await http.get('test.com')
   console.log(res)
 }
 ```
 
 ## chalk
 
-可设置node环境下，console.log字体颜色和背景颜色，可链式调用
+可设置 node 环境下，console.log 字体颜色和背景颜色，可链式调用
 
 ```js
-import chalk from "chalk" 
+import chalk from 'chalk'
 console.log(chalk.red('红色'))
 ```
 
-## @darkobits/lolcatjs 
+## @darkobits/lolcatjs
 
-可设置node环境下，console.log字体颜色，颜色随机,即炫彩
+可设置 node 环境下，console.log 字体颜色，颜色随机,即炫彩
 
 ```js
-import from "@darkobits/lolcatjs" 
+import from "@darkobits/lolcatjs"
 const textColor = lolcat.fromString(text)
 console.log(chalk.red(textColor))
 ```
 
-![image-20211216154838905](https://gitee.com/zqylzcwcxy/drawing-bed/raw/master/img/image-20211216154907336.png)
-
 ## figlet
 
-可设置node环境下，console.log文本为大而好看的logo文本，搭配@darkobits/lolcatjs 效果更佳（更花里胡哨）
+可设置 node 环境下，console.log 文本为大而好看的 logo 文本，搭配@darkobits/lolcatjs 效果更佳（更花里胡哨）
 
 ```js
-import figlet from "figlet" 
-const text = figlet.textSync("这时一行logo文本")
+import figlet from 'figlet'
+const text = figlet.textSync('这时一行logo文本')
 ```
 
-## ora 
+## ora
 
 进度条 loading
 
 ```js
-import ora from "ora"
-const spinner = ora("正在下载页面模板").start()
+import ora from 'ora'
+const spinner = ora('正在下载页面模板').start()
 setTimeout(() => {
   spinner.stop()
 }, 2000)
@@ -81,37 +79,41 @@ setTimeout(() => {
 
 ```js
 #! /usr/bin/env node
-import program from "commander"
-import inquirer from "inquirer"
-import symbols from "log-symbols"
-import chalk from "chalk"
-import ora from "ora"
-import shell from "shelljs"
+import program from 'commander'
+import inquirer from 'inquirer'
+import symbols from 'log-symbols'
+import chalk from 'chalk'
+import ora from 'ora'
+import shell from 'shelljs'
 const hander = {
-  create: env => {
+  create: (env) => {
     inquirer
       .prompt([
         {
-          type: "list",
-          name: "kind",
-          message: "请选择下载模板",
-          choices: ["react", "vue", "angular"]
+          type: 'list',
+          name: 'kind',
+          message: '请选择下载模板',
+          choices: ['react', 'vue', 'angular']
         }
       ])
-      .then(answers => {
-        const spinner = ora("正在下载页面模板").start()
-        if (!shell.which("git")) {
-          shell.echo("Sorry, this script requires git")
+      .then((answers) => {
+        const spinner = ora('正在下载页面模板').start()
+        if (!shell.which('git')) {
+          shell.echo('Sorry, this script requires git')
           shell.exit(1)
         } else {
-          shell.exec("git clone https://gitee.com/zqylzcwcxy/vite-vue3-ts-router-vuex-template.git")
-          shell.exec(`sed -i '' -e "s/vite-vue3-ts-router-vuex-template/${env}/g" ./vite-vue3-ts-router-vuex-template/package.json`)
+          shell.exec(
+            'git clone https://gitee.com/zqylzcwcxy/vite-vue3-ts-router-vuex-template.git'
+          )
+          shell.exec(
+            `sed -i '' -e "s/vite-vue3-ts-router-vuex-template/${env}/g" ./vite-vue3-ts-router-vuex-template/package.json`
+          )
           spinner.stop()
         }
       })
   }
 }
-program.arguments("<cmd>").action(cmd => {
+program.arguments('<cmd>').action((cmd) => {
   console.log(hander)
   if (hander) {
     hander(env)
@@ -137,14 +139,62 @@ program.parse(process.argv)
 // })
 ```
 
-## 生成npm包的logo
+## 生成 npm 包的 logo
 
-figlet搭配@darkobits/lolcatjs
+figlet 搭配@darkobits/lolcatjs
 
 ```js
-import figlet from "figlet" // 转换文本样式，文本
-import lolcat from "@darkobits/lolcatjs" // 随机颜色,也就是炫彩
-const text = figlet.textSync("git-quick-push") // 设置文本样式
+import figlet from 'figlet' // 转换文本样式，文本
+import lolcat from '@darkobits/lolcatjs' // 随机颜色,也就是炫彩
+const text = figlet.textSync('git-quick-push') // 设置文本样式
 const textColor = lolcat.fromString(text) // 炫彩logo
 ```
 
+## 打印项目结构
+
+```bash
+npx mddir './'
+```
+
+```bash
+  '    |-- f',
+  '    |   |-- .gitignore',
+  '    |   |-- package-lock.json',
+  '    |   |-- package.json',
+  '    |   |-- README.md',
+  '    |   |-- yarn-error.log',
+  '    |   |-- yarn.lock',
+  '    |   |-- public',
+  '    |   |   |-- favicon.ico',
+  '    |   |   |-- index.html',
+  '    |   |   |-- logo192.png',
+  '    |   |   |-- logo512.png',
+  '    |   |   |-- manifest.json',
+  '    |   |   |-- robots.txt',
+  '    |   |-- src',
+  '    |       |-- App.js',
+  '    |       |-- index.css',
+  '    |       |-- index.js',
+  '    |       |-- assets',
+  '    |       |   |-- logo.png',
+  '    |       |-- components',
+  '    |       |-- pages',
+  '    |       |   |-- Chat.jsx',
+  '    |       |   |-- Login.jsx',
+  '    |       |   |-- Register.jsx',
+  '    |       |-- utils',
+  '    |           |-- APIRoutes.js',
+  '    |-- s',
+  '        |-- .env',
+  '        |-- index.js',
+  '        |-- package-lock.json',
+  '        |-- package.json',
+  '        |-- README.md',
+  '        |-- yarn.lock',
+  '        |-- controllers',
+  '        |   |-- userControllers.js',
+  '        |-- model',
+  '        |   |-- userModel.js',
+  '        |-- routes',
+  '            |-- userRoutes.js',
+```

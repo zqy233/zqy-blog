@@ -33,11 +33,19 @@ if (inBrowser) {
   })
 }
 
+/**
+ *
+ * @param currentPath 当前路径
+ * @param matchPath 匹配路径
+ * @param asRegex 是否使用正则匹配
+ * @returns boolean - 是否匹配，匹配高亮左侧菜单
+ */
 export function isActive(
   currentPath: string,
   matchPath?: string,
   asRegex = false
 ): boolean {
+  matchPath = matchPath?.replace('vite-vue-blog/', '')
   if (matchPath === undefined) {
     return false
   }

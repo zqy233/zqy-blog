@@ -8,13 +8,17 @@ defineProps<{
   item: MenuItemWithLink
 }>()
 
-const { page } = useData()
+const data = useData()
+
 const closeSideBar = inject('close-sidebar') as () => void
 </script>
 
 <template>
   <a
-    :class="{ link: true, active: isActive(page.relativePath, item.link) }"
+    :class="{
+      link: true,
+      active: isActive(data.page.value.relativePath, item.link)
+    }"
     :href="item.link"
     @click="closeSideBar"
   >
