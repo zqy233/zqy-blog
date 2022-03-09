@@ -3,9 +3,9 @@ page: true
 footer: false
 ---
 
-<section id="hero">
+<section id="hero" >
   <div class="tagline">
-    <span class="accent">学习笔记</span><br>
+    <span class="accent">个人笔记</span><br>
     <p>fork from @vue/theme</p>
   </div>
   <p class="description"></p>

@@ -6,6 +6,8 @@
 npm i -s echarts
 ```
 
+
+
 ## 示例
 
 ```js
@@ -227,10 +229,6 @@ export default {
 </script>
 ```
 
-## 效果
-
-![image-20211221154451621](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20211221154451621.png)
-
 ## 配置项
 
 仅记录常用的配置项，详细配置项请看官方文档
@@ -265,9 +263,7 @@ export default {
         }
 ```
 
-设置 tooltip 中 formatter 属性为一个函数，params 是当前悬浮处的属性，打印一下如下：
-
-![image-20211222104658806](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20211222104658806.png)
+设置 tooltip 中 formatter 属性为一个函数，params 是当前悬浮处的属性
 
 ### 折线
 
