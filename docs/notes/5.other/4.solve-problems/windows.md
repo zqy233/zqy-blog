@@ -1,6 +1,20 @@
 # windows
 
-## 使用yarn命令出现因为在此系统上禁止运行脚本
+## 关闭”你要允许来自未知发布者的此应用对你的设备进行更改吗？“
+
+1. windows+r输入regedit打开注册表
+
+2. 在注册表编辑器左侧目录依次展开：HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers
+
+3. 在Layers文件夹处右键单击，选择新建字符串值
+
+   ![image-20220310231624597](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220310231624597.png)
+
+4. 新建的字符串名称为软件exe文件目录，值为~ HIGHDPIAWARE
+
+   ![image-20220310231803458](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220310231803458.png)
+
+## yarn命令出现在此系统上禁止运行脚本
 
 原因：执行策略问题
 
