@@ -111,14 +111,14 @@ html:not(.dark) .VPNavBarTitle .text {
   overflow: hidden;
 }
 
-@keyframes cursor {
+/* @keyframes cursor {
   from {
     opacity: 0;
   }
   to {
     opacity: 1;
   }
-}
+} */
 
 .text .showtext {
   animation: 0s showtext forwards;
