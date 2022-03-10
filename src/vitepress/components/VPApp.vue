@@ -8,13 +8,11 @@ import VPAnnouncer from './VPAnnouncer.vue'
 import VPSidebar from './VPSidebar.vue'
 import VPContent from './VPContent.vue'
 import { onMounted, onUnmounted, provide, watchEffect } from 'vue'
-
 const {
   isOpen: isSidebarOpen,
   open: openSidebar,
   close: closeSidebar
 } = useSidebar()
-
 // A11y: cache the element that opened the Sidebar (the menu button)
 //   then focus that button again when Menu is closed with Escape key
 let triggerElement: HTMLButtonElement | undefined
@@ -23,24 +21,20 @@ watchEffect(() => {
     ? (document.activeElement as HTMLButtonElement)
     : undefined
 })
-
 const onEsacpe = (e: KeyboardEvent) => {
   if (e.key === 'Escape' && isSidebarOpen.value) {
     closeSidebar()
     triggerElement?.focus()
   }
 }
-
 onMounted(() => {
   window.addEventListener('keyup', onEsacpe)
 })
 onUnmounted(() => {
   window.removeEventListener('keyup', onEsacpe)
 })
-
 provide('close-sidebar', closeSidebar)
 </script>
-
 <template>
   <div class="VPApp">
     <VPSkipLink />
@@ -92,7 +86,6 @@ provide('close-sidebar', closeSidebar)
   transition: background-color 0.5s;
   padding-top: var(--vt-banner-height);
 }
-
 .backdrop {
   z-index: var(--vp-z-index-backdrop);
 }
