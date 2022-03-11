@@ -88,11 +88,11 @@ html:not(.dark) .VPNavBarTitle .text {
 .logo + .text {
   padding-left: 8px;
 }
-.VPNavBarTitle .text {
+/* .VPNavBarTitle .text {
   font-family: monospace;
   position: relative;
-}
-.VPNavBarTitle .text::after {
+} */
+/* .VPNavBarTitle .text::after {
   content: '';
   display: inline-block;
   position: absolute;
@@ -103,13 +103,13 @@ html:not(.dark) .VPNavBarTitle .text {
   top: 0;
   right: -5px;
   animation: 1s cursor steps(2, jump-none) infinite;
-}
-.VPNavBarTitle .text span {
+} */
+/* .VPNavBarTitle .text span {
   --delay: 0s;
   display: inline-block;
   width: 0ch;
   overflow: hidden;
-}
+} */
 
 /* @keyframes cursor {
   from {
@@ -120,16 +120,16 @@ html:not(.dark) .VPNavBarTitle .text {
   }
 } */
 
-.text .showtext {
+/* .text .showtext {
   animation: 0s showtext forwards;
   animation-delay: var(--delay);
 }
 .text .hidetext {
   animation: 0s hidetext forwards;
   animation-delay: var(--delayback);
-}
+} */
 
-@keyframes showtext {
+/* @keyframes showtext {
   from {
     width: 0ch;
   }
@@ -145,5 +145,5 @@ html:not(.dark) .VPNavBarTitle .text {
   to {
     width: 0ch;
   }
-}
+} */
 </style>
