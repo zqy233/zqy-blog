@@ -15,7 +15,7 @@
 
 :::info
 
-两个虚拟桌面都使用typora的情况下，这时Ctrl+Tab也可以切换虚拟桌面, Ctrl+Tab是typora的应用内窗口切换快捷键，因为typora分别处于两个虚拟桌面，所以Ctrl+Tab的会直接切换虚拟页面，有点秀
+两个虚拟桌面都使用typora的情况下，这时Ctrl+Tab也可以切换虚拟桌面, Ctrl+Tab是typora的应用内窗口切换快捷键，因为typora分别处于两个虚拟桌面，所以Ctrl+Tab的会直接切换虚拟页面，三个及以上的情况下是向左切换，并且可以循环，比windows默认的快捷键好用多了，有点秀
 
 :::
 
