@@ -1,5 +1,5 @@
 import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.52c2b21f.js";
-const __pageData = '{"title":"github","description":"","frontmatter":{},"relativePath":"notes/5.other/4.solve-problems/github.md","lastUpdated":1646397506314}';
+const __pageData = '{"title":"github","description":"","frontmatter":{},"relativePath":"notes/5.other/4.solve-problems/github.md","lastUpdated":1646965487102}';
 const _sfc_main = {};
 const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 8);
 const _hoisted_9 = [
