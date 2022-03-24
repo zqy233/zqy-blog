@@ -122,3 +122,12 @@ Windows Registry Editor Version 5.00
 "IsolatedCommand"="cmd.exe /c takeown /f \"%1\" /r /d y && icacls \"%1\" /grant administrators:F /t"
 ```
 
+## vim
+
+```sh
+# 删除光标所在文字
+dl
+# 保存
+:wq
+```
+
