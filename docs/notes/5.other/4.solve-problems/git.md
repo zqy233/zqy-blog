@@ -10,8 +10,6 @@ git pull origin master --allow-unrelated-histories
 
 控制面板>用户账户>凭据管理器下更改账户名和密码，确保和提交代码的仓库一致
 
-![image-20220214160245659](https://gitee.com/zqylzcwcxy/picture-bed/raw/master/img/image-20220214160245659.png)
-
 ## Failed to connect to 127.0.0.1 port 1181 after 2045 ms: Connection refused
 
 一般是由于设置了代理所致
