@@ -53,6 +53,15 @@ h6 {
   font-weight: inherit;
 }
 
+h1::before {
+  content: '🎉';
+}
+h2::before {
+  content: '✨';
+}
+h3::before {
+  content: '🔖';
+}
 html:not(.dark) h2 {
   background: -webkit-linear-gradient(
     315deg,

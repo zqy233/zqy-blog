@@ -31,7 +31,9 @@ const closeSideBar = inject('close-sidebar') as () => void
   display: block;
   padding: 6px 0;
 }
-
+.link-text::before {
+  content: '🏷️';
+}
 @media (min-width: 960px) {
   .link {
     padding: 4px 0;

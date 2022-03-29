@@ -9,10 +9,8 @@ const props = defineProps<{
   items: MenuItemWithLink[]
 }>()
 
-// 这个获取的useData有问题
 const { page } = useData()
 
-// 判断左侧菜单大标题是否高亮
 function hasActiveLink() {
   const { relativePath } = page.value
   return props.items.some((item) => isActive(relativePath, item.link))
@@ -36,7 +34,9 @@ function hasActiveLink() {
 .title {
   padding: 6px 0;
 }
-
+.title-text::before {
+  content: '📑';
+}
 @media (min-width: 960px) {
   .title {
     padding: 4px 0;

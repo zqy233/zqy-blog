@@ -83,6 +83,8 @@ const handleClick = ({ target: el }: Event) => {
   white-space: nowrap;
 }
 .outline-link::before {
+  position: absolute;
+  z-index: 99;
   content: '📝';
   margin-right: 5px;
 }
@@ -92,7 +94,7 @@ const handleClick = ({ target: el }: Event) => {
   transition: color 0.25s;
 }
 .outline-link.active::before {
-  content: '🎉';
+  content: '🔥';
   margin-right: 5px;
 }
 .outline-link.nested {
