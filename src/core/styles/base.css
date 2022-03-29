@@ -55,9 +55,11 @@ h6 {
 
 h1::before {
   content: '🎉';
+  -webkit-text-fill-color: initial;
 }
 h2::before {
   content: '✨';
+  -webkit-text-fill-color: initial;
 }
 h3::before {
   content: '🔖';
@@ -72,7 +74,7 @@ html:not(.dark) h2 {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 30% 100%;
+  background-size: 10% 100%;
   background-position: 100% 100%;
 }
 

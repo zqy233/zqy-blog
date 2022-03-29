@@ -83,10 +83,7 @@ const handleClick = ({ target: el }: Event) => {
   white-space: nowrap;
 }
 .outline-link::before {
-  position: absolute;
-  z-index: 99;
   content: '📝';
-  margin-right: 5px;
 }
 .outline-link:hover,
 .outline-link.active {
