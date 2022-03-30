@@ -1,5 +1,5 @@
 import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.14ca4494.js";
-const __pageData = '{"title":"\u4E3B\u9898\u5207\u6362","description":"","frontmatter":{},"relativePath":"notes/1.basic/2.css/4.\u4E3B\u9898\u5207\u6362.md","lastUpdated":1646397822071}';
+const __pageData = '{"title":"\u4E3B\u9898\u5207\u6362","description":"","frontmatter":{},"relativePath":"notes/1.basic/2.css/4.\u4E3B\u9898\u5207\u6362.md","lastUpdated":1648624291385}';
 const _sfc_main = {};
 const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 4);
 const _hoisted_5 = [
