@@ -4,11 +4,9 @@ import fs from 'fs'
 
 let nav = [] // 顶部菜单栏
 let sidebar = {} // 左侧菜单栏
-
 // 读取notes文件夹下所有文件夹名与文件名与相应路径
 // 动态生成顶部菜单栏和左侧菜单栏以及相应路由信息
 const fullPath = path.join(__dirname, '../notes')
-console.log(fullPath)
 // 第一级为顶部菜单栏标题
 fs.readdirSync(fullPath).forEach((item, index) => {
   if (item !== 'imgs') {
