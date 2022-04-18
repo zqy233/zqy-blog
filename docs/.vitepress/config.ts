@@ -31,11 +31,24 @@ fs.readdirSync(fullPath).forEach((item, index) => {
       fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
         (lastitem) => {
           sidebar[`/notes/${item}/`][subindex].items.push({
-            text: lastitem.replace('.md', '').replace(/\d*\./, ''),
+            text: lastitem.replace('.md', ''),
             link: `/notes/${item}/${subitem}/${lastitem}`
           })
         }
       )
+      // 按照文档前面数字进行排序
+      sidebar[`/notes/${item}/`][subindex].items = sidebar[`/notes/${item}/`][
+        subindex
+      ].items.sort((after, before) => {
+        return (
+          after.text.slice(0, after.text.indexOf('.')) -
+          before.text.slice(0, before.text.indexOf('.'))
+        )
+      })
+      // 页面中显示则去除文档前面数字
+      sidebar[`/notes/${item}/`][subindex].items.forEach((item) => {
+        item.text = item.text.replace(/\d*\./, '')
+      })
     })
   }
 })
