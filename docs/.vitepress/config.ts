@@ -30,10 +30,12 @@ fs.readdirSync(fullPath).forEach((item, index) => {
       // 第三级为左侧菜单栏列表
       fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
         (lastitem) => {
-          sidebar[`/notes/${item}/`][subindex].items.push({
-            text: lastitem.replace('.md', ''),
-            link: `/notes/${item}/${subitem}/${lastitem}`
-          })
+          if (lastitem !== 'imgs') {
+            sidebar[`/notes/${item}/`][subindex].items.push({
+              text: lastitem.replace('.md', ''),
+              link: `/notes/${item}/${subitem}/${lastitem}`
+            })
+          }
         }
       )
       // 按照文档前面数字进行排序
