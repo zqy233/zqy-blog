@@ -2,7 +2,7 @@
 
 fork form @vue/theme，vue 下一代官方文档使用主题，very nice
 
-[以此搭建的个人博客地址:point_left:](https://zqylzcwcxy.gitee.io/vite-vue-blog)
+[以此搭建的个人博客地址:point_left:](http://zqylzcwcxy.gitee.io/vite-vue-blog)
 
 个人博客中很多知识收集整理自网上，若有侵权请 gitee 上留言联系我
 
