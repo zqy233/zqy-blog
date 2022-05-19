@@ -31,8 +31,8 @@
     "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
     "type": "tsc --noEmit",
     "test": "yarn lint && yarn type",
-    "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "dev": "vitepress dev blog",
+    "build": "vitepress build blog",
     "serve": "yarn build && vitepress serve docs",
     "push": "yarn build && node ./src/script/index.js && git-update",
     "git": "node ./src/script/version.js"
