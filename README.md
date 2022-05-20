@@ -1,8 +1,8 @@
 # ✨ 个人博客
 
-fork form @vue/theme，vue 下一代官方文档使用主题，very nice
+fork form `@vue/theme`，vue 下一代官方文档使用主题，very nice
 
-[以此搭建的个人博客地址:point_left:](http://zqylzcwcxy.gitee.io/vite-vue-blog)
+以此搭建的个人博客地址[https://zqy233.github.io/vite-vue-blog/](https://zqy233.github.io/vite-vue-blog/):point_left:
 
 个人博客中很多知识收集整理自网上，若有侵权请 gitee 上留言联系我
 
@@ -19,14 +19,8 @@ fork form @vue/theme，vue 下一代官方文档使用主题，very nice
 
 ## 🌈 主题配置
 
-使用 @vue/theme,fork from @vue/theme，搭配一些自己改写的 css
+使用 `@vue/theme`,fork from` @vue/theme`，搭配一些自己写的 css
 
 ## 😊 自动生成菜单路由
 
-使用 node 自动读取所有文件夹与其下方文件的名字及路径，动态生成菜单信息与路由信息，只需要关注 markdown 笔记本身的编写即可
-
-## 🤖 一键部署
-
-只需一行命令 yarn push，一键打包，提交代码至仓库，部署更新 gitee pages
-
-目前还在学习中，后续分享详细使用文档
+使用 nodejs 自动读取所有文件夹与其下方文件的名字及路径，动态生成菜单信息与路由信息，只需要关注 markdown 笔记本身的编写即可
