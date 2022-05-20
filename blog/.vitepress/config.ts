@@ -65,7 +65,6 @@ module.exports = (async () => {
     vite: {
       ...base.vite,
       build: {
-        outDir: 'docs',
         minify: false
       },
       resolve: {
