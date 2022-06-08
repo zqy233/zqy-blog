@@ -37,6 +37,6 @@ git clone 本项目，npm i，npm run dev启动项目，项目运行可能需要
 
 此时，还需要修改一处，修改blog/index.md文件中的快速开始按钮的跳转href，为你想要跳转的默认markdown笔记页面路径
 
-npm run build打包，会在blog文件夹下生成docs文件夹，剪切至根目录，上传github，设置github pages为docs目录
+npm run build打包，会在blog/.vitepress文件夹下生成dist文件夹，剪切至根目录，重命名为docs目录，上传github，设置github pages为docs目录
 
 注意，只能监听markdown笔记文件内容更改，新增或删除markdown笔记文件需要重新npm run dev启动项目
