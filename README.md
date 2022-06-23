@@ -27,19 +27,12 @@
 
 ## 😊 如何使用本项目极速搭建你自己的博客
 
-1. `git clone 本项目`，`npm i`，`npm run dev`启动项目，本项目基于`vitepress`，运行可能需要较新的node版本
+1. `git clone 本项目`，`npm i`，`npm run dev`启动项目，本项目基于`vitepress`，运行可能需要较新的 node 版本
 2. 删除`blog/notes`文件夹下，我的所有`markdown笔记`文件夹，仿照我的文件夹结构，将你的`markdown笔记`文件夹放进去，重新`npm run dev`启动项目
 3. 很明显，你会注意到，所有`markdown笔记`文件夹都是三级结构，一二级都是文件夹，三级才是`markdown笔记`
-4. 一级文件夹名会渲染为菜单名，二级文件夹名会渲染为标题名，三级`markdown笔记`会渲染为页面，`npm run dev`后你会发现博客启动了，如果内容为你的markdown笔记内容，说明正常使用了
+4. 一级文件夹名会渲染为菜单名，二级文件夹名会渲染为标题名，三级`markdown笔记`会渲染为页面，`npm run dev`后你会发现博客启动了，如果内容为你的 markdown 笔记内容，说明正常使用了
 5. 文件名前面的数字是用于排序的，如果你没有排序的需要，可以不写，并且排序的数字不会渲染
-6. 此时，还需要修改一处，修改`blog/index.md`文件中的快速开始按钮的跳转href，为你想要跳转的默认`markdown笔记`页面路径
-7. `npm run build`打包，会在`blog/.vitepress`文件夹下生成`dist`文件夹，剪切至根目录，重命名为`docs`目录，上传github，设置`github pages`为`docs`目录，理论上，可以使用`vitepress`打包配置来省略这一步，但尝试后发现会报错，有待后续解决
-8. 需要注意的是，`vitepress`只能监听`markdown笔记`内容更改，新增或删除`markdown笔记`需要重新`npm run dev`运行项目
-
-
-
-
-
-
-
-
+6. 此时，还需要修改一处，修改`blog/index.md`文件中的快速开始按钮的跳转 href，为你想要跳转的默认`markdown笔记`页面路径
+7. `npm run build`打包前，需要修改`.vitepress/config.ts`中`base`属性，比如使用`github pages`，需要将该属性设置为仓库名
+8. `npm run build`打包后，会在`blog/.vitepress`文件夹下生成`dist`文件夹，剪切至根目录，重命名为`docs`目录，上传 github，设置`github pages`为`docs`目录，理论上，可以使用`vitepress`打包配置来省略这一步，但尝试后发现会报错，有待后续解决
+9. 需要注意的是，`vitepress`只能监听`markdown笔记`内容更改，新增或删除`markdown笔记`需要重新`npm run dev`运行项目

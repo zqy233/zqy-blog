@@ -59,6 +59,7 @@ module.exports = (async () => {
   const base = await getBase()
   return {
     ...base,
+    // 这里设置为github的仓库名
     base: '/vite-vue-blog/',
     title: '个人笔记',
     description: '个人笔记',
