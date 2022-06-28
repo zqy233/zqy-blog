@@ -67,7 +67,7 @@ ren *.txt* *.html*
 
 添加注册表来指定信任该应用，以cmder为例：
 
-1. windows+r输入regedit打开注册表
+1. `windows+r`输入`regedit`打开注册表
 
 2. 在注册表编辑器左侧目录依次展开：HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers
 
