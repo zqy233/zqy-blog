@@ -9,7 +9,7 @@ let sidebar = {} // 左侧菜单栏
 const fullPath = path.join(__dirname, '../notes')
 // 第一级为顶部菜单栏标题
 fs.readdirSync(fullPath).forEach((item, index) => {
-  if (item !== 'imgs') {
+  if (!item.includes('imgs')) {
     sidebar[`/notes/${item}/`] = []
     nav.push({
       text: item.replace(/\d*\./, ''),
@@ -30,7 +30,7 @@ fs.readdirSync(fullPath).forEach((item, index) => {
       // 第三级为左侧菜单栏列表
       fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
         (lastitem) => {
-          if (lastitem !== 'imgs') {
+          if (!lastitem.includes('imgs')) {
             sidebar[`/notes/${item}/`][subindex].items.push({
               text: lastitem.replace('.md', ''),
               link: `/notes/${item}/${subitem}/${lastitem}`
@@ -63,6 +63,7 @@ module.exports = (async () => {
     base: '/vite-vue-blog/',
     title: '个人笔记',
     description: '个人笔记',
+    outDir: '../docs',
     vite: {
       ...base.vite,
       build: {
@@ -78,6 +79,7 @@ module.exports = (async () => {
       }
     },
     themeConfig: {
+      lastUpdated: true,
       logo: '/img/logo-vue.svg',
       socialLinks: [
         { icon: 'gitee', link: 'https://gitee.com/zqylzcwcxy/vite-vue-blog' }

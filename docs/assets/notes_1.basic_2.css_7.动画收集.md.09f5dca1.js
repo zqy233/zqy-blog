@@ -1,0 +1,12 @@
+import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.dd2b519a.js";
+const __pageData = JSON.parse('{"title":"\u653E\u5927\u663E\u793A\u52A8\u753B","description":"","frontmatter":{},"headers":[{"level":2,"title":"\u653E\u5927\u663E\u793A\u52A8\u753B","slug":"\u653E\u5927\u663E\u793A\u52A8\u753B"}],"relativePath":"notes/1.basic/2.css/7.\u52A8\u753B\u6536\u96C6.md"}');
+const _sfc_main = { name: "notes/1.basic/2.css/7.\u52A8\u753B\u6536\u96C6.md" };
+const _hoisted_1 = /* @__PURE__ */ createStaticVNode('<h2 id="\u653E\u5927\u663E\u793A\u52A8\u753B" tabindex="-1">\u653E\u5927\u663E\u793A\u52A8\u753B <a class="header-anchor" href="#\u653E\u5927\u663E\u793A\u52A8\u753B" aria-hidden="true">#</a></h2><div class="language-css"><span class="copy"></span><pre><code><span class="line"><span style="color:#A6ACCD;">opacity: 1;</span></span>\n<span class="line"><span style="color:#A6ACCD;">transform: scale(1) translateY(0);</span></span>\n<span class="line"></span></code></pre></div><div class="language-css"><span class="copy"></span><pre><code><span class="line"><span style="color:#A6ACCD;">opacity: 0;</span></span>\n<span class="line"><span style="color:#A6ACCD;">transition: opacity </span><span style="color:#89DDFF;">.</span><span style="color:#A6ACCD;">7s cubic-bezier(</span><span style="color:#89DDFF;">.</span><span style="color:#A6ACCD;">16</span><span style="color:#89DDFF;">,</span><span style="color:#A6ACCD;">1</span><span style="color:#89DDFF;">,.</span><span style="color:#A6ACCD;">3</span><span style="color:#89DDFF;">,</span><span style="color:#A6ACCD;">1),transform </span><span style="color:#89DDFF;">.</span><span style="color:#A6ACCD;">7s cubic-bezier(</span><span style="color:#89DDFF;">.</span><span style="color:#A6ACCD;">16</span><span style="color:#89DDFF;">,</span><span style="color:#A6ACCD;">1</span><span style="color:#89DDFF;">,.</span><span style="color:#A6ACCD;">3</span><span style="color:#89DDFF;">,</span><span style="color:#A6ACCD;">1);</span></span>\n<span class="line"><span style="color:#A6ACCD;">transform: scale(</span><span style="color:#89DDFF;">.</span><span style="color:#A6ACCD;">95) translateY(40px);</span></span>\n<span class="line"></span></code></pre></div>', 3);
+const _hoisted_4 = [
+  _hoisted_1
+];
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", null, _hoisted_4);
+}
+var _7_____ = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export { __pageData, _7_____ as default };
