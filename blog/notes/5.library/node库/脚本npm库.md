@@ -176,6 +176,18 @@ npm i -D yorkie lint-staged
   }
 ```
 
+## prettier(格式化)
+
+新建`.prettierrc`和`.prettierignore`
+
+控制格式化配置和忽略格式化的文件
+
+`.prettierrc`
+
+```
+
+```
+
 
 
 
