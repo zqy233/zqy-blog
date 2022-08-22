@@ -23,9 +23,8 @@ fs.readdirSync(fullPath).forEach((item, index) => {
       })
       nav[index].items.push({
         text: subitem.replace(/\d*\./, ''),
-        link: `/notes/${item}/${subitem}/${
-          fs.readdirSync(path.join(fullPath, item + '/' + subitem))[0]
-        }`
+        link: `/notes/${item}/${subitem}/${fs.readdirSync(path.join(fullPath, item + '/' + subitem))[0]
+          }`
       })
       // 第三级为左侧菜单栏列表
       fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
@@ -82,7 +81,7 @@ module.exports = (async () => {
       lastUpdated: true,
       logo: '/img/logo-vue.svg',
       socialLinks: [
-        { icon: 'gitee', link: 'https://gitee.com/zqylzcwcxy/vite-vue-blog' }
+        { icon: 'github', link: 'https://github.com/zqy233/vite-vue-blog' }
       ],
       nav,
       sidebar
