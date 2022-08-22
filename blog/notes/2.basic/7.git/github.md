@@ -46,7 +46,7 @@ https://antfu-unpluginautoimpo-v4a7st4kzi7.ws-us45.gitpod.io/
 
 打开C:\Windows\System32\drivers\etc\hosts
 
-```
+```sh
 199.232.28.133  raw.githubusercontent.com
 ```
 
