@@ -19,7 +19,7 @@
 
 ## 🌈 主题配置
 
-使用 `@vue/theme`,fork from` @vue/theme`，搭配一些自己写的 css
+使用 `@vue/theme`，搭配一些自己写的 css
 
 ## 😊 自动生成菜单路由
 
