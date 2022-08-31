@@ -1,6 +1,6 @@
 # ✨ 个人博客
 
-> fork form `@vue/theme`，vue 下一代官方文档使用主题，very nice
+> git clone `@vue/theme`，基于vue 下一代官方文档使用主题修改，very nice
 >
 > 以此搭建的个人博客地址<https://zqy233.github.io/vite-vue-blog/>👈
 >
