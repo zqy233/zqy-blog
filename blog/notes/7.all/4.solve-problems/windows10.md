@@ -60,7 +60,7 @@ ctrl+space+c
 示例：
 
 ```sh
-ren *.txt* *.html*
+ren *.html *.jsp
 ```
 
 ## 关闭”你要允许来自未知发布者的此应用对你的设备进行更改吗？“
@@ -141,3 +141,49 @@ dl
 
 管理员身份运行cmd，cd到文件夹目录，rmdir /s  文件夹名，是否确认(Y/N)?→y
 
+## 解决右键没有vscode打开选项的问题
+
+1. 新建文本文件夹
+
+2. 输入以下文本
+
+```sh
+Windows Registry Editor Version 5.00
+
+    [HKEY_CLASSES_ROOT\*\shell\VSCode]
+    @="Open with Code"
+    "Icon"="D:\\Microsoft VS Code\\Code.exe"
+
+    [HKEY_CLASSES_ROOT\*\shell\VSCode\command]
+    @="\"D:\\Microsoft VS Code\\Code.exe\" \"%1\""
+
+    Windows Registry Editor Version 5.00
+
+    [HKEY_CLASSES_ROOT\Directory\shell\VSCode]
+    @="Open with Code"
+    "Icon"="D:\\Microsoft VS Code\\Code.exe"
+
+    [HKEY_CLASSES_ROOT\Directory\shell\VSCode\command]
+    @="\"D:\\Microsoft VS Code\\Code.exe\" \"%V\""
+
+    Windows Registry Editor Version 5.00
+
+    [HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode]
+    @="Open with Code"
+    "Icon"="D:\\Microsoft VS Code\\Code.exe"
+
+    [HKEY_CLASSES_ROOT\Directory\Background\shell\VSCode\command]
+    @="\"D:\\Microsoft VS Code\\Code.exe\" \"%V\""  
+```
+
+3. 将所有`D:\Microsoft VS Code\Code.exe`替换成你vscode所在的路径位置，可以右键vscode-属性-复制路径。
+
+4. 特别注意 你所复制的路径： `D:\Microsoft VS Code\Code.exe\` 要注意反斜杠的转义，即前两个`\`变成`\\`，即如下： `D:\\Microsoft VS Code\\Code.exe\`
+
+5. 将文本文件重命名为`.reg`
+
+6. 双击打开`.reg`文件，选择 是
+
+
+
+是谁救了你们，是你们自己
