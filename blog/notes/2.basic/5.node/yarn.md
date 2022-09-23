@@ -14,7 +14,7 @@ npm i -g yarn
 # 查询当前地址配置
 yarn config get registry
 # 切换淘宝镜像
-yarn config set registry http://registry.npmmirror.com
+yarn config set registry http://registry.npmmirror.com/
 # 切换回原先地址
 yarn config set registry https://registry.npmjs.org/
 ```

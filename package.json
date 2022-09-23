@@ -35,7 +35,7 @@
     "build": "vitepress build blog",
     "serve": "yarn build && vitepress serve docs",
     "push": "yarn build && node ./src/script/index.js",
-    "git": "node ./src/script/version.js"
+    "git": "node ./src/script/index.js"
   },
   "dependencies": {
     "@docsearch/css": "^3.0.0-alpha.41",
