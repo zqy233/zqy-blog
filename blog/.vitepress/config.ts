@@ -1,6 +1,7 @@
 import getBase from '../../src/vitepress/config/baseConfig'
 import path from 'path'
 import fs from 'fs'
+import chokidar from "chokidar"
 
 let nav = [] // 顶部菜单栏
 let sidebar = {} // 左侧菜单栏
