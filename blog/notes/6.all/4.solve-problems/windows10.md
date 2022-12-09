@@ -177,13 +177,13 @@ Windows Registry Editor Version 5.00
 ```
 
 3. 将所有`D:\Microsoft VS Code\Code.exe`替换成你vscode所在的路径位置，可以右键vscode-属性-复制路径。
-
 4. 特别注意 你所复制的路径： `D:\Microsoft VS Code\Code.exe\` 要注意反斜杠的转义，即前两个`\`变成`\\`，即如下： `D:\\Microsoft VS Code\\Code.exe\`
-
 5. 将文本文件重命名为`.reg`
-
 6. 双击打开`.reg`文件，选择 是
 
+## 杀死指定进程
 
-
-是谁救了你们，是你们自己
+1.打开cmd命令窗口，输入命令：netstat -ano | findstr 8088 (端口号自己改)，根据端口号查找对应的PID。结果如下：
+发现8088 端口被PID（进程号）为2188的进程占用。
+2.根据PID找进程名称，输入命令：tasklist | findstr 2181，发现是占用8088端口的进程为：javaw.exe。
+3.根据PID 结束对应进程。输入命令 taskkill -PID 2188 -F，强制关闭PID为2188的进程。

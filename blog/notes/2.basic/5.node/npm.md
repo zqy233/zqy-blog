@@ -20,7 +20,7 @@ npm -v
 
 ```sh
 ## 修改npm至新的淘宝镜像源：
-npm config set registry http://registry.npmmirror.com
+npm config set registry https://registry.npmmirror.com
 ## 解除镜像并恢复到官方源
 npm config set registry https://registry.npmjs.org
 # 查询当前地址配置

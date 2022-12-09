@@ -186,3 +186,40 @@ export default {
     }
 ```
 
+## 输入框弹出键盘上推页面
+
+> https://uniapp.dcloud.net.cn/component/input.html#input
+
+input组件在app端聚焦会触发页面上推，可通过`adjust-position`属性设置
+
+editor组件在app端聚焦会触发页面上推，因为是通过webview实现，不能关闭触发
+
+### 编辑器聚焦时，底部操作栏无法附在软键盘上方
+
+pages.json中加入如下配置：
+
+指定页面
+
+```json
+ "pages": [{
+      "path": "pages/edit/edit",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false,
+        "app-plus": {
+          "softinputMode": "adjustResize"
+        }
+      }
+    }],
+```
+
+全局页面
+
+```json
+"globalStyle": {
+        "app-plus": {
+            "softinputMode": "adjustResize"
+        }
+    },
+```
+

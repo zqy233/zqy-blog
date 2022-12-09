@@ -50,3 +50,11 @@ https://antfu-unpluginautoimpo-v4a7st4kzi7.ws-us45.gitpod.io/
 199.232.28.133  raw.githubusercontent.com
 ```
 
+## 启用clash后使用git命令出现Failed to connect to github.com port 443: Connection refused
+
+重新设置代理，将代理端口号，设置上去。 clash默认代理端口号 7890 设置如下：
+
+```sh
+git config --global http.proxy http://127.0.0.1:7890
+git config --global https.proxy http://127.0.0.1:7890
+```
