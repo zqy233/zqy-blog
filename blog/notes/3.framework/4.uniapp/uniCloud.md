@@ -9,13 +9,17 @@ uniCloud是由DCloud联合阿里云，腾讯云推出的，基于serverless的�
 
 ## 登录web控制台
 
-https://unicloud.dcloud.net.cn/注册登录，创建一个服务空间
+https://unicloud.dcloud.net.cn/pages/login/login注册登录，创建一个服务空间
 
 ## 关联云服务
 
 ### 创建使用uniCloud的项目
 
-文件>新建>项目>勾选启动uniCloud>选择腾讯云或阿里云
+文件>新建>项目>勾选启动uniCloud>选择腾讯云或阿里云，推荐先使用阿里云，有免费的服务空间可供学习
+
+> 阿里云商用版计费周知，详见：https://ask.dcloud.net.cn/article/40144
+>
+> 阿里云商用版介绍：https://uniapp.dcloud.net.cn/uniCloud/price.html#aliyun-business
 
 ### 已有项目添加uniCloud
 
@@ -25,123 +29,190 @@ https://unicloud.dcloud.net.cn/注册登录，创建一个服务空间
 
 `uniCloud`文件夹下有两个文件夹
 
-- `cloudfunctions`
+- `cloudfunctions`   用于存放云函数/云对象
 - `database`
 
-右击`cloudfunctions`,新建云函数/云对象
+## 新建云函数/云对象与页面中调用
 
-例如，新建`col`云对象，该云对象文件夹下的`index.obj.js`中，添加代码如下
+右击`cloudfunctions`文件夹，点击`新建云函数/云对象`
+
+### 新建云函数
+
+例如，新建`func1`云函数，该云函数文件夹下的`index.js`中，添加代码如下
 
 ```js
+'use strict';
+const db = uniCloud.database()
+exports.main = async (event, context) => {
+  return db.collection("article").get()
+};
+```
+
+### 调用云函数
+
+```vue
+<template>
+  <view><button @click="get">请求云函数</button></view>
+</template>
+
+<script>
+export default {
+  methods: {
+    get() {
+      uniCloud
+        .callFunction({
+          name: "func1",
+        })
+        .then(res => {
+          console.log(res);
+        });
+    },
+  },
+};
+</script>
+```
+
+### 调用云函数两种写法
+
+```js
+// promise方式
+uniCloud.callFunction({
+    name: 'hellocf',
+    data: { a: 1 }
+  })
+  .then(res => {})
+
+// callback方式
+uniCloud.callFunction({
+	name: 'hellocf',
+	data: { a: 1 },
+	success(){},
+	fail(){},
+	complete(){}
+})
+```
+
+### 传递参数
+
+```js
+'use strict';
+const db = uniCloud.database()
+exports.main = async (event, context) => {
+  const { limit } = event
+  return db.collection("article").limit(limit).get()
+};
+```
+
+```js
+uniCloud.callFunction({
+    name: 'hellocf',
+    data: { limit: 1 }
+  })
+  .then(res => {})
+```
+
+### 新建云对象
+
+例如，新建`obj1`云对象，该云对象文件夹下的`index.obj.js`中，添加代码如下
+
+```js
+const db = uniCloud.database()
 module.exports = {
-  sayHello() {
-    return {
-      data: "hello"
-    }
+  async get() {
+    return await db.collection("article").get()
   }
 }
 ```
 
-前端页面中调用`col`云对象
+### 调用云对象
 
-```vue
+```js
 <template>
-  <view class="content">
-    <button @click="callco">请求服务器</button>
+  <view>
+    <button @click="getObj">请求云对象</button>
   </view>
 </template>
 
 <script>
-  export default {
-    methods: {
-      async callco() {
-        const co1 = uniCloud.importObject("col")
-        let res = await co1.sayHello()
-        // 快捷键ualert，弹框显示结果：{ data: "hello" }
-        uni.showModal({
-          content: JSON.stringify(res),
-          showCancel: false
-        })
-      }
-    }
-  }
+export default {
+  methods: {
+    getObj() {
+      const obj1 = uniCloud.importObject("obj1");
+      obj1.get().then(res => {
+        console.log(res);
+      });
+    },
+  },
+};
 </script>
 ```
 
-## 客户端向服务端传递参数
-
-云函数`index.obj.js`
+### 传递参数
 
 ```js
+const db = uniCloud.database()
 module.exports = {
-  sayHello(text) {
-    return {
-      code: 0,
-      data: text
-    }
+  async get(limit) {
+    return await db.collection("article").limit(limit).get()
   }
 }
 ```
 
-前端页面中调用云对象
-
-```vue
+```js
 <template>
-  <view class="content">
-    <button @click="callco">请求服务器</button>
-  </view>
+  <view><button @click="getObj">请求云对象</button></view>
 </template>
 
 <script>
-  export default {
-    methods: {
-      async callco() {
-        const co1 = uniCloud.importObject("col")
-        let res = await co1.sayHello("hello world")
-        // 快捷键ualert
-        uni.showModal({
-          content: JSON.stringify(res),
-          showCancel: false
-        })
-        // 弹框显示：{ code: 0, data: "hello world" }
-      }
-    }
-  }
+export default {
+  methods: {
+    getObj() {
+      const obj1 = uniCloud.importObject("obj1");
+      obj1.get(1).then(res => {
+        console.log(res);
+      });
+    },
+  },
+};
 </script>
 ```
-
-## 连接云端云函数
-
-连接本地项目中云函数只用于`开发时使用`，方便快速开发调试，打包上线则必须使用云端云函数
 
 ### 上传云函数至云端
 
-#### 上传单个云对象
+1. 上传单个云对象：右击该云对象文件夹，选择`上传部署`
+2. 上传所有云对象：右击`cloudfunctions`文件夹，选择`上传所有云函数、公共模块及actions`
+3. 请求报错：`云函数在云端不存在，请检查此云函数名称是否正确以及该云函数是否已上传到服务空间`，检查第一步或第二步是否成功，在HBuilderX里终端勾选`连接云端云函数`，重新编译运行
 
-右击该云对象文件夹，选择`上传部署`
+## 客户端操作数据库（clientDB）
 
-#### 上传所有云对象
+> `DB Schema` https://uniapp.dcloud.net.cn/uniCloud/schema.html
 
-右击`cloudfunctions`文件夹，选择`上传所有云函数、公共模块及actions`
+- 在`web控制台`创建一个表会创建默认的`schema`，`database`目录右键可以`下载所有DB Schema及扩展校验函数`，会在项目中生成相应`*.schema.json`文件
+- 项目右键，选择`创建database目录`（如已有目录则忽略），`database`目录右键选择`新建DB Schema`，会在项目中生成相应`*.schema.json`文件，右击`database目录`可以`上传所有DB Schema及扩展校验函数`，会在云端生成相应表
 
-上传成功后则可以正常使用云端云函数了
-
-## 操作数据库
-
-web控制台新建数据表
-
-1. 云数据库>创建数据表
-2. 添加记录，json格式数据
-3. 表结构设置`permission`,控制增删改查权限
+- 在单个schema文件右键可以只上传当前选中的schema。快捷键是【Ctrl+u】。（Ctrl+u是HBuilderX的通用快捷键，不管是发布App还是上传云函数、schema，都是Ctrl+u）
 
 ### 设置数据库操作权限
 
-修改database/contacts.schema.json中`permission`字段，对应`查增改删`
+设置`database/*.schema.json`
+
+- `permission`字段控制权限，对应`查增改删`
+- `properties`字段控制`表字段`
+- `bsonType`字段类型
+- `required`必填项
+
+可视化插件
+
+> https://ext.dcloud.net.cn/plugin?name=bctos-schema2view
+
+### 示例
 
 ```json
 {
   "bsonType": "object",
-  "required": [],
+  "required": [
+    "name"
+  ],
   "permission": {
     "read": true,
     "create": true,
@@ -150,11 +221,53 @@ web控制台新建数据表
   },
   "properties": {
     "_id": {
-      "description": "ID，系统自动生成"
+      "description": "ID，系统自动生成",
+      "order": 0
+    },
+    "name": {
+      "bsonType": "string",
+      "label": "文章标题",
+      "errorMessage": {
+        "required": "{label}不能为空",
+        "format": "{label}格式无效"
+      },
+      "order": 1,
+      "description": "文章的标题说明",
+      "trim": "both"
+    },
+    "content": {
+      "bsonType": "string",
+      "label": "内容",
+      "order": 2,
+      "description": "文字内容",
+      "trim": "both"
+    },
+    "postType": {
+      "bsonType": "timestamp",
+      "label": "发布时间",
+      "errorMessage": {
+        "format": "{label}格式无效"
+      },
+      "forceDefaultValue": {
+        "$env": "now"
+      },
+      "order": 3,
+      "description": "发布时间"
+    },
+    "hits": {
+      "bsonType": "int",
+      "label": "阅读量",
+      "errorMessage": {
+        "format": "{label}格式无效"
+      },
+      "order": 4,
+      "description": "阅读量",
+      "exclusiveMinimum": true,
+      "exclusiveMaximum": true,
+      "defaultValue": "33"
     }
   }
 }
-
 ```
 
 ### 查询数据
@@ -383,74 +496,3 @@ db.collection('tableImages').get();
 
 获取到db的表对象后，通过add方法新增数据记录
 
-## 调用云函数
-
-### 两种写法
-
-```js
-// promise方式
-uniCloud.callFunction({
-    name: 'hellocf',
-    data: { a: 1 }
-  })
-  .then(res => {})
-
-// callback方式
-uniCloud.callFunction({
-	name: 'hellocf',
-	data: { a: 1 },
-	success(){},
-	fail(){},
-	complete(){}
-})
-```
-
-### 示例-查询图片列表
-
-```js
-   // 查询图片列表
-    selectImage() {
-      uni.showLoading({
-        title: "查询中..."
-      })
-      uniCloud.callFunction({
-        //调用云函数
-        name: "selectImage", // 云函数名称
-        success: res => {
-          this.imgList = res.result.data // 云端返回的数据
-          console.log(res.result.data)
-        },
-        fail(e) {
-          console.log(e)
-        },
-        complete: () => {
-          uni.hideLoading()
-        }
-      })
-    },
-```
-
-```js
-// 官方这边是只能一次上传一张
-uni.chooseImage({
-    success: (chooseImageRes) => {
-        const tempFilePaths = chooseImageRes.tempFilePaths;
-        uni.uploadFile({
-            url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
-            filePath: tempFilePaths[0],
-            name: 'file',
-            formData: {
-                'user': 'test'
-            },
-            success: (uploadFileRes) => {
-                console.log(uploadFileRes.data);
-            }
-        });
-    }
-});
-
-```
-
-## 小程序运行到真机请求云函数
-
-HBuilderX里终端勾选`连接云端云函数`，运行小程序，才能真机运行正确请求到云函数
