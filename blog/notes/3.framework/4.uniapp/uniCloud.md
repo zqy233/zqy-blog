@@ -196,10 +196,10 @@ export default {
 
 设置`database/*.schema.json`
 
-- `permission`字段控制权限，对应`查增改删`
-- `properties`字段控制`表字段`
 - `bsonType`字段类型
 - `required`必填项
+- `permission`字段控制权限，对应`查增改删`
+- `properties`字段表示`表字段`
 
 可视化插件
 
@@ -270,9 +270,11 @@ export default {
 }
 ```
 
+## unicloud-db组件
+
 ### 查询数据
 
-列表页面，使用`unicloud-db`组件，`data`即是`contacts`表的数据
+列表页面，使用`unicloud-db`组件，`collection`属性指定表名，`data`就是表的数据
 
 ```vue
 <unicloud-db v-slot:default="{data, loading, error, options}" collection="contacts">
@@ -460,24 +462,7 @@ cloudfunctions/common右击新建公共模块
 const { appId, appSecret } = require("wx-common")
 ```
 
-## HBuilderX的JQL数据库管理器
-
-为方便开发者调试查询语句，`HBuilderX 3.1.5`起内置了JQL查询调试器。用法如下
-
-1. 在`uniCloud/database`目录右键选择`新建JQL数据库管理`（HBuilderX创建项目时勾选uniCloud会自带一个jql文件，直接使用自带的jql文件也可以）
-2. 在jql文件内写上自己的语句
-3. 使用工具栏上的运行按钮运行（快捷键：Ctrl+R 或 F5）即可
-
-**注意**
-
-- 编写clientDB的js API（也支持常规js语法，比如var），可以对云数据库进行增删改查操作。不支持uniCloud-db组件写法
-- 可以全部运行，也可以选中部分代码运行。点击工具栏上的运行按钮或者按下【F5】键运行代码
-- 如果文档中存在多条JQL语句，只有最后一条语句生效
-- 如果混写了普通js，最后一条语句需是数据库操作语句
-- 此处代码运行不受DB Schema的权限控制，移植代码到实际业务中注意在schema中配好permission
-- 不支持clientDB的action
-- 数据库查询有最大返回条数限制，详见：[limit(opens new window)](https://uniapp.dcloud.net.cn/uniCloud/cf-database?id=limit)
-- 详细JQL语法，请参考：[JQL](https://uniapp.dcloud.net.cn/uniCloud/jql)
+- https://uniapp.dcloud.net.cn/uniCloud/jql)
 
 ## JQL数据库操作
 
@@ -495,4 +480,47 @@ db.collection('tableImages').get();
 ### 新增数据
 
 获取到db的表对象后，通过add方法新增数据记录
+
+
+
+## 云函数传统方式和jql语法操作数据库的区别
+
+- 主要上查询方式上的区别，传统方式使用db.command，而jql使用js语法更易读更简洁
+
+```js
+const dbCmd = db.command
+const myOpenID = "xxx"
+let res = await db.collection('articles').where({
+  quarter: dbCmd.eq('2020 Q2')
+}).get()
+```
+
+```
+const dbCmd = db.command
+const myOpenID = "xxx"
+let res = await db.collection('articles').where({
+  quarter: dbCmd.eq('2020 Q2')
+}).get()
+```
+
+
+
+## HBuilderX的JQL数据库管理器
+
+为方便开发者调试查询语句，`HBuilderX 3.1.5`起内置了JQL查询调试器。用法如下
+
+1. 在`uniCloud/database`目录右键选择`新建JQL数据库管理`（HBuilderX创建项目时勾选uniCloud会自带一个jql文件，直接使用自带的jql文件也可以）
+2. 在jql文件内写上自己的语句
+3. 使用工具栏上的运行按钮运行（快捷键：Ctrl+R 或 F5）即可
+
+**注意**
+
+- 编写clientDB的js API（也支持常规js语法，比如var），可以对云数据库进行增删改查操作。不支持uniCloud-db组件写法
+- 可以全部运行，也可以选中部分代码运行。点击工具栏上的运行按钮或者按下【F5】键运行代码
+- 如果文档中存在多条JQL语句，只有最后一条语句生效
+- 如果混写了普通js，最后一条语句需是数据库操作语句
+- 此处代码运行不受DB Schema的权限控制，移植代码到实际业务中注意在schema中配好permission
+- 不支持clientDB的action
+- 数据库查询有最大返回条数限制，详见：[limit(opens new window)](https://uniapp.dcloud.net.cn/uniCloud/cf-database?id=limit)
+- 详细JQL语法，请参考：[JQL](
 
