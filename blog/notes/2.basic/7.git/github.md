@@ -58,3 +58,62 @@ https://antfu-unpluginautoimpo-v4a7st4kzi7.ws-us45.gitpod.io/
 git config --global http.proxy http://127.0.0.1:7890
 git config --global https.proxy http://127.0.0.1:7890
 ```
+
+## .github
+
+### CODEOWNERS
+
+在做日常迭代交付时提交的 PR，指定组内成员进行代码评审，当代码变更涉及到某文件或目录 A 时，大多数情况下会指派固定的人员 B 进行代码评审。我们就可以称为 B 是 组件 A 的 CodeOwner。简单来说，Codeowner 用来定义谁负责仓库中的特定文件或目录。
+
+想要使用 CodeOwner 功能，需要在仓库中指定的位置创建一个名为`CODEOWNERS`文件，它们仅适用于当前分支，指定的位置为：
+
+- 在仓库的根目录中
+- 在`.gitee/`目录中
+- 在`docs/`目录中
+
+## workflow 文件
+
+`GitHub Actions` 的配置文件叫做 **workflow**文件，存放在代码仓库的`.github/workflows/`目录下。比如写一个`first.yaml`文件，存储的目录就是`.github/workflows/first.yaml
+
+### on. .
+
+指定触发事件时，可以限定分支或标签。
+
+```yaml
+on:
+  push:
+    branches:
+      - master
+```
+
+上面代码指定，`push`事件触发 **workflow**，指定分支是master分支
+
+### jobs..name
+
+**workflow** 文件的主体是`jobs`字段，表示要执行的一项或多项任务。
+
+`jobs`字段里面，需要写出每一项任务的`job_id`，具体名称自定义。`job_id`里面的`name`字段是任务的说明。
+
+```yaml
+jobs:
+  my_first_job:
+    name: My first job
+  my_second_job:
+    name: My second job
+```
+
+### jobs..runs-on
+
+`runs-on`字段指定运行所需要的虚拟机环境。它是必填字段。目前可用的虚拟机如下。
+
+```yaml
+ubuntu-latest，ubuntu-18.04或ubuntu-16.04
+windows-latest，windows-2019或windows-2016
+macOS-latest或macOS-10.14
+```
+
+下面代码指定虚拟机环境为ubuntu-18.04。
+
+```yaml
+runs-on: ubuntu-18.04
+```

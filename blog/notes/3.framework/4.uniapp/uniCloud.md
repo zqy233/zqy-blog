@@ -485,7 +485,7 @@ db.collection('tableImages').get();
 
 ## 云函数传统方式和jql语法操作数据库的区别
 
-- 主要上查询方式上的区别，传统方式使用db.command，而jql使用js语法更易读更简洁
+- 主要查询方式上的区别，传统方式使用db.command，而jql使用js语法更易读更简洁
 
 ```js
 const dbCmd = db.command
@@ -494,16 +494,6 @@ let res = await db.collection('articles').where({
   quarter: dbCmd.eq('2020 Q2')
 }).get()
 ```
-
-```
-const dbCmd = db.command
-const myOpenID = "xxx"
-let res = await db.collection('articles').where({
-  quarter: dbCmd.eq('2020 Q2')
-}).get()
-```
-
-
 
 ## HBuilderX的JQL数据库管理器
 
@@ -522,5 +512,8 @@ let res = await db.collection('articles').where({
 - 此处代码运行不受DB Schema的权限控制，移植代码到实际业务中注意在schema中配好permission
 - 不支持clientDB的action
 - 数据库查询有最大返回条数限制，详见：[limit(opens new window)](https://uniapp.dcloud.net.cn/uniCloud/cf-database?id=limit)
-- 详细JQL语法，请参考：[JQL](
+
+## 联表查询
+
+
 
