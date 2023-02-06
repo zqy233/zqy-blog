@@ -3,7 +3,7 @@ name: Docs
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - docs/**
   pull_request:
@@ -11,7 +11,7 @@ on:
       - docs/**
   workflow_dispatch:
     branches:
-      - master
+      - main
     inputs:
       deploy:
         description: Deploy ?
