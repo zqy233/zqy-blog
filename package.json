@@ -32,7 +32,7 @@
     "type": "tsc --noEmit",
     "test": "yarn lint && yarn type",
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs",
+    "docs:build": "vitepress build docs",
     "serve": "yarn build && vitepress serve docs",
     "push": "yarn build && node ./src/script/index.js",
     "git": "node ./src/script/index.js"
