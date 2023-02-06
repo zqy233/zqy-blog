@@ -3,10 +3,8 @@ import path from 'path'
 import fs from 'fs'
 // import chokidar from 'chokidar'
 
-let nav = [] // 顶部菜单栏
-let sidebar = {} // 左侧菜单栏
-// 读取notes文件夹下所有文件夹名与文件名与相应路径
-// 动态生成顶部菜单栏和左侧菜单栏以及相应路由信息
+let nav = []
+let sidebar = {}
 const fullPath = path.join(__dirname, '../notes')
 // 第一级为顶部菜单栏标题
 fs.readdirSync(fullPath).forEach((item, index) => {
@@ -60,13 +58,11 @@ module.exports = (async () => {
   // const base = await getBase()
   return {
     // ...base,
-    // 这里设置为github的仓库名
     base: '/vite-vue-blog/',
     title: '个人笔记',
     description: '个人笔记',
     // head: [['link', { rel: 'icon', href: '/webpack5-learn/favicon.ico' }]],
     lastUpdated: true,
-    // outDir: '../docs',
     vite: {
       // ...base.vite,
       build: {
