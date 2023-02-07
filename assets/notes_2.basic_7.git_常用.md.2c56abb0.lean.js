@@ -1,0 +1,15 @@
+import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.92404ad2.js";
+const __pageData = JSON.parse('{"title":"常用","description":"","frontmatter":{},"headers":[{"level":2,"title":"克隆远程仓库项目","slug":"克隆远程仓库项目","link":"#克隆远程仓库项目","children":[]},{"level":2,"title":"查看修改本地用户名和邮箱","slug":"查看修改本地用户名和邮箱","link":"#查看修改本地用户名和邮箱","children":[]},{"level":2,"title":"提交远程分支","slug":"提交远程分支","link":"#提交远程分支","children":[]},{"level":2,"title":"重命名分支","slug":"重命名分支","link":"#重命名分支","children":[{"level":3,"title":"重命名本地分支","slug":"重命名本地分支","link":"#重命名本地分支","children":[]},{"level":3,"title":"重命名远端分支","slug":"重命名远端分支","link":"#重命名远端分支","children":[]}]},{"level":2,"title":"暂存所有修改","slug":"暂存所有修改","link":"#暂存所有修改","children":[{"level":3,"title":"暂存","slug":"暂存","link":"#暂存","children":[]},{"level":3,"title":"恢复","slug":"恢复","link":"#恢复","children":[]},{"level":3,"title":"查看现有stash","slug":"查看现有stash","link":"#查看现有stash","children":[]}]},{"level":2,"title":"git commit -am","slug":"git-commit-am","link":"#git-commit-am","children":[]},{"level":2,"title":"回退之前版本","slug":"回退之前版本","link":"#回退之前版本","children":[{"level":3,"title":"特殊情况：放弃当前所有改动，直接回退到最新版本","slug":"特殊情况-放弃当前所有改动-直接回退到最新版本","link":"#特殊情况-放弃当前所有改动-直接回退到最新版本","children":[]}]},{"level":2,"title":"回退过去版本、从过去版本回退最新版本","slug":"回退过去版本、从过去版本回退最新版本","link":"#回退过去版本、从过去版本回退最新版本","children":[]},{"level":2,"title":"当前修改的内容提交到新的分支上","slug":"当前修改的内容提交到新的分支上","link":"#当前修改的内容提交到新的分支上","children":[]},{"level":2,"title":"删除分支","slug":"删除分支","link":"#删除分支","children":[{"level":3,"title":"删除本地分支","slug":"删除本地分支","link":"#删除本地分支","children":[]},{"level":3,"title":"删除远程分支","slug":"删除远程分支","link":"#删除远程分支","children":[]}]},{"level":2,"title":"查看与删除代理","slug":"查看与删除代理","link":"#查看与删除代理","children":[]},{"level":2,"title":"shell脚本一键git提交","slug":"shell脚本一键git提交","link":"#shell脚本一键git提交","children":[]},{"level":2,"title":"code review","slug":"code-review","link":"#code-review","children":[]},{"level":2,"title":"vim编辑器","slug":"vim编辑器","link":"#vim编辑器","children":[{"level":3,"title":"底线命令模式","slug":"底线命令模式","link":"#底线命令模式","children":[]}]},{"level":2,"title":"子模块","slug":"子模块","link":"#子模块","children":[]}],"relativePath":"notes/2.basic/7.git/常用.md","lastUpdated":1675737445000}');
+const _sfc_main = { name: "notes/2.basic/7.git/常用.md" };
+const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 85);
+const _hoisted_86 = [
+  _hoisted_1
+];
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", null, _hoisted_86);
+}
+const __ = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export {
+  __pageData,
+  __ as default
+};

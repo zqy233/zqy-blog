@@ -1,0 +1,15 @@
+import { _ as _export_sfc, c as createElementBlock, o as openBlock, a as createStaticVNode } from "./app.92404ad2.js";
+const __pageData = JSON.parse('{"title":"html","description":"","frontmatter":{},"headers":[{"level":2,"title":"emmet","slug":"emmet","link":"#emmet","children":[{"level":3,"title":"!","slug":"","link":"#","children":[]},{"level":3,"title":".className","slug":"classname","link":"#classname","children":[]},{"level":3,"title":".className1.className2","slug":"classname1-classname2","link":"#classname1-classname2","children":[]},{"level":3,"title":"#idName","slug":"idname","link":"#idname","children":[]},{"level":3,"title":".a + .b","slug":"a-b","link":"#a-b","children":[]},{"level":3,"title":".a > .b","slug":"a-b-1","link":"#a-b-1","children":[]},{"level":3,"title":"ul>li*5","slug":"ul-li-5","link":"#ul-li-5","children":[]},{"level":3,"title":"ul>li.a$*3","slug":"ul-li-a-3","link":"#ul-li-a-3","children":[]},{"level":3,"title":"ul>li>a{item}*5","slug":"ul-li-a-item-5","link":"#ul-li-a-item-5","children":[]}]},{"level":2,"title":"meta标签","slug":"meta标签","link":"#meta标签","children":[]},{"level":2,"title":"语义化标签","slug":"语义化标签","link":"#语义化标签","children":[{"level":3,"title":"header","slug":"header","link":"#header","children":[]},{"level":3,"title":"nav","slug":"nav","link":"#nav","children":[]},{"level":3,"title":"article","slug":"article","link":"#article","children":[]},{"level":3,"title":"aside","slug":"aside","link":"#aside","children":[]},{"level":3,"title":"section","slug":"section","link":"#section","children":[]},{"level":3,"title":"div、section、article","slug":"div、section、article","link":"#div、section、article","children":[]},{"level":3,"title":"footer","slug":"footer","link":"#footer","children":[]},{"level":3,"title":"address","slug":"address","link":"#address","children":[]}]},{"level":2,"title":"form","slug":"form","link":"#form","children":[]},{"level":2,"title":"音频","slug":"音频","link":"#音频","children":[]},{"level":2,"title":"表格","slug":"表格","link":"#表格","children":[]},{"level":2,"title":"svg图片viewbox","slug":"svg图片viewbox","link":"#svg图片viewbox","children":[]}],"relativePath":"notes/2.basic/1.html/1.基础.md","lastUpdated":1675737445000}');
+const _sfc_main = { name: "notes/2.basic/1.html/1.基础.md" };
+const _hoisted_1 = /* @__PURE__ */ createStaticVNode("", 62);
+const _hoisted_63 = [
+  _hoisted_1
+];
+function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createElementBlock("div", null, _hoisted_63);
+}
+const _1___ = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
+export {
+  __pageData,
+  _1___ as default
+};
