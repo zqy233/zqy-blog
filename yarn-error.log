@@ -1,0 +1,68 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js dev
+
+PATH: 
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Python39\Scripts\;C:\Python39\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;D:\manager\maven\apache-maven-3.6.3\bin;D:\manager\;D:\manager\mongo\bin;D:\manager\emulator\nemu\vmonitor\bin;D:\manager\sqlite;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;D:\m;n;ger\Git\cmd;D:\manager\NVM;C:\Program Files\nodejs;D:\manager\Microsoft VS Code\bin;D:\manager\微信web开发者工具\dll;;;D:\manager\Git\cmd;C:\Users\zhu\.cargo\bin;C:\Users\zhu\AppData\Local\pnpm;C:\Program Files\Java\jdk1.8.0_202\bin;C:\Program Files\Java\jdk1.8.0_202\jre\bin;C:\Users\zhu\AppData\Local\Microsoft\WindowsApps;D:\manager\other\Program Files (x86)\Microsoft VS Code\bin;D:\manager\other\mongo\bin;D:\manager\mysql-8.0.23-winx64\bin;D:\manager\;D:\Program Files (x86)\Microsoft VS Code\bin;D:\manager\espanso;D:\manager\NVM;C:\Program Files\nodejs;D:\manager\IntelliJ IDEA 2022.2.3\bin;
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.11.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: D:\vitepress\vite-vue-blog\package.json: Unexpected token } in JSON at position 187
+      at JSON.parse (<anonymous>)
+      at D:\manager\NVM\v16.11.0\node_modules\yarn\lib\cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (D:\manager\NVM\v16.11.0\node_modules\yarn\lib\cli.js:310:30)
+      at D:\manager\NVM\v16.11.0\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "zqy-blog",
+    "version": "1.0.1",
+    "description": "zqy blog",
+    "license": "MIT",
+    "scripts": {
+      "dev": "vitepress dev docs",
+      "docs:build": "vitepress build docs",
+    },
+    "dependencies": {
+      "@docsearch/css": "^3.3.2",
+      "@docsearch/js": "^3.3.2",
+      "@vueuse/core": "^9.12.0",
+      "body-scroll-lock": "^3.1.5",
+      "normalize.css": "^8.0.1",
+      "shiki": "^0.14.0"
+    },
+    "devDependencies": {
+      "@types/body-scroll-lock": "^3.1.0",
+      "@types/estree": "^1.0.0",
+      "@types/node": "^18.11.19",
+      "chokidar": "^3.5.3",
+      "prettier": "^2.8.3",
+      "shelljs": "^0.8.5",
+      "typescript": "^4.9.5",
+      "vitepress": "^1.0.0-alpha.8",
+      "vue": "^3.2.47"
+    },
+    "pnpm": {
+      "peerDependencyRules": {
+        "ignoreMissing": [
+          "react",
+          "react-dom",
+          "@algolia/client-search"
+        ]
+      }
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -1,41 +1,11 @@
 {
-  "name": "@vue/theme",
+  "name": "zqy-blog",
   "version": "1.0.1",
-  "description": "The design system for Vue.js.",
-  "main": "src/index.ts",
-  "exports": {
-    ".": "./src/index.ts",
-    "./config": "./src/vitepress/config/baseConfig.js",
-    "./highlight": "./src/vitepress/config/highlight.js"
-  },
-  "files": [
-    "src",
-    "types"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vuejs/theme.git"
-  },
-  "keywords": [
-    "vue",
-    "design-system"
-  ],
-  "author": "Evan You",
+  "description": "zqy blog",
   "license": "MIT",
-  "homepage": "https://theme.vuejs.org",
-  "bugs": {
-    "url": "https://github.com/vuejs/theme/issues"
-  },
   "scripts": {
-    "lint": "prettier --check --write --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
-    "lint:fail": "prettier --check --parser typescript \"{__tests__,docs,src,types}/**/*.ts\"",
-    "type": "tsc --noEmit",
-    "test": "yarn lint && yarn type",
     "dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "serve": "yarn build && vitepress serve docs",
-    "push": "yarn build && node ./src/script/index.js",
-    "git": "node ./src/script/index.js"
+    "docs:build": "vitepress build docs"
   },
   "dependencies": {
     "@docsearch/css": "^3.3.2",

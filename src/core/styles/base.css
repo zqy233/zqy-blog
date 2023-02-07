@@ -7,6 +7,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 body {
   width: 100%;
   min-width: 320px;
@@ -57,25 +58,14 @@ h1::before {
   content: '🎉';
   -webkit-text-fill-color: initial;
 }
+
 h2::before {
   content: '✨';
   -webkit-text-fill-color: initial;
 }
+
 h3::before {
   content: '🔖';
-}
-html:not(.dark) h2 {
-  background: -webkit-linear-gradient(
-    315deg,
-    #42d392 25%,
-    #647eff 66%,
-    #13bdce 100%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 10% 100%;
-  background-position: 100% 100%;
 }
 
 /**
@@ -123,10 +113,12 @@ kbd,
 samp {
   font-family: var(--vt-font-family-mono);
 }
+
 code .line {
   word-wrap: break-word;
   white-space: break-spaces;
 }
+
 img,
 svg,
 video,
@@ -171,6 +163,7 @@ button:focus-visible {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
 }
+
 button:focus:not(:focus-visible) {
   outline: none !important;
 }
