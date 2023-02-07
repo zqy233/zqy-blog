@@ -45,7 +45,7 @@ export function isActive(
   matchPath?: string,
   asRegex = false
 ): boolean {
-  matchPath = matchPath?.replace('vite-vue-blog/', '')
+  matchPath = matchPath?.replace('zqy-blog/', '')
   if (matchPath === undefined) {
     return false
   }

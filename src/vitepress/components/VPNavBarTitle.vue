@@ -1,5 +1,5 @@
 <template>
-  <a class="VPNavBarTitle" href="/vite-vue-blog/">
+  <a class="VPNavBarTitle" href="/zqy-blog/">
     <h1 class="text" ref="h1">个人笔记</h1>
   </a>
 </template>

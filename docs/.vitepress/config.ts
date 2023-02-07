@@ -59,9 +59,9 @@ module.exports = (async () => {
   return {
     // ...base,
     base: '/zqy-blog/',
-    title: '个人笔记',
-    description: '个人笔记',
-    // head: [['link', { rel: 'icon', href: '/webpack5-learn/favicon.ico' }]],
+    title: 'zqy的个人博客',
+    description: 'zqy的个人博客',
+    head: [['link', { rel: 'icon', href: '/zqy-blog/favicon.ico' }]],
     lastUpdated: true,
     vite: {
       // ...base.vite,
@@ -80,7 +80,7 @@ module.exports = (async () => {
     themeConfig: {
       logo: '/img/logo-vue.svg',
       socialLinks: [
-        { icon: 'github', link: 'https://github.com/zqy233/vite-vue-blog' }
+        { icon: 'github', link: 'https://github.com/zqy233/zqy-blog' }
       ],
       footer: {
         message: 'Released under the MIT License.',
