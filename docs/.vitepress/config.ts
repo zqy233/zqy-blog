@@ -58,7 +58,7 @@ module.exports = (async () => {
   // const base = await getBase()
   return {
     // ...base,
-    base: '/vite-vue-blog/',
+    base: '/zqy-blog/',
     title: '个人笔记',
     description: '个人笔记',
     // head: [['link', { rel: 'icon', href: '/webpack5-learn/favicon.ico' }]],
