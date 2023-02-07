@@ -1,4 +1,3 @@
-// import getBase from '../../src/vitepress/config/baseConfig'
 import path from 'path'
 import fs from 'fs'
 // import chokidar from 'chokidar'
@@ -55,16 +54,18 @@ fs.readdirSync(fullPath).forEach((item, index) => {
 })
 
 module.exports = (async () => {
-  // const base = await getBase()
   return {
-    // ...base,
     base: '/zqy-blog/',
     title: 'zqy的个人博客',
     description: 'zqy的个人博客',
     head: [['link', { rel: 'icon', href: '/zqy-blog/favicon.ico' }]],
     lastUpdated: true,
+    // markdown: {
+    //   lineNumbers: true,
+    //   // https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes
+    //   theme: 'one-dark-pro'
+    // },
     vite: {
-      // ...base.vite,
       build: {
         minify: false
       },
@@ -78,7 +79,6 @@ module.exports = (async () => {
       }
     },
     themeConfig: {
-      logo: '/img/logo-vue.svg',
       socialLinks: [
         { icon: 'github', link: 'https://github.com/zqy233/zqy-blog' }
       ],
