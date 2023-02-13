@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as p}from"./app.a9997904.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"4.第三方库/node包/tsup.md","lastUpdated":1676276426000}'),l={name:"4.第三方库/node包/tsup.md"},o=p("",2),e=[o];function t(c,r,B,y,F,i){return a(),n("div",null,e)}const d=s(l,[["render",t]]);export{u as __pageData,d as default};

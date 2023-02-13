@@ -1,1 +1,0 @@
-import{_ as s,c as n,o as a,a as l}from"./app.a9997904.js";const b=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"3.前端框架/1.vue/动画.md","lastUpdated":1676276426000}'),p={name:"3.前端框架/1.vue/动画.md"},o=l("",3),e=[o];function t(c,r,B,y,F,i){return a(),n("div",null,e)}const u=s(p,[["render",t]]);export{b as __pageData,u as default};
