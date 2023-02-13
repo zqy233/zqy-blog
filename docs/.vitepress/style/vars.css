@@ -83,3 +83,21 @@ html {
 code .line {
   white-space: pre-wrap;
 }
+
+@media (max-width: 1000px) {
+  .VPNavBarMenu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .VPNavBarHamburger {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .VPNavScreen {
+    display: block !important;
+  }
+}

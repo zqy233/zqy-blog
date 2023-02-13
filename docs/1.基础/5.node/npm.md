@@ -174,3 +174,13 @@ npm i -g serve
 serve -s 打包文件夹名
 ```
 
+## nodemon和chokidar
+
+```sh
+"watch": "npx nodemon --watch docs --ext [md] --exec pnpm run docs",
+```
+
+```sh
+ "watch": "chokidar \"./docs/md\" -c \"taskkill -F -IM node.exe\" & \"pnpm run docs\"",
+```
+

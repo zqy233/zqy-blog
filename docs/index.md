@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 现在开始
-      link: /1.前端基础/1.html/1.基础
+      link: /1.基础/1.html/1.基础
     - theme: alt
       text: View on GitHub
       link: https://github.com/zqy233/zqy-blog
