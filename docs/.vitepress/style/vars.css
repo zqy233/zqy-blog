@@ -1,0 +1,85 @@
+/* 黑色主题 */
+:root.dark {
+  --vp-c-brand: #3ee0e0;
+  --vp-c-green-light: #3ee0e0;
+  --vp-c-brand-lighter: #49CBF1;
+}
+
+:root {
+  /* 主题基色 */
+  --vp-c-brand: #3c8cff;
+  --vp-c-brand-light: #3c8cff;
+  --vp-c-brand-dark: #3c8cff;
+
+  /* md行数字母颜色 */
+  --vp-code-line-number-color: #ffffff;
+
+  /* 标题 */
+  --vp-home-hero-name-color: #3c8cff;
+  --vp-home-hero-name-background: linear-gradient(#3c8cff 100%);
+
+  /* 图标背景 */
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #3c8cff 50%, #34a2e1 50%);
+  --vp-home-hero-image-filter: blur(56px);
+}
+
+/* 按钮 */
+:root {
+  --vp-button-brand-border: #3c8cff;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-bg: #3c8cff;
+
+  --vp-button-brand-hover-border: #6181FD;
+  --vp-button-brand-hover-bg: #6181FD;
+  --vp-button-brand-active-border: #6181FD;
+  --vp-button-brand-active-bg: #6181FD;
+
+  /* 代码块背景色 */
+  --vp-code-block-bg: rgba(40, 44, 52);
+}
+
+/* CODE BLOCKS */
+:root {
+  --vp-c-text-code: #ff5d52;
+}
+
+:root.dark {
+  --vp-c-text-code: #49CBF1;
+}
+
+/* HOME */
+:root {
+  --vp-home-hero-image-filter: blur(30px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(92px);
+  }
+}
+
+html {
+  overflow: overlay;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #CCCCCC;
+}
+
+/* 代码块文字换行 */
+/* todo：会导致linenumber计算出现问题  */
+code .line {
+  white-space: pre-wrap;
+}

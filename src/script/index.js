@@ -1,5 +1,0 @@
-const shell = require('shelljs')
-shell.exec('git add .')
-shell.exec(`git commit -m ":memo:document writing"`)
-shell.exec(`git pull`)
-shell.exec('git push')

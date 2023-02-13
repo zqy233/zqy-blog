@@ -1,95 +1,49 @@
-import path from 'path'
-import fs from 'fs'
-// import chokidar from 'chokidar'
+import { defineConfig } from 'vitepress'
+import { getSidebar, getNav } from '../../doc-deal/getNavAndSidebar'
 
-let nav = []
-let sidebar = {}
-const fullPath = path.join(__dirname, '../notes')
-// 第一级为顶部菜单栏标题
-fs.readdirSync(fullPath).forEach((item, index) => {
-  if (!item.includes('imgs')) {
-    sidebar[`/notes/${item}/`] = []
-    nav.push({
-      text: item.replace(/\d*\./, ''),
-      items: []
-    })
-    // 第二级为顶部菜单栏列表与左侧菜单栏标题
-    fs.readdirSync(path.join(fullPath, item)).forEach((subitem, subindex) => {
-      sidebar[`/notes/${item}/`].push({
-        text: subitem.replace(/\d*\./, ''),
-        items: []
-      })
-      nav[index].items.push({
-        text: subitem.replace(/\d*\./, ''),
-        link: `/notes/${item}/${subitem}/${
-          fs.readdirSync(path.join(fullPath, item + '/' + subitem))[0]
-        }`
-      })
-      // 第三级为左侧菜单栏列表
-      fs.readdirSync(path.join(fullPath, `${item}/${subitem}`)).forEach(
-        (lastitem) => {
-          if (!lastitem.includes('imgs')) {
-            sidebar[`/notes/${item}/`][subindex].items.push({
-              text: lastitem.replace('.md', ''),
-              link: `/notes/${item}/${subitem}/${lastitem}`
-            })
-          }
-        }
-      )
-      // 按照文档前面数字进行排序
-      sidebar[`/notes/${item}/`][subindex].items = sidebar[`/notes/${item}/`][
-        subindex
-      ].items.sort((after, before) => {
-        return (
-          after.text.slice(0, after.text.indexOf('.')) -
-          before.text.slice(0, before.text.indexOf('.'))
-        )
-      })
-      // 页面中显示则去除文档前面数字
-      sidebar[`/notes/${item}/`][subindex].items.forEach((item) => {
-        item.text = item.text.replace(/\d*\./, '')
-      })
-    })
-  }
-})
-
-module.exports = (async () => {
-  return {
-    base: '/zqy-blog/',
-    title: 'zqy的个人博客',
-    description: 'zqy的个人博客',
-    head: [['link', { rel: 'icon', href: '/zqy-blog/favicon.ico' }]],
-    lastUpdated: true,
-    // markdown: {
-    //   lineNumbers: true,
-    //   // https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes
-    //   theme: 'one-dark-pro'
-    // },
-    vite: {
-      build: {
-        minify: false
-      },
-      resolve: {
-        alias: {
-          '@vue/theme': path.join(__dirname, '../../src')
-        }
-      },
-      server: {
-        port: 4000
-      }
+export default defineConfig({
+  base: '/zqy-blog/',
+  title: 'zqy233的前端学习笔记',
+  description: 'zqy233的前端学习笔记',
+  head: [['link', { rel: 'icon', href: '/zqy-blog/favicon.ico' }]],
+  lastUpdated: true,
+  markdown: {
+    lineNumbers: true,
+    // https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes
+    theme: {
+      light: 'min-dark',
+      dark: 'one-dark-pro',
     },
-    themeConfig: {
-      socialLinks: [
-        { icon: 'github', link: 'https://github.com/zqy233/zqy-blog' }
-      ],
-      footer: {
-        message: 'Released under the MIT License.',
-        copyright: `Copyright © 2022.4-${new Date().getFullYear()}.${
-          new Date().getMonth() + 1
-        }`
+  },
+  themeConfig: {
+    logo: {
+      light: '/logo-light.svg',
+      dark: '/logo-dark.svg',
+    },
+    footer: {
+      message: 'Released under the MIT License.',
+      copyright: `Copyright © 2022.4-${new Date().getFullYear()}.${new Date().getMonth() + 1}`,
+    },
+    lastUpdatedText: '更新日期',
+    docFooter: {
+      prev: '上一页',
+      next: '下一页',
+    },
+    darkModeSwitchLabel: '主题',
+    outlineTitle: '索引',
+    sidebarMenuLabel: '目录',
+    returnToTopLabel: '回到顶部',
+    editLink: {
+      pattern: 'https://github.com/zqy233/zqy-blog/edit/main/docs/:path',
+      text: '在GitHub编辑此页',
+    },
+    socialLinks: [
+      {
+        icon: 'github',
+        link: 'https://github.com/zqy233/zqy-blog',
       },
-      nav,
-      sidebar
-    }
-  }
-})()
+    ],
+    nav: getNav(),
+    sidebar: getSidebar(),
+  },
+})
