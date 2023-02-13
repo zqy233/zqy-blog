@@ -5,7 +5,7 @@
   "scripts": {
     "watch": "npx nodemon --watch docs -e md --exec pnpm run docs",
     "docs": "vitepress dev docs --temp",
-    "docs:build": "vitepress --max_old_space_size=4096 build docs",
+    "docs:build": "set NODE_OPTIONS=--max_old_space_size=4096 & vitepress --max_old_space_size=4096 build docs",
     "docs:serve": "vitepress serve docs",
     "add": "pnpm run del & node ./doc-deal/addGitalk.js",
     "del": "node ./doc-deal/delGitalk.js"

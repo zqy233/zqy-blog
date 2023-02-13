@@ -1,0 +1,1 @@
+import{_ as e,c as a,o as t}from"./app.a9997904.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"5.打包工具/1.webpack/2.loader.md","lastUpdated":1676276426000}'),r={name:"5.打包工具/1.webpack/2.loader.md"};function o(c,s,n,d,p,_){return t(),a("div")}const m=e(r,[["render",o]]);export{i as __pageData,m as default};

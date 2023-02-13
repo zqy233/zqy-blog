@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as l}from"./app.a9997904.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"2.javaScript/api/video.md","lastUpdated":1676276426000}'),p={name:"2.javaScript/api/video.md"},o=l("",1),e=[o];function c(t,r,B,y,i,F){return a(),n("div",null,e)}const u=s(p,[["render",c]]);export{m as __pageData,u as default};
