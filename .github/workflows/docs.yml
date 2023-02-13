@@ -55,7 +55,7 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Build docs
-        run: pnpm run docs:build
+        run: export NODE_OPTIONS=--max_old_space_size=4096 && pnpm run docs:build
 
       - name: Deploy docs
         if: ${{ github.event_name == 'push' || inputs.deploy }}
