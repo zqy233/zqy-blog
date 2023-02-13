@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./app.6d7284a5.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"8.其他/Snabbdom/1.源码解读.md","lastUpdated":1676279158000}'),o={name:"8.其他/Snabbdom/1.源码解读.md"};function r(n,s,_,c,d,p){return a(),t("div")}const f=e(o,[["render",r]]);export{i as __pageData,f as default};
