@@ -1,10 +1,10 @@
 # app检查更新与升级
 
-学习自以下内容
+参考链接：
 
-> 升级中心 uni-upgrade-center - App https://ext.dcloud.net.cn/plugin?id=4542
+> 升级中心uni-upgrade-center - App https://ext.dcloud.net.cn/plugin?id=4542
 >
-> uni-upgrade-center官方文档https://uniapp.dcloud.net.cn/uniCloud/upgrade-center.html#uni-upgrade-center-app
+> uni-admin https://ext.dcloud.net.cn/plugin?id=4470
 >
 > h5+ api https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.appid
 >
@@ -13,6 +13,89 @@
 > uni-app使用plus注意事项 https://uniapp.dcloud.net.cn/tutorial/use-html5plus.html
 >
 > 关于在线升级（WGT）的几个疑问 https://ask.dcloud.net.cn/question/10369
+
+## 升级方式
+
+应用可使用以下方式进行升级
+
+- [整包(apk/ipa)升级](http://ask.dcloud.net.cn/article/431)：适用于大版本更新，新增5+模块时必须使用此类更新方法
+- [应用资源(wgt)升级](http://ask.dcloud.net.cn/article/182)：适用于小版本更新
+- [应用资源差量升级](http://ask.dcloud.net.cn/article/199)：适用于小版本更新
+
+## 整包升级与应用资源的升级区别
+
+区别在于是否是.wgt文件
+
+.wgt文件就是应用资源更新，.apk文件就是整包升级
+
+app增加了打包模块，必须整包升级
+
+uniapp可以打包成上方这两种格式的文件
+
+### uniapp不支持差量升级
+
+h5+ app才支持差量升级
+
+## 如何打包apk/ipa资源包
+
+apk 安卓app软件安装包
+
+ipa 苹果app软件安装包
+
+最简单的打包方式就是
+
+HBuilderX>发行>原生app-云打包
+
+## 如何打包wgt资源包
+
+一、更改项目`manifest.json`中的应用版本名称与应用版本号
+
+![image-20230214165042223](../../imgs/image-20230214165042223.png)
+
+二、HBuilderX>发行>原生App-制作应用wgt包>确定
+
+![image-20230214163315613](../../imgs/image-20230214163315613.png)
+
+![image-20230214163423585](../../imgs/image-20230214163423585.png)
+
+
+
+三、开发测试的时候，记得再改回原先的应用版本名称与应用版本号，不然版本跟线上的相同，安装更新包的时候就会出现`WGT安装包中manifest.json文件的version版本不匹配`，本地测试不了更新效果
+
+### 如何查看wgt文件manifest.json
+
+wgt包生成后会是`.wgt`后缀名，更改其后缀名为`.zip`，再解压，就可以查看`manifest.json`了
+
+## 什么是升级中心uni-upgrade-center
+
+> uniapp官方开发的App版本更新的插件，基于unicloud的后端服务
+>
+> 支持原生APP整包升级和wgt资源包升级
+>
+> 因为是开源的，通过修改源码可以实现请求java等其他后端服务，后续的源码解析章节会介绍
+
+升级中心分为两个部分：
+
+前台检测更新： [uni-upgrade-center-app](https://ext.dcloud.net.cn/plugin?id=4542)
+
+后台管理系统：
+
+- `uni-admin >= 1.9.3` ：[uni-admin](https://ext.dcloud.net.cn/plugin?id=4470) 已内置 升级中心，直接使用即可。并且云函数 `upgrade-center` 废弃，使用 `uni-upgrade-center` 云函数。
+- [uni-upgrade-center Admin管理后台](https://ext.dcloud.net.cn/plugin?id=4470) (uni-admin 1.9.3+ 已内置，此插件不再维护)
+  - `1.9.0 <= uni-admin < 1.9.2` ：请前往 [Gitee](https://gitee.com/dcloud/uni-upgrade-center/releases) 下载 `tag v0.5.1` 版本使用
+  - `uni-admin < 1.9.0`：请前往 [Gitee](https://gitee.com/dcloud/uni-upgrade-center/releases) 下载 `tag v0.4.2` 版本使用 
+
+简单来说，如果是新版的uni-admin，直接用即可
+
+## 怎么使用uni-upgrade-center
+
+使用我觉得并不难，跟着官方文档走即可
+
+简单来说，就是你的app项目安装 [uni-upgrade-center-app](https://ext.dcloud.net.cn/plugin?id=4542)这个插件，同时你需要另外新建一个`uni-admin`项目，用来上传并管理app项目的更新包，app项目通过unicloud请求更新包
+
+> 官方文档https://uniapp.dcloud.net.cn/uniCloud/upgrade-center.html#uni-upgrade-center-app
+
+但是如果不想使用unicloud，想换成java等其他后端服务，或者想了解app检查更新与升级的代码是如何编写的，阅读`uni-upgrade-center`源码是十分有必要的。
 
 ##  `uni-upgrade-center`源码阅读
 
@@ -398,26 +481,6 @@ var downloadTask = uni.downloadFile({
 });
 downloadTask.abort();
 ```
-
-## 如何打包wgt资源包
-
-一、更改项目`manifest.json`中的应用版本名称与应用版本号
-
-![image-20230214165042223](../../imgs/image-20230214165042223.png)
-
-二、HBuilderX>发行>原生App-制作应用wgt包>确定
-
-![image-20230214163315613](../../imgs/image-20230214163315613.png)
-
-![image-20230214163423585](../../imgs/image-20230214163423585.png)
-
-
-
-三、开发测试的时候，记得再改回原先的应用版本名称与应用版本号，不然版本跟线上的相同，安装更新包的时候就会出现`WGT安装包中manifest.json文件的version版本不匹配`，本地测试不了更新效果
-
-### 查看wgt文件小技巧
-
-wgt包生成后会是`.wgt`后缀名，更改其后缀名为`.zip`，再解压，就可以查看wgt文件内容了，主要是可以查看`manifest.json`
 
 ## 报错解决：WGT安装包中manifest.json文件的version版本不匹配
 

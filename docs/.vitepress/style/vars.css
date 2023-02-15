@@ -78,12 +78,6 @@ html {
   background-color: #CCCCCC;
 }
 
-/* 代码块文字换行 */
-/* todo：会导致linenumber计算出现问题  */
-code .line {
-  white-space: pre-wrap;
-}
-
 @media (max-width: 1000px) {
   .VPNavBarMenu {
     display: none !important;
