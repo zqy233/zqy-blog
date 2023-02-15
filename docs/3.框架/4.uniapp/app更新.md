@@ -14,9 +14,9 @@
 >
 > 关于在线升级（WGT）的几个疑问 https://ask.dcloud.net.cn/question/10369
 
-## 升级方式
+## app升级方式
 
-应用可使用以下方式进行升级
+app应用有三种升级方式，uniapp不支持应用资源差量升级，h5+ app才支持应用资源差量升级
 
 - [整包(apk/ipa)升级](http://ask.dcloud.net.cn/article/431)：适用于大版本更新，新增5+模块时必须使用此类更新方法
 - [应用资源(wgt)升级](http://ask.dcloud.net.cn/article/182)：适用于小版本更新
@@ -26,15 +26,11 @@
 
 区别在于是否是.wgt文件
 
-.wgt文件就是应用资源更新，.apk文件就是整包升级
+.wgt文件就是应用资源更新，.apk/,ipa文件就是整包升级
 
 app增加了打包模块，必须整包升级
 
 uniapp可以打包成上方这两种格式的文件
-
-### uniapp不支持差量升级
-
-h5+ app才支持差量升级
 
 ## 如何打包apk/ipa资源包
 
