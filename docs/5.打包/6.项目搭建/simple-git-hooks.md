@@ -130,11 +130,3 @@ git config core.hooksPath
 
 然后移除之前由 `husky`生成的 `.husky` 文件
 
-## 关键词
-
-- [pre-commit](https://www.npmjs.com/search?q=keywords:pre-commit)
-- [pre-push](https://www.npmjs.com/search?q=keywords:pre-push)
-- [git](https://www.npmjs.com/search?q=keywords:git)
-- [hook](https://www.npmjs.com/search?q=keywords:hook)
-- [lint](https://www.npmjs.com/search?q=keywords:lint)
-- [linter](https://www.npmjs.com/search?q=keywords:linter)
