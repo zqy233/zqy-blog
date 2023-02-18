@@ -13,3 +13,12 @@
 2. `aspect`  摄像机视锥体长宽比。
 3. `near`  摄像机视锥体近端面。
 4. `far`  摄像机视锥体远端面。
+
+## 材质
+
+## 光源
+
+> https://threejs.org/docs/#api/zh/lights/AmbientLight
+
+
+
