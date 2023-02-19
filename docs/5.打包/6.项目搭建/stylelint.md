@@ -2,7 +2,7 @@
 
 > 官方文档 https://github.com/stylelint/stylelint/blob/main/docs/user-guide/get-started.md
 >
-> stylelint工具列表 https://github.com/stylelint/awesome-stylelint#readme
+> stylelint相关列表 https://github.com/stylelint/awesome-stylelint#readme
 
 `stylelint`是css格式化工具
 

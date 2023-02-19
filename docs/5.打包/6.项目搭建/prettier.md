@@ -121,3 +121,56 @@ singleAttributePerLine 是否开启单属性换行
 pnpm i -D stylelint stylelint-prettier prettier
 ```
 
+## 搭配eslint
+
+> https://prettier.io/docs/en/integrating-with-linters.html
+
+### eslint-config-prettier
+
+> https://github.com/prettier/eslint-config-prettier
+
+关闭和prettier冲突的eslint规则
+
+```sh
+pnpm i -D eslint-config-prettier
+```
+
+```json
+{
+  "extends": [
+    "some-other-config-you-use",
+    "prettier"
+  ]
+}
+```
+
+### eslint-plugin-prettier
+
+将prettier作为eslint规则运行，并将差异作为单个eslint问题报告
+如果所需的格式与prettier的输出不匹配，则应使用其他工具，比如 [prettier-eslint](https://github.com/prettier/prettier-eslint)
+安装前请阅读“与过梁集成”。
+
+> https://github.com/prettier/eslint-plugin-prettier
+
+如果您禁用与代码格式相关的所有其他ESLint规则，并且仅启用检测潜在错误的规则，则此插件工作得最好。（如果另一个激活的ESLint规则与prettier的规则不一致，则无法避免lint错误。）您可以使用`  eslint-config-prettier`来禁用所有与格式化相关的ESLin规则。
+
+```sh
+pnpm i -D eslint-plugin-prettier
+```
+
+eslintrc.json
+
+```json
+{
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+```
+
+### prettier-eslint
+
+> https://github.com/prettier/prettier-eslint
+
+使用prettier格式代码，并且遵循eslint --fix
