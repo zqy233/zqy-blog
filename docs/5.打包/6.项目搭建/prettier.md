@@ -112,3 +112,12 @@ tabWidth tab缩进宽度
 vueIndentScriptAndStyle vue文件script和style内的首行是否缩进
 
 singleAttributePerLine 是否开启单属性换行
+
+## stylelint-prettier
+
+将prettier作为stylelint规则运行，并将差异报告为独立的stylelint问题
+
+```sh
+pnpm i -D stylelint stylelint-prettier prettier
+```
+
