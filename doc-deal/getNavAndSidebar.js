@@ -12,6 +12,7 @@ export function getSidebar(sidebar = {}) {
       fs.readdirSync(path.join(mdFilePath, dirName)).forEach((secondDirname, secondDirIndex) => {
         sidebar[`/${dirName}/`].push({
           text: secondDirname.replace(/\d*\./, ''),
+          collapsed: false,
           items: [],
         })
         // 第三级为左侧菜单栏列表
