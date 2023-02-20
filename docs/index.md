@@ -16,7 +16,7 @@ hero:
       link: https://github.com/zqy233/zqy-blog
 features:
   - title: 🦾 学就完了
-    details: vite,vue3,typescript,vite,rollup,webpack,electron ... 学不完了
+    details: vue3,typescript,vite,rollup,webpack,electron ... 学不完了
   - title: 📝 随手记录
     details: 可能存在错误，欢迎指正
   - title: 😍 vitepress真好用
