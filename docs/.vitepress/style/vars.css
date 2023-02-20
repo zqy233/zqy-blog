@@ -78,19 +78,19 @@ html {
   background-color: #CCCCCC;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   .VPNavBarMenu {
     display: none !important;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   .VPNavBarHamburger {
     display: flex !important;
   }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
   .VPNavScreen {
     display: block !important;
   }
