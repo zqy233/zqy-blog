@@ -19,3 +19,4 @@ pnpm i -D lint-staged
   },
 ```
 
+## 搭配git钩子库
