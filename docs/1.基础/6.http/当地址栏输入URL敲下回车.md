@@ -63,7 +63,7 @@
 - 绘制 render 树（ paint ），绘制页面像素信息
 - 浏览器会将各层的信息发送给 GPU，GPU 会将各层合成（ composite ），显示在屏幕上
 
-## [#](https://vue3js.cn/interview/http/after_url.html#参考文献)参考文献
+## 参考文献
 
 - https://github.com/febobo/web-interview/issues/141
 - https://zhuanlan.zhihu.com/p/80551769
