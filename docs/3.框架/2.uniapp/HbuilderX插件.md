@@ -62,6 +62,12 @@
 }
 ```
 
+## 插件运行
+
+ctrl+r快速运行插件，每次修改插件代码都要重新运行
+
+
+
 ## 插件主函数
 
 extension.js
@@ -123,6 +129,8 @@ console.log(lineInfo)
 
 ## 光标位置
 
+返回当前光标位置
+
 类型：number
 
 ```js
@@ -142,3 +150,23 @@ console.log(lineInfo)
 //    isLastLine:false
 // }
 ```
+
+## 获取项目管理器下所有的项目对象（不包含已关闭项目）
+
+```js
+var wsPromise = hx.workspace.getWorkspaceFolders();
+  wsPromise.then(function(wsFolders) {
+    console.log("项目管理器包含的项目：",wsFolders);
+});
+```
+
+## 获取文件所在项目信息
+
+```js
+const activeEditor = await hx.window.getActiveTextEditor()
+const wsPromise = hx.workspace.getWorkspaceFolder(activeEditor.document.fileName);
+wsPromise.then(function (wsFolder) {
+  console.log("文件所在项目：", wsFolder);
+});
+```
+

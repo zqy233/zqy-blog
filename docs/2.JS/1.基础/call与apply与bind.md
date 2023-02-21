@@ -1,3 +1,5 @@
+# call与apply与bind
+
 > `call`、`apply`、`bind`作用是改变函数执行时的上下文，简而言之就是改变函数运行时的`this`指向
 >
 > 那么什么情况下需要改变`this`的指向呢？下面举个例子
@@ -33,19 +35,50 @@ Function.apply(obj,args)方法能接收两个参数
 - obj 这个对象将代替Function类里this对象
 - args 这个是数组，它将作为参数传给Function（args-->arguments）
 
-```js
-      function Person(name, age) {
-        this.name = name
-        this.age = age
-      }
-      function Student(name, age, grade) {
-        console.log(this, arguments)
-        Person.apply(this, arguments)
-        this.grade = grade
-      }
-      const student = new Student("zhangsan", 21, "一年级")
-      console.log(student)
+### 示例-劫持另外一个对象的方法，继承另外一个对象的属性
 
+```js
+var person = {
+    fullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+}
+var person1 = {
+    firstName: "Bill",
+    lastName: "Gates",
+}
+person.fullName.apply(person1);  // "Bill Gates"
+```
+
+### 示例-带参数的 apply() 方法
+
+```js
+var person = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + "," + city + "," + country;
+  }
+}
+var person1 = {
+  firstName:"Bill",
+  lastName: "Gates"
+}
+person.fullName.apply(person1, ["Oslo", "Norway"]);
+```
+
+### 示例
+
+```js
+function Person(name, age) {
+  this.name = name
+  this.age = age
+}
+function Student(name, age, grade) {
+  console.log(this, arguments) // {} { [Iterator]  0: 'zhangsan', 1: 21, 2: '一年级' }
+  Person.apply(this, arguments)
+  this.grade = grade
+}
+const student = new Student("zhangsan", 21, "一年级")
+console.log(student) // { name: 'zhangsan', age: 21, grade: '一年级' }
 ```
 
 ## call

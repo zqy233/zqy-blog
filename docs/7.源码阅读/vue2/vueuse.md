@@ -21,8 +21,6 @@ Vue.use(Router);
 
 ## src/core/global-api/use
 
-
-
 ```js
 /* @flow */
 

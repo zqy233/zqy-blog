@@ -174,3 +174,71 @@ eslintrc.json
 > https://github.com/prettier/prettier-eslint
 
 使用prettier格式代码，并且遵循eslint --fix
+
+## api
+
+> https://prettier.io/docs/en/api.html
+
+以编程方式运行Pretier
+
+### `prettier.format(source, options)`
+
+format用于使用prettier格式化文本。`options.parser`必须根据您正在格式化的语言进行设置（请参阅可用解析器列表）。或者，可以为prettier指定`options.filepath`，以从文件扩展名推断解析器。可以提供其他选项来覆盖默认值。
+
+```js
+prettier.format("foo ( );", { semi: false, parser: "babel" });
+// -> "foo()"
+```
+
+### `prettier.check(source [, options])`
+
+检查文件是否已使用Pretier格式化，并返回布尔值。这类似于CLI中的--check或--list不同参数，对于在CI场景中运行Pretier非常有用。
+
+### `prettier.resolveConfig(filePath [, options])`
+
+resolveConfig可用于解析给定源文件的配置，将其路径作为第一个参数传递。配置搜索将从文件路径开始，并继续搜索目录（您可以使用process.cwd（）从当前目录开始搜索）。或者，如果不想搜索，可以直接将配置文件的路径作为options.config传递。将返回一个promise，该promise将解析为：
+找到提供配置文件的选项对象。
+如果找不到文件，则返回null。
+如果解析配置文件时出错，则承诺将被拒绝。
+
+如果options.useCache为false，则将绕过所有缓存。
+
+```js
+const text = fs.readFileSync(filePath, "utf8");
+prettier.resolveConfig(filePath).then((options) => {
+  const formatted = prettier.format(text, options);
+});
+```
+
+如果options.editorconfig为true，并且项目中有`.editorconfig`文件，Prettier将对其进行解析，并将其转换为相应的prettier配置。此配置将被.prettierrc等覆盖。目前，支持以下editorconfig属性：
+
+- `end_of_line`
+- `indent_style`
+- `indent_size`/`tab_width`
+- `max_line_length`
+
+如果要使用同步版本，请使用更漂亮的.resolveConfig.sync（filePath[，options]）。
+
+### `prettier.formatWithCursor(source [, options])`
+
+formatWithCursor既格式化代码，又将光标位置从未格式化代码转换为格式化代码。这对于编辑器集成非常有用，可以防止代码格式化时光标移动。
+应提供cursorOffset选项，以指定光标的位置。此选项不能与rangeStart和rangeEnd一起使用。
+
+```js
+prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
+// -> { formatted: '1;\n', cursorOffset: 1 }
+```
+
+### `prettier.resolveConfigFile([filePath])`
+
+resolveConfigFile可用于查找解析配置时（即调用resolveConfig时）将使用的Pretier配置文件的路径。返回promise，该promise将决定：
+配置文件的路径。
+如果找不到文件，则返回null。
+如果解析配置文件时出错，则promise将被拒绝。
+搜索从process.cwd（）或filePath（如果提供）开始。有关解决方案的详细信息，请参阅 [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) 
+
+### `prettier.getSupportInfo()`
+
+返回表示prettier支持的选项、解析器、语言和文件类型的对象
+
+<img src="../../imgs/image-20230221115940825.png" alt="image-20230221115940825" />

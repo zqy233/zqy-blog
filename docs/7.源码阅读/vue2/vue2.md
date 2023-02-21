@@ -5,6 +5,8 @@
 > vue2代码仓库 https://github.com/vuejs/vue
 >
 > vue2源码解析文章 https://ustbhuangyi.github.io/vue-analysis/v2/prepare/
+>
+> https://github.com/answershuto/learnVue
 
 ## src/core/instance/index.js
 
