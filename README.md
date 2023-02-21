@@ -15,6 +15,8 @@ pnpm watch
 
 基于 node 的 fs 模块动态获取所有 md 文件，生成导航和左侧菜单
 
-基于 nodemon 实现文件夹监听，新增修改删除 md 文件后重新启动 vitepress
+开发环境，基于 nodemon 实现文件夹监听，新增修改删除 md 文件后重新启动 vitepress
 
-最终实现只需关注 md 本身编写，无需修改 vitepress 配置
+生产环境，基于 github workflow 实现 git push 后自动打包发布
+
+最终实现无论是开发还是生产，都只需关注 md 本身编写
