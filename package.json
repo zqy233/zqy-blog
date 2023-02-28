@@ -11,10 +11,8 @@
     "del": "node ./doc-deal/delGitalk.js"
   },
   "dependencies": {
-    "flexsearch": "^0.7.31",
     "gitalk": "^1.8.0",
-    "md5": "^2.3.0",
-    "vitepress-plugin-search": "1.0.4-alpha.19"
+    "md5": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^18.14.0",

@@ -43,6 +43,11 @@ export default defineConfig({
         link: 'https://github.com/zqy233/zqy-blog',
       },
     ],
+    algolia: {
+      appId: 'LOTANXB4BM',
+      apiKey: '4a0f29536bc8bf2ddd3dfbcbfdb68581',
+      indexName: 'zqy',
+    },
     nav: getNav(),
     sidebar: getSidebar(),
   },

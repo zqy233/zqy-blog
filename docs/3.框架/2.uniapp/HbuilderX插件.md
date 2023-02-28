@@ -102,6 +102,14 @@ module.exports = {
 
 放在 HBuilderx 安装目录下的 plugins 中，卸载的话删除即可
 
+## 调用HBuilderx命令
+
+示例：调用保存操作
+
+```js
+hx.commands.executeCommand('workbench.action.files.save')
+```
+
 ## 获取当前编辑器
 
 ```js
@@ -109,6 +117,8 @@ let activeEditor = await hx.window.getActiveTextEditor()
 ```
 
 ## 当前编辑器的所有文本
+
+不传值默认获取所有文本，传值一个范围，获取该范围文本
 
 ```js
 const word = activeEditor.document.getText()
@@ -129,9 +139,7 @@ console.log(lineInfo)
 
 ## 光标位置
 
-返回当前光标位置
-
-类型：number
+返回当前光标位置，类型：number
 
 ```js
 console.log(activeEditor.selection.active)
@@ -149,6 +157,14 @@ console.log(lineInfo)
 //    text:"123",
 //    isLastLine:false
 // }
+```
+
+## 设置光标位置
+
+cursorOffset 类型：num
+
+```js
+activeEditor.setSelection(cursorOffset, cursorOffset);
 ```
 
 ## 获取项目管理器下所有的项目对象（不包含已关闭项目）
