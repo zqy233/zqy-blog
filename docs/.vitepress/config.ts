@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 import { getSidebar, getNav } from '../../doc-deal/getNavAndSidebar'
 
 export default defineConfig({
+  lang: 'zh-CN',
   base: '/zqy-blog/',
   title: 'zqy233的前端学习笔记',
   description: 'zqy233的前端学习笔记',
