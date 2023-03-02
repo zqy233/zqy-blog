@@ -29,7 +29,7 @@ export function getSidebar(sidebar = {}) {
 }
 
 export function getNav(nav = {}) {
-  // 第二级为顶部菜单栏标题
+  // 第一级为顶部菜单栏标题
   fs.readdirSync(mdFilePath).forEach(dirName => {
     if (!excludeFile.includes(dirName)) {
       const text = dirName.replace(/\d*\./, '')
