@@ -5,7 +5,7 @@
 - 使用vscode等代码编辑器的`prettier插件`：搭配快捷键如ctrl+s，保存时自动格式化，配置简单，使用方便，但是缺点是由于团队成员可能使用不同的编辑器，prettier版本、配置不同，从而格式化的风格迥异且难统一。所以这种使用方式个人使用没问题，团队推广不太适合
 - 下载`prettier`npm 包，在项目中配置好，统一格式化风格
 
-## npm包方式使用
+## cli方式使用
 
 下载
 
@@ -57,9 +57,9 @@ pnpm-lock.yaml
 cache
 ```
 
-## .prettierrc
+## prettier配置文件
 
-prettier的配置文件，例如vscode的prettier插件会优先使用配置文件，如果没有，再使用插件定义的配置
+prettier的配置文件支持很多种格式，vscode-prettier插件会优先使用配置文件，如果没有，再使用插件定义的默认配置
 
 新建一个`.prettierrc`的文件，格式为json，结构如下
 
@@ -237,8 +237,102 @@ resolveConfigFile可用于查找解析配置时（即调用resolveConfig时）�
 如果解析配置文件时出错，则promise将被拒绝。
 搜索从process.cwd（）或filePath（如果提供）开始。有关解决方案的详细信息，请参阅 [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) 
 
+### `prettier.getFileInfo`
+
+编辑器扩展可以使用getFileInfo来决定是否需要格式化特定文件。此方法返回一个promise，它解析为具有以下属性的对象：
+
+```js
+{
+  ignored: boolean,
+  inferredParser: string | null,
+}
+```
+
+
+
 ### `prettier.getSupportInfo()`
 
 返回表示prettier支持的选项、解析器、语言和文件类型的对象
 
 <img src="../../imgs/image-20230221115940825.png" alt="image-20230221115940825" />
+
+## 转换editorconfig
+
+.editorconfig配置
+
+```json
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 8
+max_line_length = 80
+```
+
+会被prettier转换成
+
+```js
+{ useTabs: false, tabWidth: 8, printWidth: 80, endOfLine: 'lf' }
+```
+
+options添加`editorconfig: true`选项
+
+```js
+const prettier = require("prettier");
+const path = require("path");
+
+prettier.resolveConfigFile(path.resolve(__dirname)).then((configFile) => {
+  prettier.resolveConfig(configFile, { editorconfig: true }).then(async (options) => {
+    console.log(options);
+  });
+});
+
+```
+
+## 使用插件支持其他语言
+
+安装java语言插件，设置.prettierrc.json
+
+```json
+{
+  "plugins": [
+    "prettier-plugin-java"
+  ]
+}
+```
+
+api方式使用prettier，可以正常格式化java
+
+```js
+const prettier = require("prettier");
+const fs = require("fs");
+const path = require("path");
+
+prettier.resolveConfigFile(path.resolve(__dirname)).then((configFile) => {
+  prettier.resolveConfig(configFile, { editorconfig: true }).then(async (options) => {
+    console.log(options);
+    fs.readFile("./test.java", "utf-8", async (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const text = prettier.format(data, {
+          filepath: "./test.java",
+          ...options
+        });
+      }
+    });
+  });
+});
+
+```
+
+## 判断文件是否被ignore
+
+指定ignorePath参数为.prettierignore文件路径
+
+```js
+prettier.getFileInfo(path.resolve(__dirname, "test.vue"), {
+  ignorePath: path.resolve(__dirname, ".prettierignore")
+}).then((info) => {
+  console.log(info);
+})
+```

@@ -24,3 +24,33 @@ trim_trailing_whitespace = true
 trim_trailing_whitespace = false
 ```
 
+## prettier转换.editorconfig
+
+> prettier-vscode插件设置`useEditorConfig`为true
+>
+> 或者调用prettier api`prettier.resolveConfig(configFile, { editorconfig: true })`情况下
+>
+> prettier会转换EditorConfig的一些配置属性为prettier相应的配置属性
+
+.editorconfig配置
+
+```json
+[*]
+end_of_line = lf
+indent_style = space
+indent_size = 8
+max_line_length = 80
+```
+
+会被prettier转换成
+
+```js
+{ useTabs: false, tabWidth: 8, printWidth: 80, endOfLine: 'lf' }
+```
+
+
+
+
+
+
+
