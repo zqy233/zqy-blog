@@ -1,0 +1,1 @@
+import{_ as s,c as n,o as a,a as l}from"./app.677aff18.js";const u=JSON.parse('{"title":"主题切换","description":"","frontmatter":{},"headers":[],"relativePath":"1.基础/2.css/6.主题切换.md","lastUpdated":1678452649000}'),p={name:"1.基础/2.css/6.主题切换.md"},o=l("",5),e=[o];function t(c,r,B,y,F,i){return a(),n("div",null,e)}const b=s(p,[["render",t]]);export{u as __pageData,b as default};
