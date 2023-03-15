@@ -1,1 +1,0 @@
-import{_ as e,c as o,o as t,a as c}from"./app.f46394b2.js";const u=JSON.parse('{"title":"Git 贡献提交规范","description":"","frontmatter":{},"headers":[],"relativePath":"1.基础/7.git/提交规范.md","lastUpdated":1678786782000}'),i={name:"1.基础/7.git/提交规范.md"},l=c("",2),a=[l];function r(d,n,_,s,h,g){return t(),o("div",null,a)}const f=e(i,[["render",r]]);export{u as __pageData,f as default};
