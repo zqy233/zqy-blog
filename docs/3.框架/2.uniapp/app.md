@@ -223,4 +223,17 @@ pages.json中加入如下配置：
     },
 ```
 
-## 
+## 息屏
+
+h5+ api监听息屏
+
+> https://blog.csdn.net/u012440207/article/details/121726009
+>
+> https://www.html5plus.org/doc/zh_cn/android.html#plus.android.importClass
+
+## 仅wifi网络-自动下载最新安装包
+
+监听网络状态
+
+> https://uniapp.dcloud.net.cn/api/system/network.html
+

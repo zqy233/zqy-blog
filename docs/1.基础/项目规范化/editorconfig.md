@@ -7,9 +7,9 @@
 > EditorConfig文件易于阅读，并且与版本控制系统配合良好
 >
 
-### 示例，出自vue3官方文档源码
+## .editorconfig配置示例
 
-.editorconfig配置
+出自vue3官方文档源码
 
 ```sh
 [*]
