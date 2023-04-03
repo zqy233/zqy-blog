@@ -126,3 +126,15 @@ macOS-latest或macOS-10.14
 ```yaml
 runs-on: ubuntu-18.04
 ```
+
+## 设置workflow权限
+
+### 组织
+
+允许组织仓库github workflow有读写权限，运行部署github pages需要这个权限
+
+![image-20230402115653179](../../imgs/image-20230402115653179.png)
+
+![image-20230402121140476](../../imgs/image-20230402121140476.png)
+
+![image-20230402121157809](../../imgs/image-20230402121157809.png)
