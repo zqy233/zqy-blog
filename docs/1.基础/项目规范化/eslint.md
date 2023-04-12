@@ -1,10 +1,29 @@
 # 	eslint
 
-## 参考文档
+> 官方文档 https://eslint.org/
 
-> https://juejin.cn/post/7177324554056892476#heading-7
+## eslint是什么
 
-## 初始化配置文件
+ESLint是一个可配置的JavaScript linter。它可以帮助您发现并修复JavaScript代码中的问题。问题可以是任何问题，从潜在的运行时错误，到不遵循最佳实践，再到样式问题
+
+## 配置文件
+
+### eslint.config.js
+
+ESLint配置文件名为eslint.config.js。它应该放在项目的根目录中，并导出一组配置对象。下面是一个例子：
+
+```js
+export default [
+    {
+        rules: {
+            semi: "error",
+            "prefer-const": "error"
+        }
+    }
+]
+```
+
+### 初始化配置文件
 
 ```sh
 npm init @eslint/config
@@ -12,7 +31,124 @@ npm init @eslint/config
 
 `npm init <initializer>` 通常被用于**创建一个新的或者已经存在的 npm 包**。 initializer 在这里是一个名为 `create-<initializer>` 的 npm 软件包，该软件包将由 npx 来安装，然后执行其 package.json 中 bin 属性对应的脚本，会创建或更新 package.json 并运行一些与初始化相关的操作
 
-实际上是调用了这个包[@eslint/create-config](https://www.npmjs.com/package/@eslint/create-config)
+所以实际上是调用了这个包[@eslint/create-config](https://www.npmjs.com/package/@eslint/create-config)
+
+## 什么是rules
+
+> https://eslint.org/docs/latest/rules
+
+```js
+{
+    "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"]
+    }
+}
+```
+
+名称“semi”和“quotes”是ESLint中规则的名称。第一个值是规则的错误级别，可以是以下值之一：
+
+- `"off"` 或则 `0` - 关闭规则
+- `"warn"` or `1` -  显示警告 (不会影响 exit code)
+- `"error"` or `2` - 显示错误 (exit code 会是 1)
+
+## 什么是env
+
+环境提供预定义的全局变量。可用的环境有：
+
+> https://eslint.org/docs/latest/use/configure/language-options#specifying-environments
+
+这些环境并不互斥，因此您可以一次定义多个环境。
+可以在文件内部、配置文件中或使用--env命令行标志指定环境
+
+### 在配置文件中使用
+
+要在配置文件中指定环境，请使用env键。通过将每个环境设置为true来指定要启用的环境。例如，以下内容将启用浏览器和Node.js环境：
+
+```js
+{
+    "env": {
+        "browser": true,
+        "node": true
+    }
+}
+```
+
+###  在`package.json` 文件中使用
+
+```js
+{
+    "name": "mypackage",
+    "version": "0.0.1",
+    "eslintConfig": {
+        "env": {
+            "browser": true,
+            "node": true
+        }
+    }
+}
+```
+
+## 编程方式使用eslint
+
+> https://eslint.org/docs/latest/integrate/nodejs-api
+
+### 解析配置文件
+
+```js
+const eslint = new ESLint();
+const config = await eslint.calculateConfigForFile(filePath);
+```
+
+这个方法计算给定文件的配置，对于调试目的非常有用
+
+它将extends和overrides设置解析和合并到顶层配置中。 它将解析器设置解析为绝对路径。 它将插件设置规范化为对齐的短名称（例如，eslint-plugin-foo → foo）。 如果匹配到一个旧文件扩展处理器，它会添加处理器设置。 它不会将env设置解释为全局和parserOptions设置，因此结果对象包含原始的env设置
+
+### eslint.calculateConfigForFile
+
+判断是否存在配置文件，存在则返回config信息
+
+```js
+const { ESLint } = require("eslint");
+const path = require("path");
+(async function main() {
+  const eslint = new ESLint();
+  eslint
+    .calculateConfigForFile(path.resolve("lib/index.js"))
+    .then((config) => {
+      console.log("存在 ESLint 配置文件", config);
+    })
+    .catch((err) => {
+      if (err.message.includes("No ESLint configuration found")) {
+        console.log("不存在 ESLint 配置文件");
+      }
+    });
+})().catch((error) => {
+  process.exitCode = 1;
+  console.error(error);
+});
+
+```
+
+### linter.verifyAndFix
+
+自动修复文本
+
+```js
+const Linter = require("eslint").Linter;
+const linter = new Linter();
+
+const messages = linter.verifyAndFix("var foo;", {
+  rules: {
+    semi: 2,
+    "no-unused-vars": 2,
+  },
+});
+
+console.log(messages);
+```
+
+
 
 ## eslint与prettier结合
 
@@ -76,14 +212,21 @@ module.exports = {
 npx eslint .
 ```
 
-## 最佳实践
+## vue最佳实践
 
-跟着vue官方走
+直接跟着vue官方走
 
 ### .eslintrc.cjs
 
 ```sh
-pnpm i -D eslint prettier eslint-plugin-vue @vue/eslint-config-prettier @vue/eslint-config-typescript @rushstack/eslint-patch  
+pnpm i -D eslint prettier @rushstack/eslint-patch 
+pnpm i -D eslint-plugin-vue  @vue/eslint-config-prettier @vue/eslint-config-typescript  
+```
+
+```json
+ "scripts": {
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+  },
 ```
 
 --ext 指定拓展名
@@ -91,12 +234,6 @@ pnpm i -D eslint prettier eslint-plugin-vue @vue/eslint-config-prettier @vue/esl
 --fix 自动修复
 
 --ignore-path 这个选项允许你指定一个文件作为 `.eslintignore`。默认情况下，ESLint 在当前工作目录下查找 `.eslintignore`。你可以通过提供另一个文件的路径改变这种行为。
-
-```json
- "scripts": {
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
-  },
-```
 
 ### vue3
 
@@ -195,60 +332,15 @@ module.exports = {
 
 ## 什么是@vue/eslint-config-prettier
 
- `@vue/cli` & `create-vue`使用的
+ `@vue/cli` & `create-vue`使用的eslint配置
 
 > https://www.npmjs.com/package/@vue/eslint-config-prettier
 
-## 编程方式使用eslint
 
-### 解析配置文件
 
-```js
-const eslint = new ESLint();
-const config = await eslint.calculateConfigForFile(filePath);
-```
 
-这个方法计算给定文件的配置，对于调试目的非常有用
 
-它将extends和overrides设置解析和合并到顶层配置中。 它将解析器设置解析为绝对路径。 它将插件设置规范化为对齐的短名称（例如，eslint-plugin-foo → foo）。 如果匹配到一个旧文件扩展处理器，它会添加处理器设置。 它不会将env设置解释为全局和parserOptions设置，因此结果对象包含原始的env设置。
 
-### 判断是否存在配置文件
 
-```js
-const { ESLint } = require("eslint");
-const path = require("path");
-(async function main() {
-  const eslint = new ESLint();
-  eslint
-    .calculateConfigForFile(path.resolve("lib/index.js"))
-    .then((config) => {
-      console.log("存在 ESLint 配置文件", config);
-    })
-    .catch((err) => {
-      if (err.message.includes("No ESLint configuration found")) {
-        console.log("不存在 ESLint 配置文件");
-      }
-    });
-})().catch((error) => {
-  process.exitCode = 1;
-  console.error(error);
-});
 
-```
-
-### 自动修复文本
-
-```js
-const Linter = require("eslint").Linter;
-const linter = new Linter();
-
-const messages = linter.verifyAndFix("var foo;", {
-  rules: {
-    semi: 2,
-    "no-unused-vars": 2,
-  },
-});
-
-console.log(messages);
-```
 
