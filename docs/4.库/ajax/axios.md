@@ -285,3 +285,36 @@ axios.interceptors.request.use(config =>{
 })
 ```
 
+## 失败后重新请求
+
+https://www.npmjs.com/package/axios-retry
+
+```js
+instance.interceptors.response.use(
+  res => {
+    loadingCount--;
+    if (loadingCount == 0) store.commit('loadStatus', false);
+    if (res.status == 200) return res;
+  },
+  err => {
+    loadingCount--;
+    if (loadingCount == 0) store.commit('loadStatus', false);
+    console.log('err', err);
+    // 错误代码为 ECONNABORTED，连接被中止的错误
+    // 如果错误消息中包含字符串 'timeout'，即超时错误
+    // 使用axios-retry插件后设置retry，会增加err.config._retry字段
+    if (
+      err.code === 'ECONNABORTED' &&
+      err.message.indexOf('timeout') !== -1 &&
+      !err.config._retry
+    ) {
+      console.log(Message);
+      return Message.error('请求数据失败，请稍后再试');
+    }
+    const { response } = err;
+    errorHandle(response.status, response.data);
+    return response;
+  },
+);
+```
+

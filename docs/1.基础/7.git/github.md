@@ -138,3 +138,33 @@ runs-on: ubuntu-18.04
 ![image-20230402121140476](../../imgs/image-20230402121140476.png)
 
 ![image-20230402121157809](../../imgs/image-20230402121157809.png)
+
+## github api调用
+
+### 第一步，获取授权code
+
+client_id是OAuthApp的id，scope控制授权，public_repo表示公共仓库的读写权力
+
+```js
+const githubLogin = () => {
+  location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=public_repo`;
+};
+```
+
+授权完会在跳回设置的页面
+
+### 创建问题
+
+请求头里需要添加token
+
+```js
+https://api.github.com/repos/zqy233/formatAndSave/issues
+```
+
+title参数即问题名称，必须传
+
+```js
+{
+  "title": "Found a bug"
+}
+```

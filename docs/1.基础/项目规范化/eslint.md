@@ -89,67 +89,6 @@ npm init @eslint/config
 }
 ```
 
-## 编程方式使用eslint
-
-> https://eslint.org/docs/latest/integrate/nodejs-api
-
-### 解析配置文件
-
-```js
-const eslint = new ESLint();
-const config = await eslint.calculateConfigForFile(filePath);
-```
-
-这个方法计算给定文件的配置，对于调试目的非常有用
-
-它将extends和overrides设置解析和合并到顶层配置中。 它将解析器设置解析为绝对路径。 它将插件设置规范化为对齐的短名称（例如，eslint-plugin-foo → foo）。 如果匹配到一个旧文件扩展处理器，它会添加处理器设置。 它不会将env设置解释为全局和parserOptions设置，因此结果对象包含原始的env设置
-
-### eslint.calculateConfigForFile
-
-判断是否存在配置文件，存在则返回config信息
-
-```js
-const { ESLint } = require("eslint");
-const path = require("path");
-(async function main() {
-  const eslint = new ESLint();
-  eslint
-    .calculateConfigForFile(path.resolve("lib/index.js"))
-    .then((config) => {
-      console.log("存在 ESLint 配置文件", config);
-    })
-    .catch((err) => {
-      if (err.message.includes("No ESLint configuration found")) {
-        console.log("不存在 ESLint 配置文件");
-      }
-    });
-})().catch((error) => {
-  process.exitCode = 1;
-  console.error(error);
-});
-
-```
-
-### linter.verifyAndFix
-
-自动修复文本
-
-```js
-const Linter = require("eslint").Linter;
-const linter = new Linter();
-
-const messages = linter.verifyAndFix("var foo;", {
-  rules: {
-    semi: 2,
-    "no-unused-vars": 2,
-  },
-});
-
-console.log(messages);
-```
-
-
-
 ## eslint与prettier结合
 
 ```sh
