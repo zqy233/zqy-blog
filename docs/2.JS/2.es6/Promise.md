@@ -219,9 +219,13 @@ Promise.all([p1, p2]).then(function (results) {
 });
 ```
 
-### 注意点
+### 假如promise.all中有五个异步函数 ，第二个错误了，第三个还会执行吗
+
+如果其中一个函数执行失败（即返回一个 rejected 状态的 Promise），那么整个 `Promise.all` 将会直接进入 rejected 状态并返回该失败的 Promise 对象，同时剩余的未完成的 Promise 都会被取消。因此，第三个异步函数不会执行
 
 Promise.all会在其中任何一个`reject`时立即结束，也就是一个请求失败了就不能进行其余正确的请求了
+
+### 请求失败不影响其他正确异步
 
 解决方案：map的每一项都是promise，catch方法返回值会被promise.reslove()包裹，这样传进promise.all的数据都是resolved状态的
 
@@ -362,3 +366,168 @@ console.log(3)
 
 new Promise的时候先执行executor函数，打印出 1、2，Promise在执行resolve时，触发微任务，还是继续往下执行同步任务， 执行p1.then时，存储起来两个函数（此时这两个函数还没有执行）,然后打印出3，此时同步任务执行完成，最后执行刚刚那个微任务，从而执行.then中成功的方法
 
+## promise与async/await
+
+在JavaScript中，Promise是一种用于处理异步操作的机制。它是一个表示操作的未来结果的对象，这个对象可能会被解决（resolved）或者被拒绝（rejected）。
+
+当我们创建一个Promise时，它会立即处于pending状态。我们可以通过调用Promise实例的resolve和reject方法，将其从pending状态转换为resolved或rejected状态。
+
+resolve方法会将Promise从pending状态转换为resolved状态，并将解决结果作为参数传递给then方法的回调函数。这表示异步操作已经成功完成并返回了一个值。
+
+例如，下面的代码创建了一个Promise，然后在1秒后使用resolve方法将其解决：
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Operation completed successfully!");
+  }, 1000);
+});
+
+myPromise.then((result) => {
+  console.log(result); // "Operation completed successfully!"
+});
+```
+
+reject方法会将Promise从pending状态转换为rejected状态，并将错误信息作为参数传递给catch方法的回调函数。这表示异步操作发生了错误并返回了一个错误对象。
+
+例如，下面的代码创建了一个Promise，然后立即使用reject方法将其拒绝：
+
+```js
+const myPromise = new Promise((resolve, reject) => {
+  reject(new Error("Operation failed!"));
+});
+
+myPromise.catch((error) => {
+  console.error(error); // Error: Operation failed!
+});
+```
+
+总之，Promise对象的resolve方法表示异步操作已成功完成并返回了一个值，而reject方法表示异步操作发生了错误并返回了一个错误对象。
+
+### 使用async/await
+
+需要使用try/catch接受异步操作生的错误和一个错误对象
+
+```js
+const myPromise = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Operation completed successfully!");
+      // reject("Operation completed err!");
+    }, 1000);
+  });
+};
+
+async function asyncFunction() {
+  try {
+    const res = await myPromise();
+    console.log(res); // Operation completed successfully!
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+asyncFunction();
+```
+
+```js
+const myPromise = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // resolve("Operation completed successfully!");
+      reject("Operation completed err!");
+    }, 1000);
+  });
+};
+
+async function asyncFunction() {
+  try {
+    const res = await myPromise();
+    console.log(res); 
+  } catch (err) {
+    console.log(err); // Operation completed successfully!
+  }
+}
+
+asyncFunction();
+```
+
+## async函数返回值
+
+`async` 函数的返回值是一个 Promise 对象。当函数内部有明确的 `return` 语句时，该返回值将成为 Promise 的 resolved 值；如果没有明确的 `return` 语句，该 Promise 的 resolved 值将会是 undefined。
+
+```js
+async function asyncFunction() {
+  console.log(await asyncFunction2()); // 1
+}
+
+async function asyncFunction2() {
+  return 1;
+}
+```
+
+```js
+async function asyncFunction() {
+  console.log(await asyncFunction2()); // unde
+}
+
+async function asyncFunction2() {
+}
+```
+
+### async函数中返回异步函数的值
+
+```js
+async function asyncFunction1() {
+  let a = 1;
+  setTimeout(() => {
+    a = 2;
+  }, 200);
+  return a;
+}
+```
+
+在这个例子中，虽然我们在 setTimeout 中将 a 的值更改为 20，但是由于 setTimeout 是一个异步函数，它会在 200 毫秒后才会被调用。在此之前，asyncFunction1 已经在 200 毫秒之内返回了一个 Promise，Promise 的值是 a 的初始值 1，而不是更改后的值 2。
+
+如果我们想要 asyncFunction1 的结果为更改后的值，可以将 setTimeout 包装成一个 Promise 并在其中返回一个新的值，然后在 asyncFunction1 中使用 await 等待 Promise 的完成，例如：
+
+```js
+async function asyncFunction1() {
+  let a = 1;
+  await new Promise(resolve => setTimeout(() => {
+    a = 2;
+    resolve();
+  }, 200));
+  return a;
+}
+```
+
+## 为什么resolve后面的代码还会执行
+
+```js
+async function asyncFunction1() {
+  let a = 1;
+  await new Promise((resolve)=>{
+    setTimeout(() => {
+      resolve()
+      a = 100; 
+      console.log(a); // 100
+    }, 200);
+  })
+  return a;
+}
+async function asyncFunction2() {
+  const res = await asyncFunction1();
+  console.log(res); // 100
+}
+
+asyncFunction2()
+```
+
+而Promise实例本身是同步执行的，会直接返回一个pending状态的Promise对象。之后，异步操作会被推到宏任务队列中等待执行。
+
+这是因为在 `asyncFunction1()` 中，`setTimeout()` 是一个异步操作，它会在200ms后才会执行其中的回调函数。当 `await` 等待 `Promise` 对象被 `resolve` 时，事件循环将暂停执行 `asyncFunction1()` 直到 `Promise` 对象的状态变为 `resolved`。在这个过程中，`setTimeout()` 中的回调函数并没有执行，`await` 关键字暂停了 `asyncFunction1()` 的执行直到 `Promise` 对象被解决。
+
+当 `Promise` 对象被 `resolve` 后，它的状态变为 `resolved`，然后事件循环将开始执行下一个任务，即 `setTimeout()` 中的回调函数。在回调函数中，`a` 的值被更改为 `100`，并且打印出了这个值。
+
+最后，`Promise` 对象在 `asyncFunction1()` 中被解决，并将 `a` 的值作为 `Promise` 对象的值返回。
