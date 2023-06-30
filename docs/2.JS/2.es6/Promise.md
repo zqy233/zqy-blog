@@ -524,7 +524,7 @@ async function asyncFunction2() {
 asyncFunction2()
 ```
 
-而Promise实例本身是同步执行的，会直接返回一个pending状态的Promise对象。之后，异步操作会被推到宏任务队列中等待执行。
+Promise实例本身是同步执行的，会直接返回一个pending状态的Promise对象。之后，异步操作会被推到宏任务队列中等待执行。
 
 这是因为在 `asyncFunction1()` 中，`setTimeout()` 是一个异步操作，它会在200ms后才会执行其中的回调函数。当 `await` 等待 `Promise` 对象被 `resolve` 时，事件循环将暂停执行 `asyncFunction1()` 直到 `Promise` 对象的状态变为 `resolved`。在这个过程中，`setTimeout()` 中的回调函数并没有执行，`await` 关键字暂停了 `asyncFunction1()` 的执行直到 `Promise` 对象被解决。
 
