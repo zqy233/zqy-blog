@@ -71,9 +71,50 @@ window.showErrorMessage("error!")
 
 `vscode.workspace.getConfiguration().get`和`vscode.workspace.getConfiguration().update`方法可以获取和设置配置项
 
+## Range
 
+一个range（范围）表示两个position（位置）的有序对。 并且范围开始位置一定大于等于结束位置
 
+范围对象是不可变的。 使用 with、intersection 或 union 方法从现有范围派生新范围
 
+### with(start?: Position, end?: Position): Range
 
+该函数接受两个可选参数：start 和 end。它基于当前范围（Range）派生一个新的范围。
 
+start 参数表示新范围的起始位置，end 参数表示新范围的结束位置。如果不提供这两个参数，将使用当前范围的起始位置和结束位置作为默认值。
 
+返回的是一个由当前范围派生而来的新范围。如果提供的 start 和 end 与当前范围的起始位置和结束位置相同，那么将返回当前范围本身。
+
+换句话说，这个函数的作用是根据给定的起始位置和结束位置，从当前范围中派生出一个新的范围。如果没有提供不同的起始位置和结束位置，将返回当前范围本身。
+
+### intersection(range: Range): Range
+
+该函数接受一个参数 range，该参数表示一个范围（Range）。它将当前范围与给定范围进行比较，如果两个范围有重叠部分，返回的范围将具有较大的起始位置和较小的结束位置。如果没有重叠部分，则返回 undefined。
+
+换句话说，这个函数的目的是找出两个范围的交集，并返回交集所表示的新范围，或者当两个范围没有交集时返回 undefined。
+
+### union(other: Range): Range
+
+该函数接受一个参数 other，表示另一个范围（Range）。它计算当前范围与给定范围的并集，并返回一个新的范围。
+
+返回的范围将具有较小的起始位置和较大的结束位置，它包含了当前范围和给定范围的所有位置。
+
+换句话说，这个函数的目的是找出两个范围的并集，并返回并集所表示的新范围。新范围的起始位置将是两个范围起始位置中较小的那个，结束位置将是两个范围结束位置中较大的那个。
+
+## Position（位置 ）
+
+表示行和字符的位置，例如光标的位置。 位置对象是不可变的。 使用with 或translate 方法从现有位置导出新位置。
+
+### Constructors
+
+new Position(line: number, character: number): Position
+
+#### Properties
+
+character: number
+
+从零开始的字符值
+
+line: number
+
+从零开始的行值
