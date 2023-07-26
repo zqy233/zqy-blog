@@ -71,7 +71,7 @@ window.showErrorMessage("error!")
 
 `vscode.workspace.getConfiguration().get`和`vscode.workspace.getConfiguration().update`方法可以获取和设置配置项
 
-## Range
+## Range/范围
 
 一个range（范围）表示两个position（位置）的有序对。 并且范围开始位置一定大于等于结束位置
 
@@ -101,13 +101,17 @@ start 参数表示新范围的起始位置，end 参数表示新范围的结束�
 
 换句话说，这个函数的目的是找出两个范围的并集，并返回并集所表示的新范围。新范围的起始位置将是两个范围起始位置中较小的那个，结束位置将是两个范围结束位置中较大的那个。
 
-## Position（位置 ）
+## [Position/位置](https://code.visualstudio.com/api/references/vscode-api#Position)
 
 表示行和字符的位置，例如光标的位置。 位置对象是不可变的。 使用with 或translate 方法从现有位置导出新位置。
 
 ### Constructors
 
+```ts
 new Position(line: number, character: number): Position
+```
+
+根据行号和字符，创建一个Position位置对象
 
 #### Properties
 
@@ -118,3 +122,27 @@ character: number
 line: number
 
 从零开始的行值
+
+## [Selection/光标](https://code.visualstudio.com/api/references/vscode-api#Selection)
+
+表示编辑器中的文本选择
+
+如果是自左向右选择，光标在最右边，选择范围就是选择开始位置到光标位置，光标位置在选择开始位置之后
+
+如果是自右向左选择，光标在最左边，选择范围就是光标位置到选择开始位置，光标位置在选择开始位置之前
+
+### Constructors/构造函数
+
+```ts
+new Selection(anchor: Position, active: Position): Selection
+```
+
+### Properties/属性
+
+active: Position
+
+光标位置。 该位置可能在选择开始位置之前或之后
+
+anchor: Position
+
+选择开始位置。 该位置可能在光标位置之前或之后
