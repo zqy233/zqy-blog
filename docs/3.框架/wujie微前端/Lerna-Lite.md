@@ -176,12 +176,10 @@ Finally install the commands that are of interest to you (`publish`, `version`, 
 $ npm i @lerna-lite/publish -D
 ```
 
-
-
 ## Installation 安装
 
 > Lerna-Lite is entirely modular, as opposed to Lerna, and installing the CLI locally or globally will only provide you the `init` command. Please make sure to install other commands that you are interested in (see table below).
-> Lerna-Lite 是完全模块化的，而不是 Lerna，在本地或全局安装 CLI 只会为您提供 `init` 命令。请确保安装您感兴趣的其他命令（见下表）。
+> Lerna-Lite 是完全模块化的，与Lerna相反，在本地或全局安装 CLI 只会为您提供 `init` 命令。请确保安装您感兴趣的其他命令（见下表）。
 
 If you are new to Lerna-Lite, you could also run the [lerna init](https://github.com/lerna-lite/lerna-lite/tree/main/packages/init#readme) command which will create the `lerna.json` for you with a minimal setup. If you are using a different client other than npm, then make sure to update the `npmClient` property in `lerna.json` (for example: `"npmClient": "yarn"` or `"pnpm"`).
 如果您不熟悉 Lerna-Lite，您还可以运行 lerna init 命令，该命令将以最少的设置为您创建。 `lerna.json` 如果使用 npm 以外的其他客户端，请确保更新 中的 `npmClient` `lerna.json` 属性（例如： `"npmClient": "yarn"` 或 `"pnpm"` ）。
@@ -205,8 +203,6 @@ You can add the `$schema` property into your `lerna.json` to take advantage of L
   "$schema": "https://raw.githubusercontent.com/lerna-lite/lerna-lite/main/packages/cli/schemas/lerna-schema.json",
 }
 ```
-
-
 
 ### Separate / Optional Installs 单独/可选安装
 
