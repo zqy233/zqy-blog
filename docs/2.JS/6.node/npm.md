@@ -131,7 +131,7 @@ npm version patch
 
 ```sh
 # 测试包可以随意下架，如果你的包有使用者后不能这样干
-npm unpublish -f
+npm unpublish -f packageName
 ```
 
 ## 本地调试组件库

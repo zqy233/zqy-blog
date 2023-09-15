@@ -1,3 +1,11 @@
+## WebGL是什么意思
+
+WebGL的全称是Web Graphics Library，它是一种用于在网页浏览器中渲染交互式3D图形的技术。它基于OpenGL（一种广泛用于计算机图形学的编程接口）并通过JavaScript API提供了在网页上创建和展示复杂的3D图形的能力。
+
+WebGL使开发者能够使用JavaScript编写代码，直接在网页中呈现高性能的3D图形，无需使用插件或其他外部软件。它允许开发者利用计算机的图形硬件来执行复杂的图形计算，从而实现各种视觉效果和交互体验，比如3D模型渲染、游戏开发、数据可视化等。
+
+WebGL技术的实现依赖于浏览器的支持，目前大多数主流浏览器（如Chrome、Firefox、Safari等）都已经支持了WebGL。开发者可以使用WebGL创建各种令人印象深刻的网页图形，但由于其复杂性，它通常需要一定程度的图形编程和数学知识。
+
 ## [透视相机(`PerspectiveCamera`)](https://threejs.org/docs/#api/zh/cameras/PerspectiveCamera)
 
 > 参考资料：
