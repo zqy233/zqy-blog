@@ -1,5 +1,7 @@
 # husky
 
+使现代原生 Git 钩子更简单
+
 ## husky/ lint-staged/prettier（代码自动格式化）
 
 ### 安装
