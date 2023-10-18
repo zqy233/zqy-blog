@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./app.5f5833df.js";const h=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"4.库/threejs/使用three.js文件.md","lastUpdated":1697615444000}'),s={name:"4.库/threejs/使用three.js文件.md"};function a(o,_,c,n,p,d){return r(),t("div")}const m=e(s,[["render",a]]);export{h as __pageData,m as default};
