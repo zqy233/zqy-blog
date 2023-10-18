@@ -1,12 +1,24 @@
 # OrbitControls.js
 
-> 知识来自: http://www.yanhuangxueyuan.com/doc/Three.js/OrbitControls.html
+> 文档: 
+>
+> http://www.yanhuangxueyuan.com/doc/Three.js/OrbitControls.html
+>
+> https://discoverthreejs.com/zh/book/first-steps/camera-controls/
 
 ## 什么是OrbitControls.js
 
-通过Three.js的相机控件OrbitControls.js可以对Threejs的三维场景进行缩放、平移、旋转操作，本质上改变的并不是场景，而是相机的参数，通过前面的学习应该知道，相机的位置角度不同，同一个场景的渲染效果是不一样，比如一个相机绕着一个场景旋转，就像场景旋转一样。
+OrbitControls.js是Three.js的相机控制插件。它允许您使用触摸、鼠标或键盘来环绕、平移和缩放相机。
 
-如果你想深入了解相机控制器OrbitControls的每一个功能，OrbitControls是如何对Three.js正投影相机和透视投影相机对象进行封装的，可以阅读Three.js`\examples\js\controls`目录下的`OrbitControls.js`文件。
+通过这些控件，我们可以从各个角度查看场景，放大以检查微小细节，或缩小以鸟瞰概览。轨道控制允许我们以三种方式控制相机：
+
+1. **使用鼠标左键或单指轻扫，围绕固定点旋转。**
+2. **使用鼠标右键、箭头键或两指滑动来平移相机。**
+3. **使用滚轮或捏合手势缩放相机。**
+
+对Threejs的三维场景进行缩放、平移、旋转操作，本质上改变的并不是场景，而是相机的参数，相机的位置角度不同，同一个场景的渲染效果是不一样，比如一个相机绕着一个场景旋转，就像场景旋转一样。
+
+如果你想深入了解相机控制器OrbitControls的每一个功能，OrbitControls是如何对Three.js正投影相机和透视投影相机对象进行封装的，可以阅读在three.js仓库中的 ***examples/jsm/controls/*** 文件夹中的名为 ***[OrbitControls.js](https://github.com/mrdoob/three.js/blob/master/examples/jsm/controls/OrbitControls.js)*** 的文件。
 
 调用OrbitControls的时候需要引入OrbitControls.js文件。
 
@@ -85,6 +97,12 @@ var controls = new THREE.OrbitControls(camera);
 ## OrbitControls的变化事件`change`
 
 对于一个静态的场景，可能不需要一直周期性调用渲染函数渲染场景，而是鼠标旋转缩放场景的时候才重新渲染，就可以通过相机空间OrbitControls的变化事件`change`监听触发函数调用渲染函数render。
+
+每当用户与你的场景交互时，控件都会将相机移动到一个新的位置，当这种情况发生时你必须绘制一个新的帧，否则你将无法看到相机已移动。如果您使用的是动画循环，那不是问题。但是，如果我们是按需渲染，我们将不得不想出其他办法来解决这个问题。
+
+幸运的是，`OrbitControls`提供了一种在相机移动时生成新帧的简单方法。控件有一个自定义事件`change`，我们可以使用 [`addEventListener`](https://discoverthreejs.com/zh/book/appendix/dom-api-reference/#listening-for-events)来监听。每当用户交互导致控件移动相机时，都会触发此事件。
+
+要使用按需渲染，您必须在此事件触发时渲染一帧：
 
 ```js
 // 渲染函数
