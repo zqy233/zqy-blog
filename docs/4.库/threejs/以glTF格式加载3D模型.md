@@ -84,7 +84,7 @@ _ `__proto__`是每个JavaScript对象都有的标准属性，你可以忽略它
 
 通常，您只需要**`.animations`**、**`.cameras`**和**`.scene`**（而不是`.scenes`！），您可以放心地忽略其他所有内容。
 
-## 第一个个人摸索的html
+## 第一个使用3d模型的html
 
 ```html
 <!DOCTYPE html>
