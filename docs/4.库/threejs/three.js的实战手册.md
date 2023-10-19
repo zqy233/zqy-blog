@@ -52,11 +52,339 @@ three.js是世界上最流行的用于在Web上显示3D内容的JavaScript框架
 </html>
 ```
 
+这里我们引入的cdn是es6模块，而非commonjs模块
+
+### 这是因为浏览器不直接支持 CommonJS 
+
+浏览器不直接支持 CommonJS 的原因主要是因为 CommonJS 是一种模块化规范，最初是为服务器端 JavaScript 开发而设计的，例如 Node.js。它使用 `require` 和 `module.exports` 来导入和导出模块，这种同步的模块加载方式在服务器端运行时通常是可行的，但在浏览器中不太适用。以下是一些原因：
+
+1. **同步加载：** CommonJS 模块通常是同步加载的，这意味着当一个模块需要导入另一个模块时，它会阻塞浏览器的执行，从而导致性能问题。浏览器更倾向于异步加载模块，以提高页面加载速度和响应性。
+2. **文件系统依赖：** CommonJS 模块系统的设计假定存在文件系统，这对服务器端开发来说很有用，但在浏览器中并不总是适用。浏览器不提供访问文件系统的功能，因此 CommonJS 的文件加载机制需要进行适应。
+3. **缺乏模块版本管理：** CommonJS 模块没有内置的版本管理，这意味着无法轻松地管理模块的不同版本，这在浏览器环境中是一个重要问题。
+
+为了解决这些问题，浏览器引入了 ECMAScript 模块（ESM）标准，也被称为 ES6 模块，它是 JavaScript 的官方模块系统。ESM 支持异步加载、无需文件系统依赖，以及版本管理，因此更适合浏览器环境。
+
+虽然浏览器现在更多地支持 ESM，但 CommonJS 仍然在服务器端 JavaScript 开发中广泛使用，而且通过工具和转换器（如Webpack、Browserify）也可以在浏览器中使用 CommonJS 模块。但对于新的浏览器端开发项目，使用原生的 ES6 模块是更好的选择。
+
 ## Three.js 应用的结构
 
-在我们构建一个 three.js 应用程序之前，我们需要创建一个网页。我们在简介中简要讨论了我们将如何做到这一点（ [Ch 0.5](https://discoverthreejs.com/zh/book/introduction/get-threejs/)和 [Ch 0.6](https://discoverthreejs.com/zh/book/introduction/threejs-with-frameworks/)），但现在让我们更深入地了解一下。正如我们在上一章中提到的，我们的目标是尽可能创建最基本、最简单、最平淡无奇的网页，而无需对使用 three.js 的真实 Web 应用程序的外观做出任何假设。通过这样做，我们确保我们编写的代码可以适应任何地方，而无需太多努力。
+在我们构建一个 three.js 应用程序之前，我们需要创建一个网页。
 
-我们将只用两个文件创建这个基本网页：***index.html\**\*和\**\*styles/main.css\***。就是这样。现在按下按钮打开编辑器并查看这两个文件。
+我们的目标是尽可能创建最基本、最简单、最平淡无奇的网页，而无需对使用 three.js 的真实 Web 应用程序的外观做出任何假设。通过这样做，我们确保我们编写的代码可以适应任何地方，而无需太多努力。
+
+我们将只用两个文件创建这个基本网页：index.html和styles/main.css。
+
+## index.html
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Discoverthreejs.com - The Structure of a three.js App</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+
+  <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon">
+
+  <link href="./styles/main.css" rel="stylesheet" type="text/css">
+
+  <script type="module" src="./src/main.js"></script>
+</head>
+
+<body>
+  <h1>Discoverthreejs.com - Nothing to see here yet :)</h1>
+
+  <div id="scene-container">
+    <!-- Our <canvas> will be inserted here -->
+  </div>
+</body>
+
+</html>
+```
+
+## styles/main.css
+
+在 ***index.html*** 的`<head>`部分中，其中一个`<link>`元素引用了 ***styles/main.css*** 文件：
+
+```html
+<link href="./styles/main.css" rel="stylesheet" type="text/css">
+```
+
+其中包含一些用于控制页面外观的简单样式：
+
+```css
+body {
+  /* remove margins and scroll bars */
+  margin: 0;
+  overflow: hidden;
+
+  /* style text */
+  text-align: center;
+  font-size: 12px;
+  font-family: Sans-Serif;
+
+  /* color text */
+  color: #444;
+}
+
+h1 {
+  /* position the heading */
+  position: absolute;
+  width: 100%;
+
+  /* make sure that the heading is drawn on top */
+  z-index: 1;
+}
+
+#scene-container {
+  /* tell our scene container to take up the full page */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  /*
+    Set the container's background color to the same as the scene's
+    background to prevent flashing on load
+  */
+  background-color: skyblue;
+}
+```
+
+稍后我们将仔细查看样式`#scene-container`，而该文件的其余部分将在 [附录](https://discoverthreejs.com/zh/book/appendix/html-and-css-reference/#main-css) 中更详细地解释。
+
+## src/main.js: JavaScript 入口点
+
+回到 ***index.html***，样式`<link>`的正下方是一个`<script>`标签引用了`src/main.js`文件：
+
+```html
+<script type="module" src="./src/main.js"></script>
+```
+
+目前是空的：
+
+```js
+// just waiting for your beautiful creations!
+```
+
+***main.js*** 是我们的 JavaScript 应用程序的入口点，我们将在下一章中填充它。该`type="module"`属性告诉浏览器我们正在编写 JavaScript 模块。
+
+`module`属性还有另一个优点：浏览器将自动 *推迟* 运行此文件，直到 HTML 被解析。这将防止由于在浏览器读取之前尝试访问 HTML 元素而导致的错误（浏览器从上到下读取 HTML）。
+
+## 向页面添加 three.js 场景
+
+下一个在 ***index.html*** 中的关注点是场景 scene 容器元素：
+
+```html
+<body>
+  <h1>Discoverthreejs.com - Nothing to see here yet :)</h1>
+
+  <div id="scene-container">
+    <!-- Our <canvas> will be inserted here -->
+  </div>
+</body>
+```
+
+所有 three.js 场景都在一个 [`canvas`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 元素内呈现。一旦我们设置了我们的应用程序，three.js 将为我们创建一个画布，然后我们将它插入到场景 scene 容器中：
+
+```html
+<div id="scene-container">
+  <canvas></canvas>
+</div>
+```
+
+然后，我们可以通过设置场景容器元素的样式来控制场景的位置和大小。如果你把注意力转回***main.css***，你会看到我们已经为这个元素创建了一些样式。通过设置位置、宽度和高度，我们告诉浏览器这个元素应该占据整个 window 窗口：
+
+```css
+#scene-container {
+  /* tell our scene container to take up the full page */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  /*
+    Set the container's background color to the same as the scene's
+    background to prevent flashing on load
+  */
+  background-color: skyblue;
+}
+```
+
+最后，我们将背景颜色设置为天蓝色，因为这是我们将为大部分的 three.js 场景提供的背景颜色。我们的场景需要几毫秒才能准备好，而浏览器会解析 JavaScript、加载 3D 模型并构建场景，而所有这些场景容器上的内容都是可见的。通过使容器与场景颜色相同，我们确保过渡尽可能平滑。
+
+## vendor/ 文件夹
+
+***vendor/*** 文件夹是我们放置 *其他人* 编写的 JavaScript 文件的地方。对于本书中的大多数示例，这意味着来自 three.js 库的文件，从 [three.js GitHub 仓库](https://discoverthreejs.com/zh/book/introduction/github-repo/)下载。在本书中，我们将只使用库中的三个文件：
+
+- ***vendor/three/build/three.module.js***: 主 three.js 文件.
+- ***vendor/three/examples/jsm/controls/OrbitControls.js***: 我们将介绍的相机控制插件。
+- ***vendor/three/examples/jsm/loaders/GLTFLoader.js***: 我们将介绍的 3D 模型加载器。
+
+***vendor/three*** 文件夹反映了 GitHub 仓库的结构，但为了清楚起见，我们将仅包含每章所需的文件。我们将使用 CDN 的方式导入这些文件到 ***main.js*** 中：
+
+```js
+import { Camera, Group, Scene } from "https://cdn.skypack.dev/three@0.132.2";
+
+import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js?module";
+import { GLTFLoader } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/GLTFLoader.js?module";
+```
+
+## ***assets*** 文件夹
+
+最后是 ***assets/*** 文件夹。**我们的应用程序中使用的任何非 HTML、CSS 或 JavaScript 的东西都在这里**：纹理、3D 模型、字体、声音等等。
+
+有了这些，是时候开始做真正的工作了！在下一章中，我们将创建我们的第一个简单的 three.js 应用程序。   
+
+## 第一个 three.js 场景：你好，立方体！
+
+在本章中，我们将创建 three.js 的 Hello World 应用程序：一个简单的白色立方体。由于我们已经建立了一个简单的网页，如上一章所述，我们需要做的就是在 ***src/main.js*** 中编写几行 JavaScript 代码，我们的应用程序就会运行起来。我们将在此过程中介绍相当多的理论，但实际代码很短。下面是该文件在本章结束时的样子。不算导入语句和注释，总共有不到二十行代码。这就是创建一个简单的“你好，立方体！”的 three.js 应用程序所需要的全部内容。
+
+```js
+import {
+  BoxBufferGeometry,
+  Color,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from 'three';
+
+// Get a reference to the container element that will hold our scene
+const container = document.querySelector('#scene-container');
+
+// create a Scene
+const scene = new Scene();
+
+// Set the background color
+scene.background = new Color('skyblue');
+
+// Create a camera
+const fov = 35; // AKA Field of View
+const aspect = container.clientWidth / container.clientHeight;
+const near = 0.1; // the near clipping plane
+const far = 100; // the far clipping plane
+
+const camera = new PerspectiveCamera(fov, aspect, near, far);
+
+// every object is initially created at ( 0, 0, 0 )
+// move the camera back so we can view the scene
+camera.position.set(0, 0, 10);
+
+// create a geometry
+const geometry = new BoxBufferGeometry(2, 2, 2);
+
+// create a default (white) Basic material
+const material = new MeshBasicMaterial();
+
+// create a Mesh containing the geometry and material
+const cube = new Mesh(geometry, material);
+
+// add the mesh to the scene
+scene.add(cube);
+
+// create the renderer
+const renderer = new WebGLRenderer();
+
+// next, set the renderer to the same size as our container element
+renderer.setSize(container.clientWidth, container.clientHeight);
+
+// finally, set the pixel ratio so that our scene will look good on HiDPI displays
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// add the automatically created <canvas> element to the page
+container.append(renderer.domElement);
+
+// render, or 'create a still image', of the scene
+renderer.render(scene, camera);
+```
+
+在开始编写代码之前，让我们先看看构成每个 three.js 应用程序的基本组件。首先是场景、相机和渲染器，它们构成了应用程序的基本脚手架。接下来是 HTML `<canvas>`元素，我们可以在其中看到结果。最后但并非最不重要的一点是，有一个可见的对象，例如网格。除了画布 canvas（特定于浏览器）之外，在任何 3D 图形系统中都可以找到与这些组件中的每一个等效的组件，从而使您在这些页面中获得的知识具有高度可转移性。
+
+## 场景：小宇宙
+
+**场景是我们能看到的一切的载体**。您可以将其视为所有 3D 对象都存在于其中的“小宇宙”。我们用来创建场景的 three.js 类简称为 [`Scene`](https://threejs.org/docs/#api/en/scenes/Scene). 其构造函数不带参数。
+
+```js
+import { Scene } from 'three';
+const scene = new Scene();
+```
+
+场景`scene`定义了一个名为**World Space（世界空间）**的坐标系，它是我们在 three.js 中处理可见对象时的主要参考框架。世界空间是一个 [3D 笛卡尔坐标系](https://mathinsight.org/cartesian_coordinates)。
+
+场景的中心是点(0,0,0)，也称为坐标系的**原点**。每当我们创建一个新对象并将其添加到我们的场景中时，它将被放置在原点，并且每当我们移动它时，我们说的都是在这个坐标系中移动它。
+
+当我们将对象添加到场景中时，它们会被放入 [**场景图中**](http://what-when-how.com/advanced-methods-in-computer-graphics/scene-graphs-advanced-methods-in-computer-graphics-part-1/)，这是一个树形结构，场景位于顶部。
+
+## 相机：指向小宇宙的望远镜
+
+场景的小宇宙是指纯数学的领域。要查看场景，我们需要打开一个进入这个领域的窗口，并将其转换为对我们人眼感觉合理的东西，这就是相机的用武之地。
+
+有几种方法可以将场景图形转换为人类视觉友好的格式，使用称为**投影**的技术。对我们来说，最重要的投影类型是**透视投影**，它旨在匹配我们的眼睛看待世界的方式。
+
+要使用透视投影查看场景，我们使用 [`PerspectiveCamera`](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera)。 这种类型的相机是现实世界中相机的 3D 等效物，并使用许多相同的概念和术语，例如视野和纵横比。与场景`Scene`不同的是，`PerspectiveCamera`构造函数有几个参数。
+
+```js
+import { PerspectiveCamera } from 'three';
+
+const fov = 35; // AKA Field of View
+const aspect = container.clientWidth / container.clientHeight;
+const near = 0.1; // the near clipping plane
+const far = 100; // the far clipping plane
+
+const camera = new PerspectiveCamera(fov, aspect, near, far);
+```
+
+另一种重要的投影类型是**正交投影**，我们可以使用 [`OrthographicCamera`](https://threejs.org/docs/#api/en/cameras/OrthographicCamera)。 如果您曾经研究过工程图或蓝图，您可能会熟悉这种类型的投影，它对于创建 2D 场景或覆盖 3D 场景的用户界面很有用。在本书中，我们将使用 HTML 来创建用户界面，并使用 three.js 来创建 3D 场景，所以我们将在大部分情况下坚持使用`PerspectiveCamera`。
+
+## 渲染器：具有非凡才能和速度的艺术家
+
+如果场景是一个小宇宙，而相机是一个指向那个宇宙的望远镜，那么渲染器就是一个艺术家，他通过望远镜观察并将他们看到的东西 *非常快* 的绘制到一个`<canvas>`中去。 我们把这个过程叫做**渲染**，得到的图片就是一个渲染效果图。在本书中，我们将专门使用 [`WebGLRenderer`](https://threejs.org/docs/#api/en/renderers/WebGLRenderer) —— 它使用 [**WebGL2**](https://en.wikipedia.org/wiki/WebGL)来渲染我们的场景 （如果可用），如果不可用则回退到**WebGL V1**。渲染器的构造函数确实接受了几个参数，但是，如果我们不显示传入这些参数，它将使用默认值，目前这对于我们来说没问题。
+
+```js
+import { WebGLRenderer } from 'three';
+const renderer = new WebGLRenderer();
+```
+
+**场景、相机和渲染器一起为我们提供了 three.js 应用程序的基本脚手架**。但是，*一个都看不到*。在本章中，我们将介绍一种称为**网格**的可见对象。
+
+## 我们的第一个可见对象：网格 Mesh
+
+**[网格](https://threejs.org/docs/#api/en/objects/Mesh)是 3D 计算机图形学中最常见的可见对象**，用于显示各种 3D 对象——猫、狗、人类、树木、建筑物、花卉和山脉都可以使用网格来表示。还有其他种类的可见对象，例如线条、形状、精灵和粒子等，我们将在后面的部分中看到所有这些，但在这些介绍性章节中我们将坚持使用网格。
+
+```js
+import { Mesh } from 'three';
+const mesh = new Mesh(geometry, material);
+```
+
+如您所见，`Mesh`构造函数有两个参数：**几何**和**材质**。在创建网格之前，我们需要创建这两个。
+
+## 几何体
+
+**几何体定义了网格的形状**。我们将使用一种称为 [`BufferGeometry`](https://threejs.org/docs/#api/en/core/BufferGeometry)的几何体。在这里，我们需要一个盒子形状，所以我们将使用 [`BoxBufferGeometry`](https://threejs.org/docs/#api/en/geometries/BoxBufferGeometry)，它是 three.js 核心中提供的几个基本形状之一。
+
+```js
+import { BoxBufferGeometry } from 'three';
+
+const length = 2;
+const width = 2;
+const depth = 2;
+
+const geometry = new BoxBufferGeometry(length, width, depth);
+```
+
+构造函数最多需要六个参数，但在这里，我们只提供前三个参数，它们指定盒子的长度、宽度和深度。默认值将被提供给我们省略的任何其他参数。
+
+## 材料
+
+虽然几何体定义了形状，**但材质定义了网格表面的外观**。我们将在本章中使用 [`MeshBasicMaterial`](https://threejs.org/docs/#api/en/materials/MeshBasicMaterial) ，这是可用的最简单的材质，更重要的是，不需要我们在场景中添加任何灯光。现在，我们将省略所有参数，这意味着将创建默认的白色材质。
+
+```js
+import { MeshBasicMaterial } from 'three';
+
+const material = new MeshBasicMaterial();
+```
 
 ## 动画循环
 
