@@ -139,3 +139,68 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 ## api
 
 > https://threejs.org/docs/#examples/en/controls/OrbitControls
+
+## 第一个使用OrbitControls-js的应用
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My first three.js app</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r126/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/three@0.126.0/examples/js/controls/OrbitControls.js"></script>
+  <body>
+    <script>
+      const gltfLoader = new THREE.GLTFLoader();
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer();
+      document.body.appendChild(renderer.domElement);
+      camera.position.z = 5;
+      async function loadModel() {
+        const flamingo = await gltfLoader.loadAsync("/models/Flamingo.glb");
+        const parrot = await gltfLoader.loadAsync("/models/Parrot.glb");
+        const stork = await gltfLoader.loadAsync("/models/Stork.glb");
+
+        scene.add(flamingo.scene);
+        scene.add(parrot.scene);
+        scene.add(stork.scene);
+
+        flamingo.scene.position.set(7.5, 0, -10);
+        parrot.scene.position.set(0, 0, 2.5);
+        stork.scene.position.set(0, -2.5, -10);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        scene.add(directionalLight);
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0xffffff);
+        renderer.render(scene, camera);
+        var controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.addEventListener("change", () => {
+          renderer.render(scene, camera);
+        });
+      }
+
+      loadModel();
+    </script>
+  </body>
+</html>
+```
+

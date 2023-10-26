@@ -230,7 +230,7 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/GLTFLoader.js?module";
 ```
 
-## ***assets*** 文件夹
+## assets/ 文件夹
 
 最后是 ***assets/*** 文件夹。**我们的应用程序中使用的任何非 HTML、CSS 或 JavaScript 的东西都在这里**：纹理、3D 模型、字体、声音等等。
 
@@ -386,73 +386,278 @@ import { MeshBasicMaterial } from 'three';
 const material = new MeshBasicMaterial();
 ```
 
-## 动画循环
+## 我们的第一个 three.js 应用程序
 
-在过去的几章中，我们的应用程序取得了惊人的进步。我们有灯光、颜色、物理上正确的渲染、抗锯齿、自动调整大小，我们知道如何在3D空间中移动对象，而且我们的代码干净、模块化且结构良好。但是我们的场景缺少一个重要的元素：**运动！**
+现在我们准备好编写一些代码了！我们已经介绍了构成我们简单应用程序的所有组件，因此下一步是弄清楚它们如何组合在一起。我们将把这个过程分成六个步骤。您创建的每个 three.js 应用程序都需要所有这六个步骤，尽管更复杂的应用程序通常需要更多。
 
-我们正在使用该`renderer.render`方法来绘制场景。此方法将场景和相机作为输入，并将单个静止图像输出到HTML`<canvas>`元素。输出是您可以在上面看到的不动的紫色盒子。
+1. 初始设置
+2. 创建场景
+3. 创建相机
+4. 创建可见对象
+5. 创建渲染器
+6. 渲染场景
 
-```js
-render() {
-  // draw a single frame
-  renderer.render(scene, camera);
-}
-```
+## 1. 初始设置
 
-在本章中，我们将为立方体添加一个简单的旋转动画。我们将这样做：
+初始设置的一个重要部分是创建某种网页来托管我们的场景，这个我们在上一章中已经介绍过。在这里，我们将专注于我们需要编写的 JavaScript。首先，我们将从 three.js 中导入必要的类，然后我们将从 ***index.html*** 文件中获取对该`scene-container`元素的引用。
 
-- **调用`renderer.render(...)`**
-- **等待。。。直到是时候画下一帧**
-- **稍微旋转立方体一点**
-- **调用`renderer.render(...)`**
-- **等待。。。直到是时候画下一帧**
-- **稍微旋转立方体一点**
-- **调用`renderer.render(...)`**
-- **等待。。。直到是时候画下一帧**
-- **稍微旋转立方体一点**
-- …
+### 从 three.js 中导入类
 
-……等等在一个称为**动画循环**的无限循环中。设置这个循环很简单，因为three.js通过`renderer.setAnimationLoop`方法为我们完成了所有困难的工作。
+总结到目前为止我们介绍的所有组件，我们可以看到我们需要这些类：
 
-我们还将在本章中介绍three.js的`Clock`，一个简单的秒表类，我们可以使用它来保持动画同步。我们将在本章中处理小于一秒的时间值，因此我们将使用毫秒 (ms)，即千分之一秒。
+- `BoxBufferGeometry`
+- `Mesh`
+- `MeshBasicMaterial`
+- `PerspectiveCamera`
+- `Scene`
+- `WebGLRenderer`
 
-一旦我们设置了循环，我们的目标就是以每秒60帧(60FPS)的速率生成稳定的帧流，这意味着我们需要大约每16毫秒调用一次`.render`。换句话说，我们需要确保我们在一帧中所做的所有处理的花费都少于16毫秒（这有时被称为**frame budget - 帧预算**）。这意味着我们需要更新动画，执行任何其他需要跨帧计算的任务（例如物理），并在我们打算支持的最低规格硬件上在不到16毫秒的时间内渲染帧。在本章的其余部分，当我们设置循环并为立方体创建一个简单的旋转动画时，我们将讨论如何最好地实现这一点。
+我们还将使用`Color`类来设置场景的背景颜色：
 
-## 与游戏循环的相似之处
+- `Color`
 
-大多数游戏引擎使用每帧运行一次的**游戏循环**的概念，用于更新和渲染游戏。一个基本的游戏循环可能包含以下四个任务：
-
-1. **获取用户输入**
-2. **计算物理**
-3. **更新动画**
-4. **渲染一帧**
-
-尽管three.js不是游戏引擎并且我们将循环称为**动画循环**，但我们的目标非常相似。这意味着，我们可以从游戏引擎设计中借鉴一些久经考验且值得信赖的想法，而不是从头开始。我们在本章中创建的循环非常简单，但是如果您以后发现自己需要一个更复杂的循环，可能以与渲染场景不同的速率更新动画和物理，您可以参考 [一本关于游戏开发的书](https://gameprogrammingpatterns.com/game-loop.html)了解更多信息信息。
-
-稍后，我们将使我们的场景具有交互性。幸运的是，由于有了 [`addEventListener`](https://discoverthreejs.com/zh/book/appendix/dom-api-reference/#listening-for-events)，在浏览器中处理用户输入很容易，所以我们不需要在循环中处理这个任务。此外，我们暂时不会进行任何物理计算（尽管有几个很棒的物理库能和three.js一起使用），所以我们可以跳过物理步骤。渲染已经被`renderer.render`处理。这给我们留下了本章中的两个任务：设置循环本身，然后创建一个更新动画的系统。
-
-我们将首先设置循环以生成帧流，然后设置动画系统。
-
-## 用three.js创建一个动画循环
-
-### ***Loop.js*** 模块
-
-打开（或创建）***systems/Loop.js*** 模块并在其中创建一个新`Loop`类。这个类将处理所有的循环逻辑和动画系统。您会注意到我们已经导入`Clock`了 ，我们将在下面使用它来保持动画同步。接下来，由于我们将使用`renderer.render(scene, camera)`生成帧，因此可以肯定的是，我们需要在`Loop`类中使用`camera`、`scene`和`renderer`，因此需要将它们传递给构造函数并将它们保存为实例变量。最后，创建我们以后可以用来启动/停止循环的方法：`.start`和`.stop`。
+我们可以仅使用单个`import`语句从 three.js 核心导入我们需要的所有内容。
 
 ```js
-import { Clock } from "three";
-
-class Loop {
-  constructor(camera, scene, renderer) {
-    this.camera = camera;
-    this.scene = scene;
-    this.renderer = renderer;
-  }
-
-  start() {}
-
-  stop() {}
-}
-
-export { Loop };
+import {
+  BoxBufferGeometry,
+  Color,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+} from 'three';
 ```
+
+### JavaScript 中访问 HTML 的`scene-container`元素
+
+在 ***index.html*** 中，我们创建了一个`scene-container`元素。
+
+```html
+<body>
+  <h1>Discoverthreejs.com - Your First Scene</h1>
+
+  <div id="scene-container">
+    <!-- Our <canvas> will be inserted here -->
+  </div>
+</body>
+```
+
+渲染器会自动为我们创建一个`<canvas>`元素，我们将把它插入到这个容器中。通过这样做，我们可以通过使用 CSS 设置容器的大小来控制场景的大小和位置。首先，我们需要在 JavaScript 中访问容器元素，我们将使用 [`document.querySelector`](https://discoverthreejs.com/zh/book/appendix/dom-api-reference/#accessing-html-elements)。
+
+```js
+// Get a reference to the container element that will hold our scene
+const container = document.querySelector('#scene-container');
+```
+
+## 2.创建场景
+
+设置好之后，我们将从创建场景开始，我们自己的小宇宙。我们将使用 [`Scene`](https://threejs.org/docs/#api/scenes/Scene)构造函数（带有大写的“S”）来创建一个`scene`实例（带有小写的“s”）：
+
+```js
+// create a Scene
+const scene = new Scene();
+```
+
+### 设置场景的背景颜色
+
+接下来，我们将 [场景背景的颜色 ](https://threejs.org/docs/#api/en/scenes/Scene.background)更改为天蓝色。如果我们不这样做，将使用默认颜色，即黑色。我们将使用我们在上面导入的`Color`类，将字符串`'skyblue'`作为参数传递给构造函数：
+
+```js
+// Set the background color
+scene.background = new Color('skyblue');
+```
+
+`'skyblue'`是一个 [CSS 颜色名称](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value)，我们可以在这里使用全部 140 种命名颜色中的任何一种。当然，不仅限于使用这几种颜色。您可以使用您的显示器可以显示的任何颜色，并且有几种指定它们的方法，就像在 CSS 中一样。
+
+## 3.创建相机
+
+在 three.js 核心中有几个不同的相机可用，但正如我们上面讨论的，我们将主要使用 [`PerspectiveCamera`](https://threejs.org/docs/#api/cameras/PerspectiveCamera)，因为它绘制的场景视图看起来类似于我们的眼睛看到的真实世界。`PerspectiveCamera`构造函数有四个参数：
+
+1. `fov`，**视野**：相机的视野有多宽，以度为单位。
+2. `aspect`，**纵横比**：场景的宽度与高度的比率。
+3. `near`, **近剪裁平面**：任何比这更靠近相机的东西都是不可见的。
+4. `far`，**远剪裁平面**：任何比这更远离相机的东西都是不可见的。
+
+```js
+// Create a camera
+const fov = 35; // AKA Field of View
+const aspect = container.clientWidth / container.clientHeight;
+const near = 0.1; // the near clipping plane
+const far = 100; // the far clipping plane
+
+const camera = new PerspectiveCamera(fov, aspect, near, far);
+```
+
+这四个参数一起用于创建一个有边界的空间区域，我们称之为 [**视锥体**](https://en.wikipedia.org/wiki/Viewing_frustum)。
+
+### 相机的视锥体
+
+如果`scene`是一个微小的宇宙，永远向四面八方延伸，那么相机的视锥体就是我们可以看到的部分。*视锥体* 是一个数学术语，意思是一个顶部被切掉的四边矩形金字塔。当我们通过`PerspectiveCamera`查看场景时，视锥体内的一切都是可见的，而它外面的一切都是不可见的。
+
+我们传递给构造函数的四个参数`PerspectiveCamera`分别创建视锥体的一个方面：
+
+1. **视野**定义了视锥体扩展的角度。窄视场将产生窄视锥体，宽视场将产生宽视锥体。
+2. **纵横比**将视锥体与场景容器元素匹配。当我们将其设置为容器的宽度除以其高度时，我们确保视锥体的矩形底座可以扩展以完全适合容器。如果我们弄错了这个值，场景看起来会变得拉伸和模糊。
+3. **近剪切平面**定义视锥体的小端（最靠近相机的点）。
+4. **远剪裁平面**定义视锥体的大端（离相机最远的点）。
+
+渲染器不会绘制场景中不在视锥体内的任何对象。如果物体部分在视锥体内，部分在视锥体外，则外部部分将被砍掉（剪裁）。
+
+### 定位相机
+
+我们创建的每个对象最初都位于场景的中心，(0,0,0)。 这意味着我们的相机当前位于(0,0,0)，我们添加到场景中的任何对象也将定位在(0,0,0), 都在彼此之上混杂在一起。艺术性地放置相机是一项重要的技能，但是，现在，我们将简单地将其移回（ *朝向我们* ）以给我们一个场景的概览。
+
+```js
+const camera = new PerspectiveCamera(fov, aspect, near, far);
+
+// every object is initially created at ( 0, 0, 0 )
+// move the camera back so we can view the scene
+camera.position.set(0, 0, 10);
+```
+
+设置任何对象的位置的方法都是一样的，无论是相机，网格，灯还是其他任何东西。我们可以一次设置位置的所有三个组成部分，就像我们在这里所做的那样：
+
+```js
+camera.position.set(0, 0, 10);
+```
+
+或者，我们可以单独设置 X，Y 和 Z 轴：
+
+```js
+camera.position.x = 0;
+camera.position.y = 0;
+camera.position.z = 10;
+```
+
+两种设置位置的方式都会给出相同的结果。位置存储在一个 [`Vector3`](https://threejs.org/docs/#api/en/math/Vector3)，一个表示 3D 向量的 three.js 类中。
+
+## 4.创建一个可见对象
+
+我们创建了一个`camera`用来查看事物，以及一个`scene`用来把它们放进去。下一步是创建我们可以看到的东西。在这里，我们将创建一个简单的盒子形状 [`Mesh`](https://threejs.org/docs/#api/objects/Mesh)。正如我们上面提到的，网格有两个我们需要首先创建的子组件：几何体和材质。
+
+### 创建几何体
+
+网格的几何定义了它的形状。如果我们创建一个盒子形状的几何体（就像我们在这里所做的那样），我们的网格将被塑造成一个盒子。如果我们创建一个球形几何体，我们的网格将呈球体形状。如果我们创建一个猫形几何体，我们的网格将被塑造成一只猫……你明白了。在这里，我们使用 [`BoxBufferGeometry`](https://threejs.org/docs/#api/geometries/BoxBufferGeometry)。 这三个参数定义了盒子的宽度、高度和深度：
+
+```js
+// create a geometry
+const geometry = new BoxBufferGeometry(2, 2, 2);
+```
+
+大多数参数都有默认值，因此即使文档说`BoxBufferGeometry`应该采用六个参数，我们也可以省略大部分参数，而 three.js 将使用默认值填充空白。**我们不必传入任何参数**。
+
+```js
+const geometry = new BoxBufferGeometry();
+```
+
+如果我们省略所有参数，我们将得到一个默认框，它是1×1×1立方体。我们想要一个更大的立方体，所以我们传入上面的参数来创建一个2×2×2盒子。
+
+### 创建材质
+
+材料定义了对象的表面属性，或者换句话说，定义了对象看起来是由什么制成的。**几何体告诉我们网格是一个盒子、一辆汽车或一只猫，而材质告诉我们它是一个金属盒子、一辆石质汽车或一只涂成红色的猫**。
+
+在 three.js 中有不少资料。在这里，我们将创建一个 [`MeshBasicMaterial`](https://threejs.org/docs/#api/en/materials/MeshBasicMaterial)，这是可用的最简单（也是最快）的材料类型。此材质还会忽略场景中的任何灯光，并根据材质的颜色和其他设置为网格着色（阴影），这非常棒，因为我们还没有添加任何灯光。我们将在不向构造函数传递任何参数的情况下创建材质，因此我们将获得默认的白色材质。
+
+```js
+// create a default (white) Basic material
+const material = new MeshBasicMaterial();
+```
+
+如果我们现在使用除`MeshBasicMaterial`之外的几乎任何其他材质类型，我们将无法看到任何东西，因为场景完全处于黑暗中。**就像在现实世界中一样，我们通常需要光线才能看到场景中的事物**。`MeshBasicMaterial`是该规则的一个例外。
+
+对于 three.js 的新手来说，这是一个常见的混淆点，所以如果您看不到任何东西，请确保您已经在场景中添加了一些灯光，或者暂时将所有材质切换为`MeshBasicMaterial`。
+
+现在我们有了几何体和材质，我们可以创建我们的网格，将两者都作为参数传入。
+
+```js
+// create a geometry
+const geometry = new BoxBufferGeometry(2, 2, 2);
+
+// create a default (white) Basic material
+const material = new MeshBasicMaterial();
+
+// create a Mesh containing the geometry and material
+const cube = new Mesh(geometry, material);
+```
+
+之后，我们可以随时使用`mesh.geometry`和`mesh.material`访问几何体和材质。
+
+### 将网格添加到场景中
+
+创建完成`mesh`后，我们需要将其添加到场景中。
+
+```js
+// add the mesh to the scene
+scene.add(cube);
+```
+
+稍后，如果我们想删除它，我们可以使用`scene.remove(mesh)`。 一旦网格被添加到场景中，我们称网格为场景的子节点，我们称场景为网格的父节点。
+
+## 5. 创建渲染器
+
+我们这个简单应用程序的最后一个组件是渲染器，它负责将场景绘制（**渲染**）到`<canvas>`元素中。我们将在这里使用 [`WebGLRenderer`](https://threejs.org/docs/#api/renderers/WebGLRenderer)。还有一些其他渲染器可用作插件，但`WebGLRenderer`是迄今为止最强大的渲染器，通常是您唯一需要的渲染器。让我们现在继续创建一个`WebGLRenderer`，再次使用默认设置。
+
+```js
+// create the renderer
+const renderer = new WebGLRenderer();
+```
+
+### 设置渲染器的大小
+
+我们快到完成了！接下来，我们需要使用容器的宽度和高度告诉渲染器我们的场景大小。
+
+```js
+// next, set the renderer to the same size as our container element
+renderer.setSize(container.clientWidth, container.clientHeight);
+```
+
+如果你还记得，我们使用 CSS 使容器占据了整个浏览器窗口的大小，因此场景也将占据整个窗口。
+
+### 设置设备像素比（DPR）
+
+我们还需要告诉渲染器设备屏幕的像素比是多少。**这是防止 HiDPI 显示器模糊所必需的** （也称为视网膜显示器）
+
+```js
+// finally, set the pixel ratio so that our scene will look good on HiDPI displays
+renderer.setPixelRatio(window.devicePixelRatio);
+```
+
+我们不会在这里讨论技术细节，但你不能忘记设置它，否则你的场景在你测试它的笔记本电脑上可能看起来很棒，但在带有视网膜显示器的移动设备上会模糊。与往常一样， [附录有更多细节](https://discoverthreejs.com/zh/book/appendix/dom-api-reference/#the-virtual-viewport)。
+
+### 将`<canvas>`元素添加到我们的页面
+
+渲染器将  从相机的角度将我们的场景绘制到一个`<canvas>`元素中去。这个元素已经为我们自动创建并存储在`renderer.domElement`中，但是在我们看到它之前，我们需要将它添加到页面中。我们将使用一个 [名为`.append`的内置 JavaScript 方法](https://discoverthreejs.com/zh/book/appendix/dom-api-reference/#adding-the-new-elements-to-our-page)来做到这一点：
+
+```js
+// add the automatically created <canvas> element to the page
+container.append(renderer.domElement);
+```
+
+现在，如果您打开浏览器的开发控制台（按 F12）并检查 HTML，您将看到如下内容：
+
+```html
+<div id="scene-container">
+  <canvas
+    width="800"
+    height="600"
+    style="width: 800px; height: 600px;"
+  ></canvas>
+</div>
+```
+
+这假设浏览器窗口大小为 800×600, 所以你看到的可能看起来略有不同。请注意，`renderer.setSize`它还设置了画布上的宽度、高度和样式属性。
+
+## 6. 渲染场景
+
+一切就绪后，剩下要做的就是**渲染场景！**，将以下也是最后一行添加到您的代码中：
+
+```js
+// render, or 'create a still image', of the scene
+renderer.render(scene, camera);
+```
+
+通过这一行，我们告诉渲染器使用相机创建场景的静态图片并将该图片输出到`<canvas>`元素中。如果一切设置正确，您将看到蓝色背景下的白色立方体。很难看出它是一个立方体，因为我们直接看的是一个正方形的脸，但我们将在接下来的几章中解决这个问题。
+
+做得好！**读完这一章，您已经迈出了作为 three.js 开发人员职业生涯的第一次巨大飞跃**。我们的场景可能还没有那么有趣，但我们已经奠定了一些重要的基础，并涵盖了计算机图形学的一些基本概念，您将在以后构建的每个场景中使用这些概念，无论您使用的是 three.js 还是任何其他 3D 图形系统。
