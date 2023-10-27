@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.2818ad75.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"1.基础/创建项目/创建react项目.md","lastUpdated":1698391023000}'),r={name:"1.基础/创建项目/创建react项目.md"};function c(o,s,n,_,p,d){return a(),t("div")}const f=e(r,[["render",c]]);export{m as __pageData,f as default};

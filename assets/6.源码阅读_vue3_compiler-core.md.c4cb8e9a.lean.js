@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./app.2818ad75.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"6.源码阅读/vue3/compiler-core.md","lastUpdated":1698391023000}'),o={name:"6.源码阅读/vue3/compiler-core.md"};function a(c,s,n,p,i,d){return r(),t("div")}const l=e(o,[["render",a]]);export{_ as __pageData,l as default};
