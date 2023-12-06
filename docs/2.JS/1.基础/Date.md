@@ -127,16 +127,6 @@ new Date().getTime())// 方法二
 +new Date() // 方法三,把date的字符串类型转换为数字类型，则会变成毫秒数
 ```
 
-## 获取昨日
-
-```js
-const getYesterday = (dt) => {
-  const date = new Date(dt)
-  date.setDate(date.getDate() - 1)
-  return date
-}
-```
-
 ## 获取月的天数
 
 方法一
@@ -242,3 +232,120 @@ Calling `new Date()` (the `Date()` constructor) returns a [`Date`](https://devel
 
 Calling the `Date()` function (without the `new` keyword) returns a string representation of the current date and time, exactly as `new Date().toString()` does. Any arguments given in a `Date()` function call (without the `new` keyword) are ignored; regardless of whether it's called with an invalid date string — or even called with any arbitrary object or other primitive as an argument — it always returns a string representation of the current date and time.
 调用该 `Date()` 函数（不带 `new` 关键字）将返回当前日期和时间的字符串表示形式，与 `new Date().toString()` 此完全相同。 `Date()` 函数调用中给出的任何参数（不带 `new` 关键字）都将被忽略;无论它是使用无效的日期字符串调用的，还是使用任何任意对象或其他基元作为参数调用的，它始终返回当前日期和时间的字符串表示形式。
+
+## 判断今天周几
+
+`getDay` 方法返回一个 0 到 6 的整数，代表星期日到星期六。
+
+```js
+var today = new Date();
+var dayOfWeek = today.getDay();
+var days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+var todayText = days[dayOfWeek];
+// 打印结果
+console.log('今天是：' + todayText);
+```
+
+## 获取月第一天
+
+```js
+// 月份是从0开始的（0表示一月，11表示十二月），这里的1表示二月
+const firstDayOfMonth = new Date(2000, 1);
+// 第三个参数日不传，默认为1
+// const firstDayOfMonth = new Date(2000, 1, 1);
+console.log(
+  `${firstDayOfMonth.getFullYear()}-${firstDayOfMonth.getMonth() + 1}-${firstDayOfMonth.getDate()}`
+); // 输出：'2000-2-29'
+```
+
+## 获取月最后一天
+
+```js
+function getLastDayOfMonth(year, month) {
+  // 注意：月份是从0开始的（0表示一月，11表示十二月）
+  // 0表示上个月的最后一天，所以这里传入11，表示的是十二月的上一月，十一月的最后一天
+  const lastDay = new Date(year, month, 0);
+  return lastDay;
+}
+
+// 示例：获取2023年11月的最后一天
+const year = 2023;
+const month = 11; 
+const lastDayOfMonth = getLastDayOfMonth(year, month);
+
+console.log( `${lastDayOfMonth.getFullYear()}-${lastDayOfMonth.getMonth() + 1}-${lastDayOfMonth.getDate()}`); // 输出：2023-11-30
+```
+
+## 获取昨日
+
+```js
+const getYesterday = (dt) => {
+  const date = new Date(dt)
+  date.setDate(date.getDate() - 1)
+  return date
+}
+```
+
+## 获取指定年月的周日期数组
+
+```js
+function formatTime(date) {
+  const dt = new Date(date);
+  const y = dt.getFullYear();
+  const m = (dt.getMonth() + 1 + "").padStart(2, "0");
+  const d = (dt.getDate() + "").padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function getMonthWeeks(year, month) {
+  const firstDayOfMonth = new Date(year, month - 1, 1);
+  const lastDayOfMonth = new Date(year, month, 0);
+  const weeks = [];
+  const currentDay = new Date(firstDayOfMonth);
+  let weekNumber = 0;
+  const weekNumberCn = ["一", "二", "三", "四", "五", "六"]; // 最多六周
+  let isEnd = true;
+  while (isEnd) {
+    const startOfWeek = new Date(currentDay);
+    const endOfWeek = new Date(currentDay);
+    // 获取本周的开始日期（周一）
+    startOfWeek.setDate(
+      currentDay.getDate() -
+        currentDay.getDay() +
+        (currentDay.getDay() === 0 ? -6 : 1)
+    );
+    // 获取本周的结束日期（周日）
+    endOfWeek.setDate(
+      currentDay.getDate() -
+        currentDay.getDay() +
+        (currentDay.getDay() === 0 ? 0 : 7)
+    );
+    weeks.push({
+      weekNumber: "第" + weekNumberCn[weekNumber] + "周",
+      start: formatTime(startOfWeek),
+      end: formatTime(endOfWeek),
+    });
+    weekNumber++;
+    if (endOfWeek < lastDayOfMonth) {
+      currentDay.setDate(currentDay.getDate() + 7);
+    } else {
+      isEnd = false;
+    }
+  }
+
+  return weeks;
+}
+
+// 示例：获取2023年10月的周日期数组
+const year = 2023;
+const month = 10;
+const monthWeeks = getMonthWeeks(year, month);
+console.log(monthWeeks);
+// [ { weekNumber: '第一周', start: '2023-09-25', end: '2023-10-01' },
+//   { weekNumber: '第二周', start: '2023-10-02', end: '2023-10-08' },
+//   { weekNumber: '第三周', start: '2023-10-09', end: '2023-10-15' },
+//   { weekNumber: '第四周', start: '2023-10-16', end: '2023-10-22' },
+//   { weekNumber: '第五周', start: '2023-10-23', end: '2023-10-29' },
+//   { weekNumber: '第六周', start: '2023-10-30', end: '2023-11-05' } ]
+```
+
