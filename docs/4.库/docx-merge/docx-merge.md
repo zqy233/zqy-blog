@@ -17,23 +17,6 @@
 
 由于 Office Open XML 标准的引入，`.docx` 成为了 Microsoft Word 推荐的默认文档格式。这个新的格式更加开放、可扩展，并支持更多的现代特性。
 
-## 引入模块
-
-```js
-var JSZip = require("jszip");
-var DOMParser = require("xmldom").DOMParser;
-var XMLSerializer = require("xmldom").XMLSerializer;
-
-var Style = require("./merge-styles");
-var Media = require("./merge-media");
-var RelContentType = require("./merge-relations-and-content-type");
-var bulletsNumbering = require("./merge-bullets-numberings");
-```
-
-- `JSZip` 是一个用于操作 ZIP 文件的库，用于读取和生成 .docx 文件。`.docx` 文件实际上是一个基于 ZIP 格式的压缩包。
-- `DOMParser` 和 `XMLSerializer` 是用于解析和序列化 XML 的库，用于处理 Word 文档中的 XML 文件。
-- `Style`, `Media`, `RelContentType`, `bulletsNumbering` 是自定义的模块，用于处理样式、媒体文件、关系和内容类型、编号等功能。
-
 ## `.docx` 文件实际上是一个基于 ZIP 格式的压缩包
 
 Microsoft Word 将文档的内容、样式、图像等多个文件存储在一个 ZIP 归档中，这种结构使得文档的组织更加灵活，并且更容易进行处理。
@@ -60,7 +43,26 @@ Microsoft Word 将文档的内容、样式、图像等多个文件存储在一�
 
 这只是一个常见的文件列表，具体的文件结构可能会因文档的具体内容和格式而有所不同。在处理 Word 文档时，通常需要关注这些文件以实现对文档的各个方面的操作。
 
-## jszip库
+## `docx-merge`使用了`jszip`库
+
+引入模块
+
+```js
+var JSZip = require("jszip");
+var DOMParser = require("xmldom").DOMParser;
+var XMLSerializer = require("xmldom").XMLSerializer;
+
+var Style = require("./merge-styles");
+var Media = require("./merge-media");
+var RelContentType = require("./merge-relations-and-content-type");
+var bulletsNumbering = require("./merge-bullets-numberings");
+```
+
+- `JSZip` 是一个用于操作 ZIP 文件的库，用于读取和生成 .docx 文件。`.docx` 文件实际上是一个基于 ZIP 格式的压缩包。
+- `DOMParser` 和 `XMLSerializer` 是用于解析和序列化 XML 的库，用于处理 Word 文档中的 XML 文件。
+- `Style`, `Media`, `RelContentType`, `bulletsNumbering` 是自定义的模块，用于处理样式、媒体文件、关系和内容类型、编号等功能。
+
+## `jszip`库
 
 > https://www.npmjs.com/package/jszip
 
@@ -91,7 +93,7 @@ images/
 */
 ```
 
-## 构造函数 `DocxMerger`
+## `docx-merge`构造函数 `DocxMerger`
 
 ```js
 function DocxMerger(options, files) {
