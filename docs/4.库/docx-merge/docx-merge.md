@@ -1,6 +1,21 @@
 # docx-merge
 
-是一个 Node.js 库，用于合并多个 Word 文档（.docx 文件），不支持.doc文件
+是一个 Node.js 库，用于合并多个 Word 文档（只限`.docx`文件，不支持`.doc`文件）
+
+## `.docx` 和 `.doc` 是两种不同的 Microsoft Word 文档格式
+
+`.docx` 和 `.doc` 是两种不同的 Microsoft Word 文档格式，它们在文件结构和存储方式上有显著的区别。
+
+1. **.docx（Office Open XML）**:
+   - 结构：`.docx` 文件是一种基于 Office Open XML 标准的文档格式。它实际上是一个 ZIP 归档，其中包含多个 XML 文件和其他资源文件。
+   - XML 结构：文本内容、样式、编号、设置等信息以 XML 格式存储在文件中，使其更容易解析和处理。
+   - 扩展名：通常用于存储 Microsoft Word 2007及更高版本的文档。
+2. **.doc（Binary Word Document）**:
+   - 结构：`.doc` 文件是二进制格式的 Word 文档。它采用复杂的二进制格式来存储文本、样式和其他元素。
+   - 二进制结构：由于采用二进制格式，`.doc` 文件不如 `.docx` 文件那样容易解析和修改。这也导致了在不同平台上的兼容性问题。
+   - 扩展名：通常用于存储 Microsoft Word 97-2003 版本的文档。
+
+由于 Office Open XML 标准的引入，`.docx` 成为了 Microsoft Word 推荐的默认文档格式。这个新的格式更加开放、可扩展，并支持更多的现代特性。
 
 ## 引入模块
 
@@ -28,6 +43,22 @@ Microsoft Word 将文档的内容、样式、图像等多个文件存储在一�
 使用 JSZip 或类似的库，你可以方便地读取和处理这个 ZIP 归档中的文件，而不必手动解压整个文件。这对于在代码中进行修改、合并、生成新的文档等操作非常有帮助。
 
 因此，当你处理 `.docx` 文件时，实际上是在处理一个 ZIP 文件，而使用 JSZip 等库则是为了更方便地操作这个 ZIP 文件的内容。
+一个典型的 Word 文档是一个 ZIP 归档，其中包含多个文件，每个文件负责存储文档的不同方面。以下是一些常见的 Word 文档文件：
+
+1. **word/document.xml**: 包含文档的主要内容，如段落、文本、表格等。
+2. **word/styles.xml**: 包含文档中使用的样式信息，定义了字体、段落格式等。
+3. **word/numbering.xml**: 存储文档中的编号和项目符号的定义。
+4. **word/settings.xml**: 包含文档的设置，如页边距、纸张大小等。
+5. **word/footnotes.xml**: 存储脚注内容。
+6. **word/endnotes.xml**: 存储尾注内容。
+7. **word/header1.xml, word/header2.xml, ...**: 存储文档的不同页眉的内容。
+8. **word/footer1.xml, word/footer2.xml, ...**: 存储文档的不同页脚的内容。
+9. **word/media/***: 存储文档中嵌入的媒体文件，如图片。
+10. **word/theme/theme1.xml**: 存储文档的主题信息。
+11. **[Content_Types].xml**: 包含文档中各种部分的内容类型，影响 MIME 类型。
+12. **_rels/.rels**: 存储文档中各部分之间的关系。
+
+这只是一个常见的文件列表，具体的文件结构可能会因文档的具体内容和格式而有所不同。在处理 Word 文档时，通常需要关注这些文件以实现对文档的各个方面的操作。
 
 ## jszip库
 
@@ -393,3 +424,71 @@ var updateStyleRel_Content = function (zip, fileIndex, styleId) {
 该函数用于更新文档内容中与样式相关的标识，确保唯一性。
 
 总体而言，`prepareStyles` 函数的目标是在多个 Word 文档中调整样式，确保在合并文档时不会出现样式冲突。这涉及到修改样式标识、处理与样式相关的属性，以及更新文档内容中的样式标识。
+
+## `<w:latentStyles>`
+
+```xml
+  <w:latentStyles w:defLockedState="0" w:defUIPriority="99" w:defSemiHidden="0"
+    w:defUnhideWhenUsed="0"
+    w:defQFormat="0" w:count="376">
+    <w:lsdException w:name="Normal" w:uiPriority="0" w:qFormat="1" />
+    <w:lsdException w:name="heading 1" w:uiPriority="9" w:qFormat="1" />
+    <w:lsdException w:name="heading 2" w:semiHidden="1" w:uiPriority="9" w:unhideWhenUsed="1"
+      w:qFormat="1" />
+     
+  </w:latentStyles>
+```
+
+这是 Word 文档中的 `<w:latentStyles>` 元素，用于定义潜在的样式（latent styles）。潜在样式是指用户创建文档时可能会用到的样式，这些样式通常不直接显示在 Word 界面上，而是在用户应用某个样式时自动应用。
+
+让我们解释 `<w:latentStyles>` 元素的一些属性：
+
+- `w:defLockedState="0"`: 表示默认情况下潜在样式不被锁定。
+- `w:defUIPriority="99"`: 表示默认情况下潜在样式的 UI 优先级为 99。
+- `w:defSemiHidden="0"`: 表示默认情况下潜在样式不是半隐藏的。
+- `w:defUnhideWhenUsed="0"`: 表示默认情况下潜在样式在使用时不自动取消隐藏。
+- `w:defQFormat="0"`: 表示默认情况下潜在样式不使用 QFormat。
+- `w:count="376"`: 表示潜在样式的数量为 376。
+
+接着， `<w:lsdException>` 元素用于定义特定样式的例外情况。在这里，有三个 `<w:lsdException>` 元素，每个元素都表示一个具体的样式例外情况。
+
+- 第一个 `<w:lsdException>` 元素表示名为 "Normal" 的样式，其 UI 优先级为 0，QFormat 为 1。
+- 第二个 `<w:lsdException>` 元素表示名为 "heading 1" 的样式，其 UI 优先级为 9，QFormat 为 1。
+- 第三个 `<w:lsdException>` 元素表示名为 "heading 2" 的样式，其半隐藏属性为 1，UI 优先级为 9，使用时自动取消隐藏，QFormat 为 1。
+
+这些元素的目的是为用户提供在创建文档时可以方便地应用的默认样式。在 Word 中，用户可以通过样式面板或样式菜单选择这些样式。
+
+## `w:style`
+
+```xml
+ <w:style w:type="paragraph" w:styleId="a7">
+    <w:name w:val="List Paragraph" />
+    <w:basedOn w:val="a" />
+    <w:uiPriority w:val="34" />
+    <w:qFormat />
+    <w:rsid w:val="001C790F" />
+    <w:pPr>
+      <w:ind w:firstLineChars="200" w:firstLine="420" />
+    </w:pPr>
+    <w:rPr>
+      <w:rFonts w:asciiTheme="minorHAnsi" w:eastAsiaTheme="minorEastAsia" w:hAnsiTheme="minorHAnsi" />
+      <w:sz w:val="21" />
+    </w:rPr>
+  </w:style>
+```
+
+- `<w:style>`: 表示样式的开始标签。
+  - `w:type="paragraph"`: 表示这是一个段落样式。
+  - `w:styleId="a7"`: 表示样式的唯一标识符为 "a7"。
+- `<w:name w:val="List Paragraph" />`: 表示样式的名称为 "List Paragraph"。
+- `<w:basedOn w:val="a" />`: 表示这个样式是基于另一个样式 "a" 的，即继承了样式 "a" 的一些属性。
+- `<w:uiPriority w:val="34" />`: 表示样式在用户界面中的优先级为 34。
+- `<w:qFormat />`: 表示样式使用 QFormat。`<w:qFormat />` 表示样式使用 Quick Format（快速格式化）。快速格式化是 Word 中的一项功能，允许用户通过一键操作应用某个样式，而不必手动调整多个格式设置。当样式使用了 `<w:qFormat />` 属性时，它表示该样式支持快速格式化。用户在 Word 中可以通过样式面板或样式菜单选择应用样式，而使用了 `<w:qFormat />` 的样式可能会更容易在这些快速格式化的选项中找到并应用。这有助于提高用户在创建文档时对样式的使用效率。
+- `<w:rsid w:val="001C790F" />`: 表示用于标识此样式的 Revision Save Identifier (RSID)。在 Word 文档中，每个样式和文本都会有一个唯一的 RSID，用于追踪文档的修订。当文档中的内容发生更改时，Word 会为修改的部分分配一个新的 RSID。这有助于 Word 在处理多个用户对同一文档进行编辑时跟踪每个用户的修改。总的来说，RSID 是 Word 中用于标识和跟踪文档修订的一种机制。
+- `<w:pPr>`: 包含段落的属性设置。
+  - `<w:ind w:firstLineChars="200" w:firstLine="420" />`: 表示段落的缩进设置，其中 `w:firstLineChars` 表示首行缩进字符数为 200，`w:firstLine` 表示首行缩进距离为 420。
+- `<w:rPr>`: 包含文本运行（Run）的属性设置。
+  - `<w:rFonts w:asciiTheme="minorHAnsi" w:eastAsiaTheme="minorEastAsia" w:hAnsiTheme="minorHAnsi" />`: 表示字体主题设置，指定了不同语言版本的字体主题。
+  - `<w:sz w:val="21" />`: 表示字体大小为 21 磅。
+
+这个段落样式的定义包含了很多关于样式外观和排版的信息，包括名称、基于的样式、缩进、字体等。这些样式定义会在创建或编辑文档时被应用到相应的段落上。
