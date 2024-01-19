@@ -1,0 +1,1 @@
+import{_ as a,c as e,o as t}from"./app.1a0329dc.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"5.打包/2.rollup/测试框架ava.md","lastUpdated":1705651507000}'),r={name:"5.打包/2.rollup/测试框架ava.md"};function o(s,c,n,_,p,d){return t(),e("div")}const m=a(r,[["render",o]]);export{i as __pageData,m as default};

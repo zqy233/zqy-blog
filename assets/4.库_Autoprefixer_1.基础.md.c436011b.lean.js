@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as r}from"./app.b1ba5723.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"4.库/Autoprefixer/1.基础.md","lastUpdated":1705373800000}'),a={name:"4.库/Autoprefixer/1.基础.md"};function o(s,c,n,_,p,d){return r(),t("div")}const m=e(a,[["render",o]]);export{f as __pageData,m as default};
