@@ -1,6 +1,4 @@
-# Lerna-Lite Lerna-精简版
-
-Lerna-Lite is a super light version of the original [Lerna](https://github.com/lerna/lerna) 
+# Lerna-Lite
 
 Lerna-Lite是原版Lerna的超轻版
 

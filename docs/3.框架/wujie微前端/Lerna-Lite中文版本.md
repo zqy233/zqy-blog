@@ -31,7 +31,7 @@ lerna-repo/
   lerna.json
 ```
 
-最后安装您感兴趣的命令（ ， ， `publish` ， `version` ， `run` `exec` ...
+最后，安装您感兴趣的命令（ `publish` ， `version` ， `run` ， `exec` ， ...）
 
 ```sh
 $ npm i @lerna-lite/publish -D
