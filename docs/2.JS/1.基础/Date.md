@@ -20,7 +20,7 @@ Date()
 
 ## Date()构造函数/ new Date()
 
-The **`Date()`** constructor creates [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects. When called as a function, it returns a string representing the current time.
+> The **`Date()`** constructor creates [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects. When called as a function, it returns a string representing the current time.
 
 `Date()` 构造函数创建 `Date` 对象。当作为函数调用时，它返回一个表示当前时间的字符串。
 
@@ -38,7 +38,7 @@ console.log(new Date()) // Sat Oct 10 2020 10:10:10 GMT+0800 (中国标准时间
 
 传参的情况下返回传参字符串的格林平时
 
-字符串要求 YYYY-MM-DD 或者 YYYY-MM-DD，可以不传分秒，不传则默认为 00:00:00，因为 GMT+0800 (GMT+08:00) ，所以最终为 08:00:00
+字符串要求 YYYY-MM-DD 或者 YYYY-MM-DD HH:MM:SS，可以不传分秒，不传则默认为 00:00:00，因为 GMT+0800 (GMT+08:00) ，所以最终为 08:00:00
 
 ```js
 const a = new Date('2020-10-10 10:10:10')

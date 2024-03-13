@@ -44,13 +44,20 @@ git subtree add --prefix=<subtree-prefix> <url-to-subtree-repo> <subtree-branch>
 
 ### 示例
 
-有两个子仓库home和platform，在主仓库中运行这两个命令，将两个子仓库拉取到packages文件夹下，并各自取名home、platform
+有两个子仓库home和platform的new分支需要拉到主仓库packages文件夹下，在主仓库中运行这两个命令，将两个子仓库拉取到packages文件夹下，并各自取名home、platform
 
 ```sh
 git remote add -f a http://192.168.1.250:3000/team_one/home.git
 git subtree add --prefix=packages/home a new
 git remote add -f b http://192.168.1.250:3000/team_one/platform.git
 git subtree add --prefix=packages/platform b new
+```
+
+更简单的用法
+
+```sh
+git subtree add --prefix=packages/home http://192.168.1.250:3000/team_one/home.git new
+git subtree add --prefix=packages/platform http://192.168.1.250:3000/team_one/platform.git new
 ```
 
 ## 方案二-合并本地两个不同的 Repo 仓库 
