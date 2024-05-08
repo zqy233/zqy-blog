@@ -1,6 +1,6 @@
 # OrbitControls.js
 
-> 文档: 
+> 内容来自: 
 >
 > http://www.yanhuangxueyuan.com/doc/Three.js/OrbitControls.html
 >
