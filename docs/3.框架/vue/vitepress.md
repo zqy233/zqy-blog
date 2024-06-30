@@ -1,6 +1,26 @@
 # vitepress
 
+VitePress 是一个由 Vite 和 Vue 驱动的静态网站生成工具，可以将 Markdown 生成静态 HTML 页面
+
 ## 安装
+
+需要[Node.js](https://nodejs.org/) 18 及以上版本。
+
+::: code-group
+
+```sh [pnpm]
+$ pnpm add -D vitepress
+```
+
+```sh [npm]
+$ npm add -D vitepress
+```
+
+```sh [yarn]
+$ yarn add -D vitepress
+```
+
+:::
 
 - 第一步：创建目录
 
@@ -339,20 +359,23 @@ PWA 全称 Progressive Web App，即渐进式 WEB 应用
 
 https://www.webfx.com/tools/emoji-cheat-sheet/
 
+## vitepress语法-生成代码组
 
+~~~markdown
+::: code-group
 
+```sh [pnpm]
+$ pnpm add -D vitepress
+```
 
+```sh [npm]
+$ npm add -D vitepress
+```
 
+```sh [yarn]
+$ yarn add -D vitepress
+```
 
+:::
+~~~
 
-绿色
-
-38ECDE 29D4CD 40F3D5
-
-浅蓝
-
-0DA6D0   60DCFE   2ECAF2
-
-深蓝
-
-177EC7 309FDF  49AFFD
