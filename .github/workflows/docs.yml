@@ -62,7 +62,7 @@ jobs:
         run: |
           git config --global user.name "zqy233"
           git config --global user.email "347891134@qq.com"
-          git add docs/.vitepress/dist
+          git add -f docs/.vitepress/dist
           git commit -m "Deploy docs to GitHub Pages"
           git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} `git subtree split --prefix docs/.vitepress/dist main`:gh-pages --force
         env:
