@@ -25,7 +25,8 @@
         "vue",
         "react",
         "react-dom",
-        "@algolia/client-search"
+        "@algolia/client-search",
+        "search-insights"
       ]
     }
   }
