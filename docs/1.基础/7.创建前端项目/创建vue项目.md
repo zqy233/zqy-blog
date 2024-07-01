@@ -1,5 +1,33 @@
 # create-vue
 
+开始一个 Vite 驱动的 Vue 项目的推荐方法
+
+## 用法
+
+```sh
+npm create vue@latest
+```
+
+或者，如果你需要支持 IE11，你可以创建一个 Vue 2 项目：
+
+```sh
+npm create vue@legacy
+```
+
+请注意，标记名称（ `@latest` 或 `@legacy` ）不得省略，否则 `npm` 可能会解析为包的缓存和过时版本。
+
+## Vue CLI 与 Vue CLI 的区别
+
+- Vue CLI 基于 webpack，而 `create-vue` 基于 Vite。Vite 开箱即用地支持 Vue CLI 项目中的大多数已配置约定，并且由于其极快的启动和热模块更换速度，提供了明显更好的开发体验。在此处详细了解我们推荐 Vite 而不是 webpack。
+- 与 Vue CLI 不同，它本身只是一个脚手架工具：它根据您选择的功能创建一个预配置的项目， `create-vue` 并将其余部分委托给 Vite。以这种方式搭建脚手架的项目可以直接利用与 Rollup 兼容的 Vite 插件生态系统。
+
+## Migrating from Vue CLI 从 Vue CLI 迁移
+
+- [Vue CLI -> 来自 VueSchool.io 的 Vite 迁移指南](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/)
+- [有助于自动迁移的工具/插件](https://github.com/vitejs/awesome-vite#vue-cli)
+
+# create-vue
+
 The recommended way to start a Vite-powered Vue project
 开始一个 Vite 驱动的 Vue 项目的推荐方法
 
