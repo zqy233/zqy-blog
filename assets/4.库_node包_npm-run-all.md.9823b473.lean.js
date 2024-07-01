@@ -1,0 +1,1 @@
+import{_ as s,o as n,c as a,a as l}from"./app.6c04da85.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"4.库/node包/npm-run-all.md","lastUpdated":1719815932383}'),p={name:"4.库/node包/npm-run-all.md"},o=l("",2),e=[o];function r(c,t,B,y,F,C){return n(),a("div",null,e)}const E=s(p,[["render",r]]);export{d as __pageData,E as default};
