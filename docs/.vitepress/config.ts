@@ -1,13 +1,13 @@
 import { defineConfig } from 'vitepress'
 import { getSidebar, getNav } from '../../doc-deal/getNavAndSidebar'
-
+import fs from 'fs'
+import path from 'path'
 export default defineConfig({
   lang: 'zh-CN',
   base: '/zqy-blog/',
   title: 'zqy233的前端学习笔记',
   description: 'zqy233的前端学习笔记',
   head: [['link', { rel: 'icon', href: '/zqy-blog/favicon.ico' }]],
-  lastUpdated: true,
   markdown: {
     lineNumbers: true,
     // https://github.com/shikijs/shiki/blob/main/docs/themes.md#all-themes
@@ -16,6 +16,12 @@ export default defineConfig({
       dark: 'one-dark-pro',
     },
   },
+  transformPageData(pageData) {
+    const file = path.resolve(__dirname, `../${pageData.relativePath}`)
+    return {
+      lastUpdated: Math.round(fs.statSync(file).mtimeMs),
+    }
+  },
   themeConfig: {
     logo: {
       light: '/logo-light.svg',
@@ -23,7 +29,9 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: `Copyright © 2022.4-${new Date().getFullYear()}.${new Date().getMonth() + 1}`,
+      copyright: `Copyright © 2022.4-${new Date().getFullYear()}.${
+        new Date().getMonth() + 1
+      }`,
     },
     lastUpdatedText: '更新日期',
     docFooter: {
