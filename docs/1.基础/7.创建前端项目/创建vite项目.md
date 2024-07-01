@@ -1,4 +1,4 @@
-## 创建vite项目
+# 创建vite项目
 
 cmd运行以下命令
 
@@ -21,7 +21,7 @@ pnpm create vite
 > 另外，取自 [create-vite](https://www.npmjs.com/package/create-vite) 官方文档：
 > 兼容性说明: Vite 要求 Node.js 版本 >=12.2.0，一些模板的正常使用还需要更高的 Node.js 版本, 所以如果您在Node.js使用过程中产生了相应警告，请升级
 
-### 直接创建模板
+## 直接创建模板
 
 ```sh
 # npm 6.x
@@ -34,21 +34,18 @@ yarn create vite vue-project-name --template vue
 pnpm create vite vue-project-name -- --template vue
 ```
 
-### 创建包含typescript的模板
+## 创建包含typescript的模板
 
 ```sh
 # npm 6.x
 npm create vite vue-project-name --template vue-ts
 # npm 7+  多一个--
 npm create vite vue-project-name -- --template vue-ts
-# yarn
-
-
 # pnpm
 pnpm create vite vue-project-name -- --template vue-ts
 ```
 
-### 跟@vue-cli另一个不同
+## 跟@vue-cli另一个不同
 
 需要自行下载依赖
 
