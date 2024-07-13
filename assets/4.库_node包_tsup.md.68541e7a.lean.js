@@ -1,0 +1,1 @@
+import{_ as s,o as n,c as a,a as p}from"./app.bfa9bd4b.js";const u=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"4.库/node包/tsup.md","lastUpdated":1720835436702}'),l={name:"4.库/node包/tsup.md"},o=p("",2),e=[o];function t(c,r,B,y,F,i){return n(),a("div",null,e)}const d=s(l,[["render",t]]);export{u as __pageData,d as default};

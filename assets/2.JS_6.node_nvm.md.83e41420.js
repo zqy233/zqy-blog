@@ -1,0 +1,33 @@
+import{_ as s,o as n,c as a,a as l}from"./app.bfa9bd4b.js";const F=JSON.parse('{"title":"nvm","description":"","frontmatter":{},"headers":[{"level":2,"title":"命令列表","slug":"命令列表","link":"#命令列表","children":[]},{"level":2,"title":"nvm use出现 exit status 1:乱码","slug":"nvm-use出现-exit-status-1-乱码","link":"#nvm-use出现-exit-status-1-乱码","children":[]}],"relativePath":"2.JS/6.node/nvm.md","lastUpdated":1720835436690}'),p={name:"2.JS/6.node/nvm.md"},e=l(`<h1 id="nvm" tabindex="-1">nvm <a class="header-anchor" href="#nvm" aria-hidden="true">#</a></h1><blockquote><p>nvm 是 node 版本管理工具，可用于切换node版本</p></blockquote><h2 id="命令列表" tabindex="-1">命令列表 <a class="header-anchor" href="#命令列表" aria-hidden="true">#</a></h2><div class="language-sh line-numbers-mode"><button title="Copy Code" class="copy"></button><span class="lang">sh</span><pre class="shiki one-dark-pro vp-code-dark" tabindex="0"><code><span class="line"><span style="color:#7F848E;font-style:italic;"># 显示已安装的node版本列表（同下）</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">list</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">list</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">installed</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">ls</span></span>
+<span class="line"><span style="color:#7F848E;font-style:italic;"># 显示所有可以下载的版本</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">list</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">available</span><span style="color:#ABB2BF;">  </span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7F848E;font-style:italic;"># 下载指定node版本</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">install</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">版本号</span></span>
+<span class="line"><span style="color:#7F848E;font-style:italic;"># 使用指定node版本</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">use</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">版本号</span></span>
+<span class="line"><span style="color:#7F848E;font-style:italic;"># 删除node指定版本</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">uninstall</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">版本号</span></span>
+<span class="line"><span style="color:#7F848E;font-style:italic;"># 设置镜像</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">node_mirror</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">https://npmmirror.com/mirrors/node/</span></span>
+<span class="line"><span style="color:#61AFEF;">nvm</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">npm_mirror</span><span style="color:#ABB2BF;"> </span><span style="color:#98C379;">https://npmmirror.com/mirrors/npm/</span></span>
+<span class="line"></span></code></pre><pre class="shiki min-dark vp-code-light" tabindex="0"><code><span class="line"><span style="color:#6B737C;"># 显示已安装的node版本列表（同下）</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">list</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">list</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">installed</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">ls</span></span>
+<span class="line"><span style="color:#6B737C;"># 显示所有可以下载的版本</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">list</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">available</span><span style="color:#B392F0;">  </span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6B737C;"># 下载指定node版本</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">install</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">版本号</span></span>
+<span class="line"><span style="color:#6B737C;"># 使用指定node版本</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">use</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">版本号</span></span>
+<span class="line"><span style="color:#6B737C;"># 删除node指定版本</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">uninstall</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">版本号</span></span>
+<span class="line"><span style="color:#6B737C;"># 设置镜像</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">node_mirror</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">https://npmmirror.com/mirrors/node/</span></span>
+<span class="line"><span style="color:#B392F0;">nvm </span><span style="color:#9DB1C5;">npm_mirror</span><span style="color:#B392F0;"> </span><span style="color:#9DB1C5;">https://npmmirror.com/mirrors/npm/</span></span>
+<span class="line"></span></code></pre><div class="line-numbers-wrapper" aria-hidden="true"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div><h2 id="nvm-use出现-exit-status-1-乱码" tabindex="-1">nvm use出现 exit status 1:乱码 <a class="header-anchor" href="#nvm-use出现-exit-status-1-乱码" aria-hidden="true">#</a></h2><p>以管理员身份运行cmd执行即可解决</p>`,6),o=[e];function r(t,c,i,y,B,m){return n(),a("div",null,o)}const u=s(p,[["render",r]]);export{F as __pageData,u as default};
